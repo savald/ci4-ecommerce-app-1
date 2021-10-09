@@ -95,7 +95,7 @@
 
                 <form class="cartForm">
                   <?php csrf_field() ?>
-                  <button type="submit" class="btn btn-light me-1 favoriteBtn"><i class="bi bi-heart"></i></button>
+                  <button type="submit" class="btn btn-light me-1 favoriteBtn" data-userId="<?= $product['user_id']; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-heart"></i></button>
                   <button type="submit" class="btn btn-light me-1 cartBtn" data-userId="<?= $product['user_id']; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-cart-plus"></i></button>
                 </form>
 
@@ -116,7 +116,7 @@
   </div>
 </div>
 
-<div class="container">
+<!-- <div class="container">
   <div id="recomendation">
     <div class="row">
       <div class="d-flex justify-content-between align-items-center mt-5">
@@ -164,7 +164,7 @@
           <div class="card hover-product" style="width: 100%;">
             <img src="assets/images/2.jpg" class="card-img-top" alt="...">
             <div class="position-absolute icon-hover">
-              <form action="#" method="post">
+              <form action="" method="post" class="cartForm">
                 <?php csrf_field() ?>
                 <button class="btn btn-light me-1 "><i class="bi bi-heart"></i></i></button>
                 <button class="btn btn-light me-1 "><i class="bi bi-cart-plus"></i></i></button>
@@ -182,5 +182,5 @@
       <?php endforeach ?>
     </div>
   </div>
-</div>
+</div> -->
 <?= $this->endSection() ?>

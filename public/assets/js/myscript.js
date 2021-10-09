@@ -1,32 +1,36 @@
-console.log(baseURL);
-
-const cartForm = document.querySelectorAll(".cartForm"),
-  favoriteBtn = document.querySelectorAll(".favoriteBtn"),
-  cartBtn = document.querySelectorAll(".cartBtn");
-
-cartForm.forEach((e) => {
-  e.onsubmit = (e) => {
+$(document).ready(function () {
+  $(".cartForm").submit(function (e) {
     e.preventDefault();
-  };
-});
+  });
 
-cartBtn.forEach((e) => {
-  e.onclick = function () {
-    console.log(this.getAttribute("data-userId"));
-    console.log(this.getAttribute("data-productId"));
-    console.log(this.getAttribute("data-categoryId"));
-    // let params =
+  $(".favoriteBtn").click(function () {
+    $.ajax({
+      type: "post",
+      url: "/favorites/add_favorite",
+      data: {
+        user_id: $(this).attr("data-userId"),
+        product_id: $(this).attr("data-productId"),
+        category_id: $(this).attr("data-categoryId"),
+      },
+      success: function (response) {},
+    });
 
-    // let xhr = new XMLHttpRequest();
+    $(this).toggleClass("active");
+  });
 
-    // xhr.open("POST", baseURL + "/add-cart", true);
-    // xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  $(".cartBtn").click(function () {
+    $.ajax({
+      type: "post",
+      url: "/carts/add_cart",
+      data: {
+        user_id: $(this).attr("data-userId"),
+        product_id: $(this).attr("data-productId"),
+        category_id: $(this).attr("data-categoryId"),
+      },
+      success: function (response) {},
+    });
 
-    // xhr.onreadystatechange = function () {
-    //   if (xhr.readyState == 4 && xhr.status == 200) {
-    //     console.log(this.responseText);
-    //   }
-    // };
-    // xhr.send();
-  };
+    $(this).toggleClass("active");
+  });
+
 });

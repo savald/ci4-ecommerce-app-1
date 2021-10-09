@@ -87,6 +87,12 @@
   border-color: #dc3545;
 }
 
+.icon-hover button.active {
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
 .detail-img {
   margin-top: 5%;
 }

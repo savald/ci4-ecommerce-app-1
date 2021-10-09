@@ -14,7 +14,7 @@ class ProductModel extends Model
     protected $returnType           = 'object';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['product_name', 'user_id', 'category_id', 'description', 'price', 'product_image'];
+    protected $allowedFields        = ['product_name', 'user_id', 'category_id', 'description', 'price', 'product_image', 'created_at', 'updated_at', 'deleted_at'];
 
     // Dates
     protected $useTimestamps        = true;

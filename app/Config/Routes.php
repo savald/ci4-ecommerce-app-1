@@ -46,7 +46,7 @@ $routes->get('/profile', 'User::profile');
 
 // Carts
 $routes->get('/carts', 'Carts::index');
-$routes->post('/add-cart', 'Carts::addCart');
+// $routes->post('/add-cart', 'Carts::addCart');
 
 
 // Product

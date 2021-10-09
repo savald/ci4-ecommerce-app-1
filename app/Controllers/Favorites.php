@@ -3,29 +3,25 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CartModel;
+use App\Models\FavoritesModel;
 
-class Carts extends BaseController
+class Favorites extends BaseController
 {
-    protected $cartModel;
+    protected $favoritesModel;
 
     public function __construct()
     {
-        $this->cartModel = new CartModel();
+        $this->favoritesModel = new FavoritesModel();
     }
 
     public function index()
     {
-        $user_id = session()->get('user_id');
-        $data = [
-            'productCarts' => $this->cartModel->getCartsUser($user_id),
-            'products' => $this->productModel->get()->getResultArray()
-        ];
+        $data['title'] = 'My Favorites';
 
-        return view('product/carts', $data);
+        return view('product/favorites');
     }
 
-    public function add_cart()
+    public function add_favorite()
     {
         if ($this->request->isAJAX()) {
             $data = [
@@ -33,8 +29,7 @@ class Carts extends BaseController
                 'product_id' => $this->request->getPost('product_id'),
                 'category_id' => $this->request->getPost('category_id'),
             ];
-
-            $this->cartModel->insert($data);
+            // $this->favoritesModel->insert($data);
             // return redirect()->back();
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();

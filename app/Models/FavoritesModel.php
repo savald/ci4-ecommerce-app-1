@@ -14,7 +14,7 @@ class FavoritesModel extends Model
     protected $returnType           = 'object';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = [];
+    protected $allowedFields        = ['user_id', 'product_id', 'category_id', 'created_at', 'updated_at', 'deleted_at'];
 
     // Dates
     protected $useTimestamps        = true;
