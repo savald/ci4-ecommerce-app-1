@@ -3,20 +3,28 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use App\Models\CartModel;
 
 class Product extends BaseController
 {
 
   public function index()
   {
-    $data['products'] = $this->productModel->get()->getResultArray();
-    
+    $data = [
+      'title' => 'My Products',
+      'products' => $this->productModel->getUserProduct()
+    ];
+    // dd($data);
     return view('dashboard/product/products', $data);
   }
 
   public function detail($id)
   {
+    $cartModel = new CartModel();
+    $user_id = session()->get('user_id');
     $data = [
+      'title' => 'Detail Product',
+      'productCarts' => $cartModel->getCartsUser($user_id),
       'productDetail' => $this->productModel->getProductById($id),
       'products' => $this->productModel->get()->getResultArray()
     ];
@@ -59,6 +67,7 @@ class Product extends BaseController
     }
 
     $data = [
+      'title' => 'Add Product',
       'user_id' => session()->get('user_id'),
       'product_name' => $this->request->getVar('product_name'),
       'category_id' => $this->request->getVar('category'),

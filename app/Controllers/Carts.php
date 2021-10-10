@@ -18,10 +18,11 @@ class Carts extends BaseController
     {
         $user_id = session()->get('user_id');
         $data = [
+            'title' => 'My Cart',
             'productCarts' => $this->cartModel->getCartsUser($user_id),
             'products' => $this->productModel->get()->getResultArray()
         ];
-
+        // dd($data);
         return view('product/carts', $data);
     }
 

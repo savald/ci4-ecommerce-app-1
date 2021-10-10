@@ -40,11 +40,12 @@ class ProductModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    public function getProduct()
+    public function getUserProduct()
     {
         return $this->db->table('products')->join('users', 'users.id=products.user_id')
             ->join('categories', 'categories.id=products.category_id')
             ->where('users.id', session()->get('user_id'))
+            ->select('product_image, product_name, description, price, category_name, products.created_at, products.updated_at')
             ->get()->getResultArray();
     }
 
