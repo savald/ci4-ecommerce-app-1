@@ -7,43 +7,43 @@
 <div class="container categories my-3">
   <div class="row">
     <div class="col d-flex justify-content-evenly">
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/electronics" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
         <h6 class="text-center fs-small mt-1 ">Electronics</h6>
       </a>
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/handphones" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
         <h6 class="text-center fs-small mt-1">Handphones</h6>
       </a>
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/computers" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
         <h6 class="text-center fs-small mt-1">Computers</h6>
       </a>
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/men-fashion" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
         <h6 class="text-center fs-small mt-1">Men Fashion</h6>
       </a>
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/women-fashion" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
         <h6 class="text-center fs-small mt-1">Women Fashion</h6>
       </a>
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/shoes" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
         <h6 class="text-center fs-small mt-1">Shoes</h6>
       </a>
-      <a href="#" class="text-decoration-none text-black">
+      <a href="/category/furniture" class="text-decoration-none text-black">
         <div class="card p-1" style="width: 6rem;">
           <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
         </div>
@@ -101,7 +101,7 @@
 
               </div>
             </div>
-            <a href="/detail/<?= $product['id']; ?>" class="text-decoration-none">
+            <a href="/product/detail/<?= $product['id']; ?>" class="text-decoration-none">
               <h5 class="card-subtitle my-2 text-muted"><?= $product['product_name']; ?></h5>
             </a>
             <div class="d-flex justify-content-between">
@@ -138,7 +138,7 @@
               </form>
             </div>
           </div>
-          <a href="/detail/<?= $product['id']; ?>" class="text-decoration-none">
+          <a href="/product/detail/<?= $product['id']; ?>" class="text-decoration-none">
             <h5 class="card-subtitle my-2 text-muted"><?= $product['product_name']; ?></h5>
           </a>
           <div class="d-flex justify-content-between align-items-end">
@@ -171,7 +171,7 @@
               </form>
             </div>
           </div>
-          <a href="/detail/<?= $product['id']; ?>" class="text-decoration-none">
+          <a href="/product/detail/<?= $product['id']; ?>" class="text-decoration-none">
             <h5 class="card-subtitle my-2 text-muted"><?= $product['product_name']; ?></h5>
           </a>
           <div class="d-flex justify-content-between align-items-end">

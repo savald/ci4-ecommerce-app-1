@@ -5,90 +5,88 @@
 <main>
   <div class="purple" style="height: 200px;position: absolute;width: 100%;"></div>
   <div class="container d-flex flex-column justify-content-center">
-    <?php foreach ($productDetail as $p) : ?>
-      <div class="card my-5 p-4 shadow" style="min-width: 100%; min-height: 500px;">
-        <div class="row">
-          <div class="col-md-5">
-            <img src="/assets/images/fashion.jpg" class="rounded-start mx-auto" alt="..." style="max-width: 400px;">
-          </div>
+    <div class="card my-5 p-4 shadow" style="min-width: 100%; min-height: 500px;">
+      <div class="row">
+        <div class="col-md-5">
+          <img src="/assets/images/fashion.jpg" class="rounded-start mx-auto" alt="..." style="max-width: 400px;">
+        </div>
 
-          <div class="col-md-7">
-            <div class="card-body">
-              <h3 class="card-title"><?= $p['product_name']; ?></h3>
-              <div class="d-flex">
-                <div class="text-warning ">
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                  <i class="bi bi-star-fill"></i>
-                </div>
-                <p class="ms-2 sales">5/5</p>
-                <p class="ms-2 sales"><i class="bi bi-download"></i> 300 Sales</p>
+        <div class="col-md-7">
+          <div class="card-body">
+            <h3 class="card-title"><?= $productDetail['product_name']; ?></h3>
+            <div class="d-flex">
+              <div class="text-warning ">
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
+                <i class="bi bi-star-fill"></i>
               </div>
-              <h3 class="card-text mt-3 text-danger fw-bold">$<?= number_format($p['price'], 0, ',', '.'); ?></h3>
-              <hr>
-              <table class="text-secondary">
-                <tr>
-                  <td>
-                    <h6>Specification</h6>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    Category
-                  </td>
-                  <td>:</td>
-                  <td class="px-4"><?= $p['category_name']; ?></td>
-                </tr>
-                <tr>
-                  <td>
-                    Weight
-                  </td>
-                  <td>:</td>
-                  <td class="px-4">500gr</td>
-                </tr>
-                <tr>
-                  <td>
-                    From
-                  </td>
-                  <td>:</td>
-                  <td class="px-4">Indonesia</td>
-                </tr>
-                <tr>
-                  <td>
-                    Merk
-                  </td>
-                  <td>:</td>
-                  <td class="px-4">Zalora</td>
-                </tr>
-                <tr>
-                  <td>
-                    <h6>Quantity</h6>
-                  </td>
-                  <td>:</td>
-                  <td>
-                    <div class="mt-3 d-flex">
-                      <div class="px-4 d-flex">
-                        <button class="qty-up border bg-light" data-id="pro1">-</button>
-                        <input type="text" data-id="pro1" class="qty_input border px-2 w-25 bg-light" disabled value="1" placeholder="1">
-                        <button data-id="pro1" class="qty-down border bg-light">+</button>
-                      </div>
+              <p class="ms-2 sales">5/5</p>
+              <p class="ms-2 sales"><i class="bi bi-download"></i> 300 Sales</p>
+            </div>
+            <h3 class="card-text mt-3 text-danger fw-bold">$<?= number_format($productDetail['price'], 0, ',', '.'); ?></h3>
+            <hr>
+            <table class="text-secondary">
+              <tr>
+                <td>
+                  <h6>Specification</h6>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Category
+                </td>
+                <td>:</td>
+                <td class="px-4"><?= $productDetail['category_name']; ?></td>
+              </tr>
+              <tr>
+                <td>
+                  Weight
+                </td>
+                <td>:</td>
+                <td class="px-4">500gr</td>
+              </tr>
+              <tr>
+                <td>
+                  From
+                </td>
+                <td>:</td>
+                <td class="px-4">Indonesia</td>
+              </tr>
+              <tr>
+                <td>
+                  Merk
+                </td>
+                <td>:</td>
+                <td class="px-4">Zalora</td>
+              </tr>
+              <tr>
+                <td>
+                  <h6>Quantity</h6>
+                </td>
+                <td>:</td>
+                <td>
+                  <div class="mt-3 d-flex">
+                    <div class="px-4 d-flex">
+                      <button class="qty-up border bg-light" data-id="pro1">-</button>
+                      <input type="text" data-id="pro1" class="qty_input border px-2 w-25 bg-light" disabled value="1" placeholder="1">
+                      <button data-id="pro1" class="qty-down border bg-light">+</button>
                     </div>
+                  </div>
 
-                  </td>
-                </tr>
-              </table>
+                </td>
+              </tr>
+            </table>
 
-              <div class="button-submit mt-3">
-                <button type="button" class="btn btn-primary"><i class="bi bi-cart-plus-fill"></i> Add to Cart</button>
-                <button type="button" class="btn btn-primary">Buy Now</button>
-              </div>
+            <div class="button-submit mt-3">
+              <button type="button" class="btn btn-primary cartBtn" data-userId="<?= $productDetail['user_id']; ?>" data-productId="<?= $productDetail['id']; ?>" data-categoryId="<?= $productDetail['category_id']; ?>"><i class="bi bi-cart-plus-fill"></i> Add to Cart</button>
+              <button type="button" class="btn btn-primary">Buy Now</button>
             </div>
           </div>
         </div>
       </div>
-    <?php endforeach ?>
+    </div>
 
     <!-- Description -->
     <div class="row ">

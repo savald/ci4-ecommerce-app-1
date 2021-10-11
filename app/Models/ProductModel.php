@@ -11,7 +11,7 @@ class ProductModel extends Model
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
-    protected $returnType           = 'object';
+    protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
     protected $allowedFields        = ['product_name', 'user_id', 'category_id', 'description', 'price', 'product_image', 'created_at', 'updated_at', 'deleted_at'];
@@ -40,8 +40,18 @@ class ProductModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
+    public function getProducts()
+    {
+        return $this->db->table('products')
+            ->join('categories', 'categories.id=products.category_id')
+            ->select('products.id, price, product_name, product_image, category_name, user_id, category_id')
+            ->get()
+            ->getResultArray();
+    }
+
     public function getUserProduct()
     {
+        // User products in dashbboard
         return $this->db->table('products')->join('users', 'users.id=products.user_id')
             ->join('categories', 'categories.id=products.category_id')
             ->where('users.id', session()->get('user_id'))
@@ -53,7 +63,17 @@ class ProductModel extends Model
     {
         return $this->db->table('products')
             ->join('categories', 'categories.id=products.category_id')
+            ->select('products.id, price, product_name, product_image, category_name, user_id, category_id')
             ->getWhere(['products.id' => $id])
+            ->getRowArray();
+    }
+
+    public function getProductByCategory($category)
+    {
+        return $this->db->table('products')
+            ->join('categories', 'categories.id=products.category_id')
+            ->select('products.id, price, product_name, product_image, category_name, user_id, category_id')
+            ->getWhere(['category_name' => $category])
             ->getResultArray();
     }
 }

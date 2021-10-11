@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\CartModel;
+use App\Models\CategoriesModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Product extends BaseController
 {
@@ -15,6 +17,8 @@ class Product extends BaseController
       'products' => $this->productModel->getUserProduct()
     ];
     // dd($data);
+
+    // Products in dashboard
     return view('dashboard/product/products', $data);
   }
 
@@ -29,6 +33,11 @@ class Product extends BaseController
       'products' => $this->productModel->get()->getResultArray()
     ];
 
+    if (empty($data['productDetail'])) {
+      throw PageNotFoundException::forPageNotFound();
+    }
+
+    // dd($data['productDetail']);
     shuffle($data['products']);
     return view('product/detail', $data);
   }
@@ -80,17 +89,31 @@ class Product extends BaseController
     return redirect()->back();
   }
 
-  public function edit()
+  public function category($category)
   {
-    # code...
-  }
 
-  public function update()
-  {
-  }
+    if (strpos($category, '-')) {
+      $category = str_replace("-", " ", $category);
+    }
 
+    $category = ucwords($category);
 
-  public function delete($id = null)
-  {
+    $categoryModel = new CategoriesModel();
+    $categories = $categoryModel->findColumn('category_name');
+
+    $cartModel = new CartModel();
+    $user_id = session()->get('user_id');
+    $data = [
+      'title' => 'Category: ' . $category,
+      'category' => $category,
+      'productCarts' => $cartModel->getCartsUser($user_id),
+      'productsCategory' => $this->productModel->getProductByCategory($category)
+    ];
+
+    if (!in_array($category, $categories)) {
+      throw PageNotFoundException::forPageNotFound();
+    }
+
+    return view('/product/category', $data);
   }
 }

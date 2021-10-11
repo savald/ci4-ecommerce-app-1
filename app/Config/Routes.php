@@ -40,20 +40,22 @@ $routes->get('/logout', 'Auth::logout');
 
 // User
 $routes->get('/', 'User::index');
-$routes->get('/favorites', 'User::favorites');
 $routes->get('/dashboard', 'User::profile');
 $routes->get('/profile', 'User::profile');
 
-// Carts
+// Carts & Favorite
 $routes->get('/carts', 'Carts::index');
-// $routes->post('/add-cart', 'Carts::addCart');
+$routes->get('/favorites', 'Favorites::index');
 
 
 // Product
 $routes->get('/products', 'Product::index');
-$routes->get('/detail/(:num)', 'Product::detail/$1');
+$routes->get('/product/detail/(:num)', 'Product::detail/$1');
 $routes->get('/add-product', 'Product::create');
 $routes->post('/add-product', 'Product::store');
+
+// Category
+$routes->get('/category/(:any)', 'Product::category/$1');
 
 /*
  * --------------------------------------------------------------------

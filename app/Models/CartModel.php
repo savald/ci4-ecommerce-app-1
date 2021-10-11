@@ -11,13 +11,13 @@ class CartModel extends Model
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
-    protected $returnType           = 'object';
+    protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
     protected $allowedFields        = ['user_id', 'product_id', 'category_id'];
 
     // Dates
-    protected $useTimestamps        = true;
+    protected $useTimestamps        = false;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
@@ -46,8 +46,9 @@ class CartModel extends Model
             ->join('users', 'users.id=carts.user_id')
             ->join('products', 'products.id=carts.product_id')
             ->join('categories', 'categories.id=carts.category_id')
-            ->select('product_name, product_image, price')
-            ->getWhere(['users.id' => $user_id])
+            ->select('products.id, product_name, product_image, price')
+            ->where('users.id', $user_id)
+            ->get(4)
             ->getResultArray();
     }
 }

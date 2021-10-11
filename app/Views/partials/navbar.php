@@ -23,7 +23,7 @@
         <li class="nav-item ms-4">
           <div class="btn-group">
             <button type="button" class="p-0" data-bs-toggle="dropdown" aria-expanded="false" style="border: none;background: none;">
-              <img src="assets/images/fashion.jpg" alt="" style="width: 40px;height: 40px;" class="mx-auto d-block rounded-circle img-thumbnail">
+              <img src="<?= base_url('assets/images/fashion.jpg'); ?>" alt="" style="width: 40px;height: 40px;" class="mx-auto d-block rounded-circle img-thumbnail">
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
               <h6 class="text-secondary text-center">My Account</h6>
@@ -47,21 +47,21 @@
                 99+
               </span>
             </button>
-            <ul class="dropdown-menu dropdown-menu-end" style="width:  400px; overflow-x: hidden;">
+            <ul class="dropdown-menu dropdown-menu-end" style="width:  310px; overflow-x: hidden;">
               <h6 class="text-secondary text-center">My Carts</h6>
 
               <?php if ($productCarts) : ?>
                 <?php foreach ($productCarts as $product) : ?>
-                  <li class="dropdown-item mb-2" style="max-width: 400px; overflow-x: hidden;">
-                    <a href=" #" class="text-decoration-none text-secondary">
+                  <li class="dropdown-item mb-1" style="max-width: 100%; overflow-x: hidden;">
+                    <a href="/detail/<?= $product['id']; ?>" class="text-decoration-none text-secondary">
                       <div class="row">
-                        <div class="col-md-2">
-                          <img class="img-thumbnail" src="assets/images/fashion.jpg" alt="" style="max-width: 50px;">
+                        <div class="col-md-3">
+                          <img class="img-thumbnail" src="<?= base_url('assets/images/fashion.jpg'); ?>" alt="" style="max-width: 50px;">
                         </div>
-                        <div class="col-md-7 text-wrap">
-                          <?= strlen($product['product_name']) > 26  ? substr($product['product_name'], 0, 26) . '...' : $product['product_name']; ?>
+                        <div class="col-md-6 text-wrap fs-medium">
+                          <?= strlen($product['product_name']) > 18  ? substr($product['product_name'], 0, 18) . '...' : $product['product_name']; ?>
                         </div>
-                        <div class="col-md-3 text-dark fw-5 fs-6 text-end">
+                        <div class="col-md-3 text-dark fw-5 text-end fs-medium">
                           $<?= number_format($product['price'], 0, ',', '.') ?>
                         </div>
                       </div>

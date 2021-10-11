@@ -12,7 +12,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<?= base_url('assets/css/mystyle.css'); ?>">
 
-  <title>E-Commerce</title>
+  <title><?= $title; ?></title>
 </head>
 
 <body>

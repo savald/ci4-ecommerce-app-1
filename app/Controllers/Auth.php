@@ -56,7 +56,8 @@ class Auth extends BaseController
       }
     }
 
-    return view('auth/login');
+    $data['title'] = 'Login';
+    return view('auth/login', $data);
   }
 
   public function register()
@@ -110,7 +111,8 @@ class Auth extends BaseController
       return redirect()->to('/login');
     }
 
-    return view('auth/register');
+    $data['title'] = 'Register';
+    return view('auth/register', $data);
   }
 
   public function logout()

@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\CartModel;
+use App\Models\CategoriesModel;
 use App\Models\ProductModel;
 use App\Models\UsersModel;
 
@@ -12,12 +13,14 @@ class User extends BaseController
   protected $userModel;
   protected $productModel;
   protected $cartModel;
+  protected $categoryModel;
 
   public function __construct()
   {
     $this->cartModel = new CartModel();
     $this->productModel = new ProductModel();
     $this->userModel = new UsersModel();
+    $this->categoryModel = new CategoriesModel();
   }
 
   public function index()
@@ -26,16 +29,10 @@ class User extends BaseController
     $data = [
       'title' => 'Let\'s Shop',
       'productCarts' => $this->cartModel->getCartsUser($user_id),
-      'products' => $this->productModel->get()->getResultArray()
+      'products' => $this->productModel->getProducts()
     ];
     shuffle($data['products']);
-    // dd($data);
     return view('index', $data);
-  }
-
-  public function favorites()
-  {
-    return view('product/favorites');
   }
 
   public function profile()

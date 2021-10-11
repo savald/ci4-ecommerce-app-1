@@ -11,7 +11,7 @@ class FavoritesModel extends Model
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
-    protected $returnType           = 'object';
+    protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
     protected $allowedFields        = ['user_id', 'product_id', 'category_id', 'created_at', 'updated_at', 'deleted_at'];
@@ -39,4 +39,16 @@ class FavoritesModel extends Model
     protected $afterFind            = [];
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
+
+
+    function getFavoritesUser($user_id)
+    {
+        return $this->db->table('favorites')
+            ->join('users', 'users.id=favorites.user_id')
+            ->join('products', 'products.id=favorites.product_id')
+            ->join('categories', 'categories.id=favorites.category_id')
+            ->select('products.id, product_name, product_image, price')
+            ->getWhere(['users.id' => $user_id])
+            ->getResultArray();
+    }
 }
