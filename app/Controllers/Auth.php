@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\UsersModel;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Auth extends BaseController
 {
@@ -13,9 +14,31 @@ class Auth extends BaseController
     $this->userModel = new UsersModel();
   }
 
+  public function login_modal()
+  {
+    if ($this->request->isAJAX()) {
+
+      $output = view('auth/login_modal');
+      return json_encode($output);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
+  }
+
+  public function register_modal()
+  {
+    if ($this->request->isAJAX()) {
+
+      $output = view('auth/register_modal');
+      return json_encode($output);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
+  }
+
   public function login()
   {
-    if ($this->request->getMethod() == 'post') {
+    if ($this->request->isAJAX()) {
       $validate = [
         'email' => [
           'rules' => 'required|valid_email',
@@ -34,7 +57,17 @@ class Auth extends BaseController
       ];
 
       if (!$this->validate($validate)) {
-        return redirect()->back()->withInput();
+        $errors = [
+          'email' => $this->validation->getError('email'),
+          'password' => $this->validation->getError('password'),
+        ];
+
+        $output = [
+          'status' => false,
+          'errors' => $errors
+        ];
+
+        return json_encode($output);
       }
 
       $email = $this->request->getVar('email');
@@ -42,27 +75,22 @@ class Auth extends BaseController
       $dataUser = $this->userModel->where(['email' => $email,])->first();
 
       if ($dataUser) {
-        if (password_verify($password, $dataUser->password)) {
+        if (password_verify($password, $dataUser['password'])) {
           session()->set([
-            'user_id' => $dataUser->id,
-            'name' => $dataUser->name,
+            'user_id' => $dataUser['id'],
+            'name' => $dataUser['name'],
             'logged_in' => TRUE
           ]);
-          session()->setFlashdata('success', 'Login Successfully');
-          return redirect()->to('/');
         }
-        session()->setFlashdata('error', 'Wrong Email/Password');
-        return redirect()->back();
+
+        return json_encode(['status' => true]);
       }
     }
-
-    $data['title'] = 'Login';
-    return view('auth/login', $data);
   }
 
   public function register()
   {
-    if ($this->request->getMethod() == 'post') {
+    if ($this->request->isAJAX()) {
       $validate = [
         'name' => [
           'rules' => 'required|min_length[3]|max_length[100]',
@@ -96,23 +124,31 @@ class Auth extends BaseController
         ],
       ];
 
-      if (!$this->validate($validate)) {
-        return redirect()->back()->withInput();
-      }
+      // if (!$this->validate($validate)) {
+      //   $errors = [
+      //     'name' => $this->validation->getError('name'),
+      //     'email' => $this->validation->getError('email'),
+      //     'password' => $this->validation->getError('password'),
+      //     'pass_confirm' => $this->validation->getError('pass_confirm'),
+      //   ];
 
-      $data = [
-        'name' => $this->request->getVar('name'),
-        'email' => $this->request->getVar('email'),
-        'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-      ];
+      //   $output = [
+      //     'status' => false,
+      //     'errors' => $errors
+      //   ];
 
-      $this->userModel->save($data);
-      session()->setflashdata('success', 'Successfull Registration');
-      return redirect()->to('/login');
+      //   return json_encode($output);
+      // }
+
+      // $data = [
+      //   'name' => $this->request->getVar('name'),
+      //   'email' => $this->request->getVar('email'),
+      //   'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+      // ];
+
+      // $this->userModel->save($data);
+      return json_encode(['status' => true]);
     }
-
-    $data['title'] = 'Register';
-    return view('auth/register', $data);
   }
 
   public function logout()

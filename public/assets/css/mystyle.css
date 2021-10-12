@@ -6,6 +6,17 @@
   color: #686dd3;
 }
 
+.btn-log,
+.btn-res {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
+.btn-res {
+  border-left: 1px solid gray;
+}
+
 .categories a .card {
   transition: 0.2s;
 }
@@ -119,12 +130,12 @@
   /* height: 100px; */
 }
 
-:is(.form-signin, .form-signup) .form-floating:focus-within {
+:is(.form-login, .form-register) .form-floating:focus-within {
   z-index: 2;
 }
 
-.form-signin input,
-.form-signup input {
+.form-login input,
+.form-register input {
   margin-bottom: -1px;
   border-radius: 0;
 }

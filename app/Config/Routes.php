@@ -34,8 +34,8 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index');
 
 // Auth
-$routes->match(['get', 'post'], '/login', 'Auth::login');
-$routes->match(['get', 'post'], '/register', 'Auth::register');
+// $routes->match(['get', 'post'], '/login', 'Auth::login');
+// $routes->match(['get', 'post'], '/register', 'Auth::register');
 $routes->get('/logout', 'Auth::logout');
 
 // User

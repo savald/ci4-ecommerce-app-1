@@ -5,7 +5,7 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline w-75 me-0 me-md-3 my-2 my-md-0">
+    <form class="d-none d-md-inline-block form-inline w-50 me-0 me-md-3 my-2 my-md-0">
       <div class="input-group">
         <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
         <button class="btn btn-secondary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
@@ -15,8 +15,9 @@
 
       <?php if (empty(session()->get('logged_in'))) : ?>
         <!-- Login -->
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" href="/login"><i class="bi bi-box-arrow-right"></i> Login</i></a>
+        <li class="nav-item fs-medium d-flex">
+          <button class="nav-link btn-log" type="button">Login</i></button>
+          <button class="nav-link btn-res" type="button">Register</i></button>
         </li>
       <?php else : ?>
         <!-- my account -->

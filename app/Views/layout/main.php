@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="<?= base_url('assets/css/mystyle.css'); ?>">
+  <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal@4/minimal.css" rel="stylesheet">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
   <title><?= $title; ?></title>
 </head>
@@ -33,7 +35,10 @@
     </div>
   <?php endif; ?>
 
-  <?= $this->include('partials/modal') ?>
+  <!-- Modal -->
+  <div class="view-modal">
+    <!-- get by ajax -->
+  </div>
 
   <?= $this->renderSection('content') ?>
 
