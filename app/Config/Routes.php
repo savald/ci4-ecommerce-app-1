@@ -49,10 +49,10 @@ $routes->get('/favorites', 'Favorites::index');
 
 
 // Product
-$routes->get('/products', 'Product::index');
+$routes->get('/products', 'Product::products');
 $routes->get('/product/detail/(:num)', 'Product::detail/$1');
-$routes->get('/add-product', 'Product::create');
-$routes->post('/add-product', 'Product::store');
+$routes->delete('/product/(:num)', 'Product::delete/$1');
+$routes->match(['get', 'post'], '/add-product', 'Product::addProduct');
 
 // Category
 $routes->get('/category/(:any)', 'Product::category/$1');

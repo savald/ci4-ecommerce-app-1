@@ -6,6 +6,12 @@
   color: #686dd3;
 }
 
+.btn-none {
+  padding: 0;
+  border: none;
+  background: none;
+}
+
 .btn-log,
 .btn-res {
   padding: 0;

@@ -52,17 +52,16 @@ class ProductModel extends Model
     public function getUserProduct()
     {
         // User products in dashbboard
-        return $this->db->table('products')->join('users', 'users.id=products.user_id')
+        return $this->join('users', 'users.id=products.user_id')
             ->join('categories', 'categories.id=products.category_id')
             ->where('users.id', session()->get('user_id'))
-            ->select('product_image, product_name, description, price, category_name, products.created_at, products.updated_at')
-            ->get()->getResultArray();
+            ->select('products.id, product_image, product_name, description, price, category_name, products.created_at, products.updated_at');
+            // ->get()->getResultArray();
     }
 
     public function getProductById($id)
     {
-        return $this->db->table('products')
-            ->join('categories', 'categories.id=products.category_id')
+        return $this->join('categories', 'categories.id=products.category_id')
             ->select('products.id, price, product_name, product_image, category_name, user_id, category_id')
             ->getWhere(['products.id' => $id])
             ->getRowArray();
@@ -70,8 +69,7 @@ class ProductModel extends Model
 
     public function getProductByCategory($category)
     {
-        return $this->db->table('products')
-            ->join('categories', 'categories.id=products.category_id')
+        return $this->join('categories', 'categories.id=products.category_id')
             ->select('products.id, price, product_name, product_image, category_name, user_id, category_id')
             ->getWhere(['category_name' => $category])
             ->getResultArray();

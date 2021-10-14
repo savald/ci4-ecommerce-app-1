@@ -5,17 +5,17 @@
     <form action="" method="post">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
-        <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Your name">
+        <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Your name" value="<?= $user['name']; ?>">
       </div>
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="email" name="email" class="form-control form-control-sm" id="email" placeholder="contact@example.com">
+        <input type="email" name="email" class="form-control form-control-sm" id="email" placeholder="contact@example.com" value="<?= $user['email']; ?>">
       </div>
       <div class="mb-3">
         <label for="name" class="form-label">Store Name</label>
-        <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Your name">
+        <input type="text" name="name" class="form-control form-control-sm" id="name" placeholder="Your store name" value="<?= $user['store_name'] ?? null; ?>">
       </div>
-      <div class="mb-3">
+      <!-- <div class="mb-3">
         <div>
           <label for="name" class="form-label">Gender</label>
         </div>
@@ -27,11 +27,11 @@
           <input class="form-check-input" type="radio" value="female" name="flexRadioDefault" id="female">
           <label class="form-check-label" for="female">Female</label>
         </div>
-      </div>
+      </div> -->
 
       <div class="mb-3">
         <label for="address" class="form-label">Address</label>
-        <textarea class="form-control form-control-sm" name="address" id="address" rows="3"></textarea>
+        <textarea class="form-control form-control-sm" name="address" id="address" rows="3"><?= $user['address'] ?? 'Your address...'; ?></textarea>
       </div>
     </form>
   </div>

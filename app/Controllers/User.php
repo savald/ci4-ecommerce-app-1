@@ -37,6 +37,12 @@ class User extends BaseController
 
   public function profile()
   {
-    return view('dashboard/index');
+    $user_id = session()->get('user_id');
+    $data = [
+      'title' => session()->get('name'),
+      'user' => $this->userModel->find($user_id)
+    ];
+
+    return view('dashboard/index', $data);
   }
 }

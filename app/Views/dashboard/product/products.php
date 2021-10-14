@@ -3,42 +3,60 @@
 
 <div class="row">
   <div class="col">
-    <table class="table">
-      <thead>
-        <tr>
-          <th class="p-3" scope="col">#</th>
-          <th class="p-3" scope="col">Image</th>
-          <th class="p-3" scope="col">Name</th>
-          <th class="p-3" scope="col">Description</th>
-          <th class="p-3" scope="col">Price($)</th>
-          <th class="p-3" scope="col">Category</th>
-          <th class="p-3" scope="col">Add at</th>
-          <th class="p-3" scope="col">Update at</th>
-          <th class="p-3" scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        <?php foreach ($products as $key => $product) : ?>
+    <?php if ($products_user) : ?>
+      <table class="table">
+        <colgroup>
+          <col span="1">
+          <col span="1">
+          <col span="1">
+          <col span="1" style="width: 20%;">
+        </colgroup>
+        <thead>
           <tr>
-            <th scope="row"><?= $key + 1 ?></th>
-            <td class="p-3"><img src="assets/images/fashion.jpg" class="img-thumbnail" style="min-width:100px; min-height: 100px;max-width: 100px;max-height: 100px;"></td>
-            <td class="p-3 text-secondary fw-bold "><?= $product['product_name']; ?></td>
-            <td class="p-3 text-secondary"><?= substr($product['description'], 0, 70); ?> ...</td>
-            <td class="p-3 text-secondary"><?= number_format($product['price'], 0, ',', '.') ?></td>
-            <td class="p-3 text-secondary"><?= $product['category_name']; ?></td>
-            <td class="p-3 text-secondary"><?= date('d-m-Y', strtotime($product['created_at'])) ?? 'Not updated yet' ?></td>
-            <td class="p-3 text-secondary"><?= $product['updated_at'] ? date('d-m-Y', strtotime($product['updated_at'])) : 'Not updated yet' ?></td>
-            <td class="p-3">
-              <a href="#"><i class="fas fa-edit text-success"></i></a>
-              <form action="" method="post" class="d-inline ms-2">
-                <button class="text-danger " style="padding: 0;border: none; background: none;"><i class="fas fa-trash"></i></i></button>
-              </form>
-            </td>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Description</th>
+            <th scope="col">Price($)</th>
+            <th scope="col">Category</th>
+            <th scope="col">Added</th>
+            <th scope="col">Updated</th>
+            <th scope="col">Action</th>
           </tr>
-        <?php endforeach ?>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <?php
+          $i = 1 + (4 * ($currentPage - 1));
+          foreach ($products_user as $product) : ?>
+            <tr>
+              <th scope="row"><?= $i++ ?></th>
+              <td><img src="assets/images/fashion.jpg" class="img-thumbnail" style="min-width:85px; min-height: 85px;max-width: 85px;max-height: 85px;"></td>
+              <td class="text-secondary fw-bold "><?= $product['product_name']; ?></td>
+              <td class="text-secondary fs-medium"><?= substr($product['description'], 0, 70); ?> ...</td>
+              <td class="text-secondary fs-medium"><?= number_format($product['price'], 0, ',', '.') ?></td>
+              <td class="text-secondary fs-medium"><?= $product['category_name']; ?></td>
+              <td class="text-secondary fs-medium"><?= date('d-m-Y', strtotime($product['created_at'])) ?? 'Not updated yet' ?></td>
+              <td class="text-secondary fs-medium"><?= $product['updated_at'] ? date('d-m-Y', strtotime($product['updated_at'])) : 'Not updated yet' ?></td>
+              <td>
 
+                <button class="text-success edit-btn btn-none" data-productId="<?= $product['id']; ?>" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></i></button>
+
+                <button class="text-danger ms-2 delete-btn btn-none" data-productId="<?= $product['id']; ?>" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></i></button>
+
+              </td>
+            </tr>
+          <?php endforeach ?>
+        </tbody>
+      </table>
+
+      <?php
+      if (count($total_products) > 4) : ?>
+        <?= $pager->links('products', 'bootstrap_pagination') ?>
+      <?php endif ?>
+
+    <?php else : ?>
+      <h4 class="text-secondary">You have no any products</h4>
+    <?php endif ?>
   </div>
 </div>
 
