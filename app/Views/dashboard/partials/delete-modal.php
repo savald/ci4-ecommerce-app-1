@@ -5,7 +5,7 @@
       <?= csrf_field(); ?>
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Delete product</h5>
+          <h5 class="modal-title">Delete Product</h5>
         </div>
         <div class="modal-body">
           <input type="hidden" name="id" id="item_id" value="<?= $product['id']; ?>">
@@ -13,7 +13,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <button type="button" class="btn btn-primary">Yes</button>
+          <button type="submit" class="btn btn-primary">Yes</button>
         </div>
       </div>
   </form>

@@ -14,7 +14,7 @@ class ProductModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['product_name', 'user_id', 'category_id', 'description', 'price', 'product_image', 'created_at', 'updated_at', 'deleted_at'];
+    protected $allowedFields        = ['product_name', 'user_id', 'category_id', 'description', 'price', 'product_image'];
 
     // Dates
     protected $useTimestamps        = true;
@@ -56,7 +56,7 @@ class ProductModel extends Model
             ->join('categories', 'categories.id=products.category_id')
             ->where('users.id', session()->get('user_id'))
             ->select('products.id, product_image, product_name, description, price, category_name, products.created_at, products.updated_at');
-            // ->get()->getResultArray();
+        // ->get()->getResultArray();
     }
 
     public function getProductById($id)

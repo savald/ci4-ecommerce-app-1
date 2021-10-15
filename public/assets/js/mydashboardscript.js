@@ -3,11 +3,20 @@ tooltips.forEach((e) => {
   new bootstrap.Tooltip(e);
 });
 
+function getProducts() {
+    $.ajax({
+      url: '/product/get_products',
+      dataType: "json",
+      success: function(response) {
+        $('.get-products').html(response)
+      }
+    });
+  }
+
 $(document).ready(function () {
-  $(".action-form").submit(function (e) {
-    e.preventDefault();
-  });
+getProducts()
   
+// Show delete modal
   $(document).on("click", ".delete-btn", function () {
     let product_id = $(this).attr("data-productId");
 
@@ -25,6 +34,7 @@ $(document).ready(function () {
     });
   });
 
+  // Process deleting
   $(document).on("submit", ".form_delete", function (e) {
     e.preventDefault();
 
@@ -36,23 +46,25 @@ $(document).ready(function () {
       success: function (response) {
         if (response.status) {
           $(".modal").modal("hide");
-          Toast.fire({
-            icon: "success",
-            title: "Data Successfully Deleted!",
-          });
+          getProducts()
+          // Toast.fire({
+          //   icon: "success",
+          //   title: "Data Successfully Deleted!",
+          // });
         }
       },
     });
   });
 
+// Show edit modal
   $(document).on("click", ".edit-btn", function () {
-    let item_id = $(this).data("id");
-
+    let product_id = $(this).attr("data-productId");
+console.log(product_id);
     $.ajax({
       type: "post",
-      url: "/home/get_update_item_modal",
+      url: "/product/edit_modal",
       data: {
-        id: item_id,
+        id: product_id,
       },
       dataType: "json",
       success: function (response) {
@@ -62,33 +74,29 @@ $(document).ready(function () {
     });
   });
 
-  $(document).on("submit", "#form_edit", function (e) {
+  $(document).on("submit", ".form_edit", function (e) {
     e.preventDefault();
 
     $.ajax({
       type: "post",
       data: $(this).serialize(),
-      url: $(this).attr("action"),
+      url: 'product/edit_product',
       dataType: "json",
       success: function (response) {
         if (response.status) {
           $(".modal").modal("hide");
-          Toast.fire({
-            icon: "success",
-            title: "Data Successfully Update!",
-          });
-          sourceData();
+          getProducts();
+          // Toast.fire({
+          //   icon: "success",
+          //   title: "Data Successfully Update!",
+          // });
         } else {
-          // console.log(response.errors
           $.each(response.errors, function (key, value) {
-            // mengambil atribut name
-            // console.log(`[name = ${key}]`);
             $(`[name = ${key}]`).addClass("is-invalid");
             $(`[name = ${key}]`).next().text(value);
 
             if (value == "") {
               $(`[name = ${key}]`).removeClass("is-invalid");
-              $(`[name = ${key}]`).addClass("is-valid");
             }
           });
         }
@@ -99,7 +107,7 @@ $(document).ready(function () {
       $(this).removeClass("is-invalid is-valid");
     });
     $("#form_edit select").on("click", function () {
-      $(this).removeClass("is-invalid is-valid");
+      $(this).removeClass("is-invalid");
     });
   });
 });

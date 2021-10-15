@@ -12,18 +12,29 @@ class Product extends BaseController
 
   public function products()
   {
-    $currentPage = $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1;
-
-    $data = [
-      'title' => 'My Products',
-      'products_user' => $this->productModel->getUserProduct()->paginate(4, 'products'),
-      'total_products' => $this->productModel->where('user_id', session()->get('user_id'))->findColumn('id'),
-      'pager' => $this->productModel->pager,
-      'currentPage' => $currentPage
-    ];
-    // dd($data['products_user']);
-    // Products in dashboard
+    $data['title'] = 'My Products';
     return view('dashboard/product/products', $data);
+  }
+
+  public function get_products()
+  {
+    if ($this->request->isAJAX()) {
+      $currentPage = $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1;
+
+      $data = [
+        'title' => 'My Products',
+        'products_user' => $this->productModel->getUserProduct()->paginate(4, 'products'),
+        'total_products' => $this->productModel->where('user_id', session()->get('user_id'))->findColumn('id'),
+        'pager' => $this->productModel->pager,
+        'currentPage' => $currentPage
+      ];
+
+      $output = view('dashboard/partials/get-products', $data);
+
+      return json_encode($output);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
   }
 
   public function detail($id)
@@ -97,7 +108,7 @@ class Product extends BaseController
     if ($this->request->isAJAX()) {
       $id = $this->request->getVar('id');
       $data['product'] = ['id' => $id];
-      $output = view('dashboard/partials/delete_modal', $data);
+      $output = view('dashboard/partials/delete-modal', $data);
 
       return json_encode($output);
     } else {
@@ -112,6 +123,84 @@ class Product extends BaseController
       $id = $this->request->getVar('id');
       $this->productModel->where('id', $id)->delete();
 
+      return json_encode(['status' => true]);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
+  }
+
+  public function edit_modal()
+  {
+    if ($this->request->isAJAX()) {
+
+      $id = $this->request->getVar('id');
+      $categoryModel = new CategoriesModel();
+
+      $data = [
+        'product' => $this->productModel->find($id),
+        'categories' => $categoryModel->get()->getResultArray()
+      ];
+      // dd($data['categories']);
+      $output = view('dashboard/partials/edit-modal', $data);
+
+      return json_encode($output);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
+  }
+
+  public function edit_product()
+  {
+    if ($this->request->isAJAX()) {
+
+      $validate = [
+        'product_name' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please enter the product name',
+          ]
+        ],
+        'category' => [
+          'rules' => 'required',
+          'errors' => [
+            'required' => 'Please choose the product category',
+          ]
+        ],
+        'price' => [
+          'rules' => 'required|numeric',
+          'errors' => [
+            'required' => 'Please enter the product price',
+            'numeric' => 'Please enter the valid value',
+          ]
+        ],
+      ];
+
+      if (!$this->validate($validate)) {
+        $errors = [
+          'product_name' => $this->validation->getError('product_name'),
+          'category' => $this->validation->getError('category'),
+          'description' => $this->validation->getError('description'),
+          'price' => $this->validation->getError('price'),
+        ];
+
+        $output = [
+          'status' => false,
+          'errors' => $errors
+        ];
+
+        return json_encode($output);
+      }
+
+      $data = [
+        'id' => $this->request->getVar('id'),
+        // 'user_id' => session()->get('user_id'),
+        'product_name' => $this->request->getVar('product_name'),
+        'category_id' => $this->request->getVar('category'),
+        'description' => $this->request->getVar('description'),
+        'price' => $this->request->getVar('price'),
+      ];
+      // dd($data);
+      $this->productModel->save($data);
       return json_encode(['status' => true]);
     } else {
       throw PageNotFoundException::forPageNotFound();

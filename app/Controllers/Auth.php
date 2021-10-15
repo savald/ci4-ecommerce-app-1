@@ -124,29 +124,29 @@ class Auth extends BaseController
         ],
       ];
 
-      // if (!$this->validate($validate)) {
-      //   $errors = [
-      //     'name' => $this->validation->getError('name'),
-      //     'email' => $this->validation->getError('email'),
-      //     'password' => $this->validation->getError('password'),
-      //     'pass_confirm' => $this->validation->getError('pass_confirm'),
-      //   ];
+      if (!$this->validate($validate)) {
+        $errors = [
+          'name' => $this->validation->getError('name'),
+          'email' => $this->validation->getError('email'),
+          'password' => $this->validation->getError('password'),
+          'pass_confirm' => $this->validation->getError('pass_confirm'),
+        ];
 
-      //   $output = [
-      //     'status' => false,
-      //     'errors' => $errors
-      //   ];
+        $output = [
+          'status' => false,
+          'errors' => $errors
+        ];
 
-      //   return json_encode($output);
-      // }
+        return json_encode($output);
+      }
 
-      // $data = [
-      //   'name' => $this->request->getVar('name'),
-      //   'email' => $this->request->getVar('email'),
-      //   'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
-      // ];
+      $data = [
+        'name' => $this->request->getVar('name'),
+        'email' => $this->request->getVar('email'),
+        'password' => password_hash($this->request->getVar('password'), PASSWORD_DEFAULT),
+      ];
 
-      // $this->userModel->save($data);
+      $this->userModel->save($data);
       return json_encode(['status' => true]);
     }
   }
