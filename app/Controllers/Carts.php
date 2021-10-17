@@ -41,4 +41,18 @@ class Carts extends BaseController
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         };
     }
+
+    public function my_carts()
+    {
+        if ($this->request->isAJAX()) {
+            $user_id = session()->get('user_id');
+
+            $data['productCarts'] = $this->cartModel->getCartsUser($user_id);
+
+            $output = view('partials/my-carts', $data);
+            return json_encode($output);
+        } else {
+            throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
+        };
+    }
 }

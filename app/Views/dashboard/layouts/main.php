@@ -27,11 +27,8 @@
 
 <body class="sb-nav-fixed">
 
-  <div class="view-modal">
-    <!-- ajax -->
-  </div>
-
   <?= $this->include('dashboard/partials/header') ?>
+  
   <?php if (session()->getFlashdata('success')) : ?>
     <div class="alert alert-success alert-dismissible fade show position-fixed top-25 start-50 translate-middle-x" style="z-index: 20;" role="alert"><?= session()->getFlashdata('success'); ?>
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -43,7 +40,7 @@
     <div id="layoutSidenav_content">
       <main>
         <div class="container-fluid px-4">
-          <h3 class="mt-3"><?= $title ?></h3>
+          <h4 class="mt-3"><?= $title ?></h4>
           <hr>
           <?= $this->renderSection('content') ?>
         </div>

@@ -14,7 +14,7 @@ class FavoritesModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['user_id', 'product_id', 'category_id', 'created_at', 'updated_at', 'deleted_at'];
+    protected $allowedFields        = ['user_id', 'product_id', 'category_id'];
 
     // Dates
     protected $useTimestamps        = true;
@@ -43,8 +43,7 @@ class FavoritesModel extends Model
 
     function getFavoritesUser($user_id)
     {
-        return $this->db->table('favorites')
-            ->join('users', 'users.id=favorites.user_id')
+        return $this->join('users', 'users.id=favorites.user_id')
             ->join('products', 'products.id=favorites.product_id')
             ->join('categories', 'categories.id=favorites.category_id')
             ->select('products.id, product_name, product_image, price')

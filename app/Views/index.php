@@ -4,7 +4,7 @@
 
 
 
-<div class="container categories my-3">
+<div class="container categories">
   <div class="row">
     <div class="col d-flex justify-content-evenly">
       <a href="/category/electronics" class="text-decoration-none text-black">

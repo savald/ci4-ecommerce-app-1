@@ -48,7 +48,7 @@ class CartModel extends Model
             ->join('categories', 'categories.id=carts.category_id')
             ->select('products.id, product_name, product_image, price')
             ->where('users.id', $user_id)
-            ->get(4)
+            ->get()
             ->getResultArray();
     }
 }

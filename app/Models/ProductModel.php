@@ -74,4 +74,9 @@ class ProductModel extends Model
             ->getWhere(['category_name' => $category])
             ->getResultArray();
     }
+
+    public function findMyProduct($keyword)
+    {
+        return $this->table('products')->like('product_name', $keyword)->orLike('price', $keyword);
+    }
 }

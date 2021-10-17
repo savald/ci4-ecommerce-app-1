@@ -12,10 +12,6 @@
           <div class="sb-nav-link-icon"><i class="fas fa-box-open"></i></div>
           Products
         </a>
-        <a class="nav-link" href="/add-product">
-          <div class="sb-nav-link-icon"><i class="fas fa-plus"></i></div>
-          Add Product
-        </a>
         <a class="nav-link" href="tables.html">
           <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
           Sold

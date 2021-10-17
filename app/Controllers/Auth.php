@@ -51,7 +51,7 @@ class Auth extends BaseController
           'rules' => 'required|min_length[6]',
           'errors' => [
             'required' => 'Password must be filled!',
-            'min_length' => 'Password minimum 6 characters!',
+            'min_length' => 'Email & Password is not match!',
           ]
         ],
       ];
@@ -74,16 +74,38 @@ class Auth extends BaseController
       $password = $this->request->getVar('password');
       $dataUser = $this->userModel->where(['email' => $email,])->first();
 
-      if ($dataUser) {
+      if (!$dataUser) {
+
+        $output = [
+          'status' => false,
+          'errors' => [
+            'email' => '',
+            'password' => 'Email is not registered yet!'
+          ]
+        ];
+
+        return json_encode($output);
+      } else {
+
         if (password_verify($password, $dataUser['password'])) {
           session()->set([
             'user_id' => $dataUser['id'],
             'name' => $dataUser['name'],
             'logged_in' => TRUE
           ]);
+          return json_encode(['status' => true]);
         }
 
-        return json_encode(['status' => true]);
+        // if login fail
+        $output = [
+          'status' => false,
+          'errors' => [
+            'email' => '',
+            'password' => 'Email & Password is not match!'
+          ]
+        ];
+
+        return json_encode($output);
       }
     }
   }

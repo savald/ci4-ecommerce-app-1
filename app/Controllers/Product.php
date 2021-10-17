@@ -12,29 +12,23 @@ class Product extends BaseController
 
   public function products()
   {
-    $data['title'] = 'My Products';
-    return view('dashboard/product/products', $data);
-  }
 
-  public function get_products()
-  {
-    if ($this->request->isAJAX()) {
-      $currentPage = $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1;
-
-      $data = [
-        'title' => 'My Products',
-        'products_user' => $this->productModel->getUserProduct()->paginate(4, 'products'),
-        'total_products' => $this->productModel->where('user_id', session()->get('user_id'))->findColumn('id'),
-        'pager' => $this->productModel->pager,
-        'currentPage' => $currentPage
-      ];
-
-      $output = view('dashboard/partials/get-products', $data);
-
-      return json_encode($output);
+    $keyword = $this->request->getVar('keyword');
+    if ($keyword) {
+      $products = $this->productModel->findMyProduct($keyword);
     } else {
-      throw PageNotFoundException::forPageNotFound();
+      $products = $this->productModel;
     }
+
+    $data = [
+      'title' => 'My Products',
+      'products_user' => $products->getUserProduct()->paginate(10, 'products'),
+      'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+      'total_products' => $this->productModel->where('user_id', session()->get('user_id'))->findColumn('id'),
+      'pager' => $this->productModel->pager,
+
+    ];
+    return view('dashboard/product/products', $data);
   }
 
   public function detail($id)
@@ -57,9 +51,25 @@ class Product extends BaseController
     return view('product/detail', $data);
   }
 
-  public function addProduct()
+  public function add_modal()
   {
-    if ($this->request->getMethod() == 'post') {
+    if ($this->request->isAJAX()) {
+
+      $categoryModel = new CategoriesModel();
+      $data['categories'] = $categoryModel->get()->getResultArray();
+
+      $output = view('dashboard/partials/add-modal', $data);
+
+      return json_encode($output);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
+  }
+
+  public function add_product()
+  {
+    if ($this->request->isAJAX()) {
+
       $validate = [
         'product_name' => [
           'rules' => 'required',
@@ -83,7 +93,18 @@ class Product extends BaseController
       ];
 
       if (!$this->validate($validate)) {
-        return redirect()->back()->withInput();
+        $errors = [
+          'product_name' => $this->validation->getError('product_name'),
+          'category' => $this->validation->getError('category'),
+          'price' => $this->validation->getError('price'),
+        ];
+
+        $output = [
+          'status' => false,
+          'errors' => $errors
+        ];
+
+        return json_encode($output);
       }
 
       $data = [
@@ -93,14 +114,12 @@ class Product extends BaseController
         'description' => $this->request->getVar('description'),
         'price' => $this->request->getVar('price'),
       ];
-      // dd($data);
+      // dd($data['user_id']);
       $this->productModel->save($data);
-      session()->setflashdata('success', 'Successfull Add New Product');
-      return redirect()->back();
+      return json_encode(['status' => true]);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
     }
-
-    $data['title'] = 'Add Product';
-    return view('dashboard/product/add-product', $data);
   }
 
   public function delete_modal()
@@ -179,7 +198,6 @@ class Product extends BaseController
         $errors = [
           'product_name' => $this->validation->getError('product_name'),
           'category' => $this->validation->getError('category'),
-          'description' => $this->validation->getError('description'),
           'price' => $this->validation->getError('price'),
         ];
 

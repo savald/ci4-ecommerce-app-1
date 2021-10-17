@@ -47,10 +47,9 @@
         </div>
       </div>
       <div class="mb-3 row">
-        <label for="x" class="form-label col-sm-3">Description</label>
+        <label for="exampleFormControlTextarea1" class="form-label col-sm-3">Decription</label>
         <div class="col-sm-9">
-          <input id="x" type="hidden" name="description">
-          <trix-editor input="x"></trix-editor>
+          <textarea class="form-control " id="exampleFormControlTextarea1" name="description" rows="3"></textarea>
         </div>
       </div>
 

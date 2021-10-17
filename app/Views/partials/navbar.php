@@ -1,9 +1,6 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
   <div class="container">
     <a class="navbar-brand" href="/">LETSHOP</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <!-- Navbar Search-->
     <form class="d-none d-md-inline-block form-inline w-50 me-0 me-md-3 my-2 my-md-0">
       <div class="input-group">
@@ -11,8 +8,8 @@
         <button class="btn btn-secondary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
       </div>
     </form>
-    <ul class="navbar-nav ms-auto">
 
+    <ul class="navbar-nav ms-auto">
       <?php if (empty(session()->get('logged_in'))) : ?>
         <!-- Login -->
         <li class="nav-item fs-medium d-flex">
@@ -50,36 +47,9 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end" style="width:  310px; overflow-x: hidden;">
               <h6 class="text-secondary text-center">My Carts</h6>
-
-              <?php if ($productCarts) : ?>
-                <?php foreach ($productCarts as $product) : ?>
-                  <li class="dropdown-item mb-1" style="max-width: 100%; overflow-x: hidden;">
-                    <a href="/detail/<?= $product['id']; ?>" class="text-decoration-none text-secondary">
-                      <div class="row">
-                        <div class="col-md-3">
-                          <img class="img-thumbnail" src="<?= base_url('assets/images/fashion.jpg'); ?>" alt="" style="max-width: 50px;">
-                        </div>
-                        <div class="col-md-6 text-wrap fs-medium">
-                          <?= strlen($product['product_name']) > 18  ? substr($product['product_name'], 0, 18) . '...' : $product['product_name']; ?>
-                        </div>
-                        <div class="col-md-3 text-dark fw-5 text-end fs-medium">
-                          $<?= number_format($product['price'], 0, ',', '.') ?>
-                        </div>
-                      </div>
-                    </a>
-                  </li>
-                <?php endforeach ?>
-
-
-                <li>
-                  <hr class="dropdown-divider">
-                </li>
-                <li><a href="/carts" class="dropdown-item text-center">
-                    <h6><i class="bi bi-bag-fill"></i> View All</h6>
-                  </a></li>
-              <?php else : ?>
-                <p class="text-secondary text-center">Your cart is empty</p>
-              <?php endif ?>
+              <div id="my-carts">
+                <!-- Ajax -->
+              </div>
             </ul>
           </div>
         </li>

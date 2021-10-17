@@ -7,8 +7,20 @@ const Toast = Swal.mixin({
   timerProgressBar: true,
 })
 
-$(document).ready(function () {
+// Cart list
+function getMyCart() {
+  $.ajax({
+    url: "/carts/my_carts",
+    dataType: "json",
+    success: function (response) {
+      // console.log(response);
+      $('#my-carts').html(response)
+    }
+  });
+}
 
+$(document).ready(function () {
+getMyCart()
   // Login & Register Btn
   $('.btn-log').click(function(){
     $.ajax({
@@ -43,26 +55,35 @@ $(document).ready(function () {
           success: function(response) {
             if (response.status) {
               $('.modal').modal('hide')
-              setInterval('location.reload()', 2000); 
+              setInterval('location.reload()', 2000);
               Toast.fire({
                 icon: 'success',
                 title: 'Login success!'
               })
             } else {
               $.each(response.errors, function(key, value) {
-                $(`[name = ${key}]`).addClass('is-invalid')
-                $(`[name = ${key}]`).next().next().text(value)
+                  if (response.errors.email == '') {
+                    $(`[name = email]`).addClass('is-invalid')
+                    $(`[name = password]`).addClass('is-invalid')
+                    $(`[name = password]`).next().next().text(value)
+                  }
 
-                if (value == '') {
-                  $(`[name = ${key}]`).removeClass('is-invalid')
-                }
+                  $(`[name = ${key}]`).addClass('is-invalid')
+                  $(`[name = ${key}]`).next().next().text(value)
+  
+                  if (value == '') {
+                    $(`[name = ${key}]`).removeClass('is-invalid')
+                  }
               })
             }
           }
         });
 
         $('.form-login input').on('click', function() {
-          $(this).removeClass('is-invalid is-valid')
+          if ($('[name = email]').next().next().text()=='') {
+            $('.form-login input').removeClass('is-invalid')
+          }
+          $(this).removeClass('is-invalid')
         });
 
       })
@@ -116,7 +137,9 @@ $(document).ready(function () {
         product_id: $(this).attr("data-productId"),
         category_id: $(this).attr("data-categoryId"),
       },
-      success: function (response) {},
+      success: function (response) {
+        getMyCart()
+      },
     });
 
     $(this).toggleClass("active");
@@ -131,10 +154,13 @@ $(document).ready(function () {
         product_id: $(this).attr("data-productId"),
         category_id: $(this).attr("data-categoryId"),
       },
-      success: function (response) {},
+      success: function (response) {
+        getMyCart()
+      },
     });
 
     $(this).toggleClass("active");
   });
 
+  
 });
