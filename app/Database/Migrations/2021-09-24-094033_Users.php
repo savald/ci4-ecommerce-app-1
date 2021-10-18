@@ -39,11 +39,6 @@ class Users extends Migration
                 'constraint' => '255',
                 'default' => 'default.jpg'
             ],
-            'total_carts'       => [
-                'type'       => 'VARCHAR',
-                'constraint' => '255',
-                'null'           => true,
-            ],
             'created_at' => [
                 'type'       => 'datetime',
                 'null'           => true,

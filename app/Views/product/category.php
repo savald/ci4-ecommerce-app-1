@@ -6,7 +6,7 @@
   <main>
     <div class="row">
       <div class="d-flex justify-content-between align-items-center mt-5">
-        <h2 class="">Category: <?= $category; ?></h2>
+        <h2 class="">Category: <?= $categoryName; ?></h2>
       </div>
 
       <hr class="my-4">

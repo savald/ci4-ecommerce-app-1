@@ -2,7 +2,11 @@
 
 namespace App\Controllers;
 
+use App\Models\CartModel;
+use App\Models\CategoriesModel;
+use App\Models\FavoritesModel;
 use App\Models\ProductModel;
+use App\Models\UsersModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
 use CodeIgniter\HTTP\IncomingRequest;
@@ -23,7 +27,6 @@ use Psr\Log\LoggerInterface;
  */
 class BaseController extends Controller
 {
-    protected $productModel;
     /**
      * Instance of the main Request object.
      *
@@ -54,6 +57,10 @@ class BaseController extends Controller
         session();
         $this->validation = Services::validation();
         $this->pagination = Services::pager();
+        $this->userModel = new UsersModel();
         $this->productModel = new ProductModel();
+        $this->cartModel = new CartModel();
+        $this->favoritesModel = new FavoritesModel();
+        $this->categoriesModel = new CategoriesModel();
     }
 }

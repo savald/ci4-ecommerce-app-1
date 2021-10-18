@@ -14,7 +14,7 @@ class CategoriesModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['category_name'];
+    protected $allowedFields        = ['category_name', 'slug'];
 
     // Dates
     protected $useTimestamps        = false;
@@ -39,5 +39,4 @@ class CategoriesModel extends Model
     protected $afterFind            = [];
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
-    
 }

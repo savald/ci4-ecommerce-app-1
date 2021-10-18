@@ -27,5 +27,5 @@
     </a>
   </li>
 <?php else : ?>
-  <p class="text-secondary text-center">Your cart is empty</p>
+  <div class="text-secondary text-center mt-3">Your cart is empty</div>
 <?php endif ?>

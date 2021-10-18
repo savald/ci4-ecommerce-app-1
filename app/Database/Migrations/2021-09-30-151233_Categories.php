@@ -18,8 +18,11 @@ class Categories extends Migration
       'category_name'       => [
         'type'       => 'VARCHAR',
         'constraint' => '255',
+      ],
+      'slug'       => [
+        'type'       => 'VARCHAR',
+        'constraint' => '255',
       ]
-
     ]);
     $this->forge->addKey('id', true);
     $this->forge->createTable('categories');

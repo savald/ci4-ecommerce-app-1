@@ -1,3 +1,7 @@
+.banner {
+  z-index: -1;
+}
+
 .purple {
   background-color: #686dd3;
 }
@@ -68,6 +72,17 @@
   font-weight: 600;
 }
 
+.heart-btn {
+  color: #dc3545;
+  top: 3%;
+  right: 4%;
+  transition: .2s;
+}
+
+.heart-btn:hover {
+  color: white;
+}
+
 .sales {
   color: rgb(92, 92, 92);
   height: 32px;
@@ -125,11 +140,6 @@
 
 .checkout {
   z-index: 1;
-  /* right: 8%;
-  top: 50%;
-  z-index: 10; */
-  /* width: 330px; */
-  /* height: 100px; */
 }
 
 :is(.form-login, .form-register) .form-floating:focus-within {
@@ -141,10 +151,6 @@
   margin-bottom: -1px;
   border-radius: 0;
 }
-
-/* .table >tbody> tr> * {
-  vertical-align: middle;
-} */
 
 footer {
   background-color: #2b3445;

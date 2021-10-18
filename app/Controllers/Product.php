@@ -3,8 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CartModel;
-use App\Models\CategoriesModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Product extends BaseController
@@ -13,6 +11,7 @@ class Product extends BaseController
   public function products()
   {
 
+    // Searching feature
     $keyword = $this->request->getVar('keyword');
     if ($keyword) {
       $products = $this->productModel->findMyProduct($keyword);
@@ -33,11 +32,8 @@ class Product extends BaseController
 
   public function detail($id)
   {
-    $cartModel = new CartModel();
-    $user_id = session()->get('user_id');
     $data = [
       'title' => 'Detail Product',
-      'productCarts' => $cartModel->getCartsUser($user_id),
       'productDetail' => $this->productModel->getProductById($id),
       'products' => $this->productModel->get()->getResultArray()
     ];
@@ -46,7 +42,6 @@ class Product extends BaseController
       throw PageNotFoundException::forPageNotFound();
     }
 
-    // dd($data['productDetail']);
     shuffle($data['products']);
     return view('product/detail', $data);
   }
@@ -55,8 +50,7 @@ class Product extends BaseController
   {
     if ($this->request->isAJAX()) {
 
-      $categoryModel = new CategoriesModel();
-      $data['categories'] = $categoryModel->get()->getResultArray();
+      $data['categories'] = $this->categoriesModel->get()->getResultArray();
 
       $output = view('dashboard/partials/add-modal', $data);
 
@@ -153,11 +147,10 @@ class Product extends BaseController
     if ($this->request->isAJAX()) {
 
       $id = $this->request->getVar('id');
-      $categoryModel = new CategoriesModel();
 
       $data = [
         'product' => $this->productModel->find($id),
-        'categories' => $categoryModel->get()->getResultArray()
+        'categories' =>  $this->categoriesModel->get()->getResultArray()
       ];
       // dd($data['categories']);
       $output = view('dashboard/partials/edit-modal', $data);
@@ -228,28 +221,27 @@ class Product extends BaseController
   public function category($category)
   {
 
-    if (strpos($category, '-')) {
-      $category = str_replace("-", " ", $category);
+    $categorySlug =  $this->categoriesModel->findColumn('slug');
+
+    if (!in_array($category, $categorySlug)) {
+      throw PageNotFoundException::forPageNotFound("Oops, Category: $category Is Not Found!");
     }
 
-    $category = ucwords($category);
+    $categoryName =  $this->categoriesModel->where('slug', $category)->findColumn('category_name')[0];
 
-    $categoryModel = new CategoriesModel();
-    $categories = $categoryModel->findColumn('category_name');
-
-    $cartModel = new CartModel();
-    $user_id = session()->get('user_id');
     $data = [
-      'title' => 'Category: ' . $category,
-      'category' => $category,
-      'productCarts' => $cartModel->getCartsUser($user_id),
+      'title' => 'Category: ' . $categoryName,
+      'categoryName' => $categoryName,
       'productsCategory' => $this->productModel->getProductByCategory($category)
     ];
 
-    if (!in_array($category, $categories)) {
-      throw PageNotFoundException::forPageNotFound();
-    }
-
     return view('/product/category', $data);
+  }
+
+  public function qty_product()
+  {
+    $id = $this->request->getVar('id');
+    $data = $this->productModel->select('price')->getWhere(['id' => $id])->getResultArray();
+    return json_encode($data);
   }
 }

@@ -51,4 +51,14 @@ class CartModel extends Model
             ->get()
             ->getResultArray();
     }
+
+    public function getTotal($totalPrice)
+    {
+        $total = 0;
+        foreach ($totalPrice as $price) {
+            $total += floatval($price);
+        }
+        return number_format($total, 0, ',', '.');
+        // return $total;
+    }
 }

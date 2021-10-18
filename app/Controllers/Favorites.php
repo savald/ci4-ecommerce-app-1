@@ -3,25 +3,15 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\CartModel;
-use App\Models\FavoritesModel;
 
 class Favorites extends BaseController
 {
-    protected $favoritesModel;
-
-    public function __construct()
-    {
-        $this->cartModel = new CartModel();
-        $this->favoritesModel = new FavoritesModel();
-    }
 
     public function index()
     {
         $user_id = session()->get('user_id');
         $data = [
             'title' => 'My Favorites',
-            'productCarts' => $this->cartModel->getCartsUser($user_id),
             'favoritesProducts' => $this->favoritesModel->getFavoritesUser($user_id),
             'products' => $this->productModel->get()->getResultArray()
         ];
@@ -40,7 +30,6 @@ class Favorites extends BaseController
                 'category_id' => $this->request->getPost('category_id'),
             ];
             $this->favoritesModel->insert($data);
-            // return redirect()->back();
         } else {
             throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
         };
