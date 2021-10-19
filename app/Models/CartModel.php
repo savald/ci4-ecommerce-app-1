@@ -52,13 +52,22 @@ class CartModel extends Model
             ->getResultArray();
     }
 
-    public function getTotal($totalPrice)
+    public function getTotalPrice($totalPrice)
     {
         $total = 0;
         foreach ($totalPrice as $price) {
             $total += floatval($price);
         }
         return number_format($total, 0, ',', '.');
-        // return $total;
+    }
+
+    public function getCountCarts($user_id)
+    {
+        return count($this->select('products.id')
+            ->join('users', 'users.id=carts.user_id')
+            ->join('products', 'products.id=carts.product_id')
+            ->where('users.id', $user_id)
+            ->get()
+            ->getResultArray());
     }
 }

@@ -49,14 +49,18 @@
       <div class="col-md-3">
         <div class="text-center shadow card p-3">
           <h6 class="text-secondary mb-4">Total Price</h6>
-          <h2 class="text-dark" id="deal-price">Rp <span><?= $cartModel->getTotal($totalPrice); ?></span></h2>
+          <h2 class="text-dark" id="deal-price">Rp <span><?= $cartModel->getTotalPrice($totalPrice); ?></span></h2>
           <hr class="mb-4">
           <a href="#" class="btn purple text-light w-100">Checkout</a>
         </div>
       </div>
 
     <?php else : ?>
-      <h4 class="mt-5 text-light">Your cart is empty...</h4>
+      <div class="col">
+        <div class="card mb-3 px-3 shadow">
+          <h4 class="text-dark my-5">No products...</h4>
+        </div>
+      </div>
     <?php endif ?>
   </div>
 </div>

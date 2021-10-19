@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -26,7 +27,7 @@ class UsersAuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (is_null(session()->get('logged_in'))) {
-            return redirect()->to('/');
+            throw PageNotFoundException::forPageNotFound('Sorry! You have to login to access this page!');
         }
     }
 

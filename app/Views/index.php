@@ -2,8 +2,6 @@
 
 <?= $this->section('content') ?>
 
-
-
 <div class="container categories">
   <div class="row">
     <div class="col d-flex justify-content-evenly">

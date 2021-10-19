@@ -60,6 +60,6 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        'login' => ['before' => ['dashboard', 'add-product', 'products', 'profile', 'sold']]
+        'login' => ['before' => ['dashboard', 'add-product', 'products', 'profile', 'sold', 'carts', 'favorites']]
     ];
 }

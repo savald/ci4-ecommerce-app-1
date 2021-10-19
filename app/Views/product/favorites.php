@@ -8,16 +8,17 @@
 
   <div class="row">
     <div class="col">
-      <div class="card mb-3 px-3 shadow-sm">
-        <div class="row">
-          <?php foreach ($favoritesProducts as $product) : ?>
-            <div class="col-lg-3 my-3 product-cart">
-              <div class="position-relative">
-                <img src="../assets/images/2.jpg" class="w-100 rounded-1 mb-2 " alt="...">
-                <button type="button" class="btn-none position-absolute heart-btn"><i class="fas fa-heart"></i></button>
-              </div>
+      <div class="card mb-3 px-3 shadow">
+        <?php if ($favoritesProducts) : ?>
+          <div class="row">
+            <?php foreach ($favoritesProducts as $product) : ?>
+              <div class="col-lg-3 my-3 product-cart">
+                <div class="position-relative">
+                  <img src="../assets/images/2.jpg" class="w-100 rounded-1 mb-2 " alt="...">
+                  <button type="button" class="btn-none position-absolute heart-btn"><i class="fas fa-heart"></i></button>
+                </div>
 
-              <!-- <div class="card hover-product" style="width: 100%;">
+                <!-- <div class="card hover-product" style="width: 100%;">
                     <div class="position-absolute icon-hover">
                       <form action="#" method="post">
                         <?php csrf_field() ?>
@@ -26,22 +27,26 @@
                       </form>
                     </div>
                   </div> -->
-              <div class="row">
-                <div class="col-md-8">
-                  <a href="/product/detail/<?= $product['id']; ?>" class="product-title">
-                    <h6 class="card-subtitle my-2 text-muted text-wrap"><?= $product['product_name']; ?></h6>
-                  </a>
-                </div>
-                <div class="col-md-4">
-                  <p class="btn-price">$<?= number_format($product['price'], 0, ',', '.'); ?></p>
+                <div class="row">
+                  <div class="col-md-8">
+                    <a href="/product/detail/<?= $product['id']; ?>" class="product-title">
+                      <h6 class="card-subtitle my-2 text-muted text-wrap"><?= $product['product_name']; ?></h6>
+                    </a>
+                  </div>
+                  <div class="col-md-4">
+                    <p class="btn-price">$<?= number_format($product['price'], 0, ',', '.'); ?></p>
+                  </div>
                 </div>
               </div>
-            </div>
-          <?php endforeach ?>
-        </div>
+            <?php endforeach ?>
+          </div>
+        <?php else : ?>
+          <h4 class="text-dark my-5">No products...</h4>
+        <?php endif ?>
       </div>
     </div>
   </div>
 </div>
 
+<?= $this->include('partials/related_product') ?>
 <?= $this->endSection() ?>

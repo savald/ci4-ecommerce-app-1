@@ -12,9 +12,9 @@ class Carts extends BaseController
     $user_id = session()->get('user_id');
     $data = [
       'title' => 'My Cart',
+      'cartModel' => $this->cartModel,
       'productCarts' => $this->cartModel->getCartsUser($user_id),
-      'products' => $this->productModel->get()->getResultArray(),
-      'cartModel' => $this->cartModel
+      'products' => $this->productModel->get()->getResultArray()
     ];
     // dd($data);
     return view('product/carts', $data);
@@ -48,5 +48,12 @@ class Carts extends BaseController
     } else {
       throw \CodeIgniter\Exceptions\PageNotFoundException::forPageNotFound();
     };
+  }
+
+  public function get_count_cart()
+  {
+    $user_id = session()->get('user_id');
+    $data = $this->cartModel->getCountCarts($user_id);
+    return json_encode($data);
   }
 }

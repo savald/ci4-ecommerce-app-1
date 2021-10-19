@@ -21,6 +21,7 @@ class Product extends BaseController
 
     $data = [
       'title' => 'My Products',
+      'cartModel' => $this->cartModel,
       'products_user' => $products->getUserProduct()->paginate(10, 'products'),
       'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
       'total_products' => $this->productModel->where('user_id', session()->get('user_id'))->findColumn('id'),
@@ -34,6 +35,7 @@ class Product extends BaseController
   {
     $data = [
       'title' => 'Detail Product',
+      'cartModel' => $this->cartModel,
       'productDetail' => $this->productModel->getProductById($id),
       'products' => $this->productModel->get()->getResultArray()
     ];
@@ -232,6 +234,7 @@ class Product extends BaseController
     $data = [
       'title' => 'Category: ' . $categoryName,
       'categoryName' => $categoryName,
+      'cartModel' => $this->cartModel,
       'productsCategory' => $this->productModel->getProductByCategory($category)
     ];
 

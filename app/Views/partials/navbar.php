@@ -18,9 +18,9 @@
         </li>
       <?php else : ?>
         <!-- my account -->
-        <li class="nav-item ms-4">
+        <li class="nav-item">
           <div class="btn-group">
-            <button type="button" class="p-0" data-bs-toggle="dropdown" aria-expanded="false" style="border: none;background: none;">
+            <button type="button" class="btn-none" data-bs-toggle="dropdown" aria-expanded="false">
               <img src="<?= base_url('assets/images/fashion.jpg'); ?>" alt="" style="width: 40px;height: 40px;" class="mx-auto d-block rounded-circle img-thumbnail">
             </button>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -39,10 +39,13 @@
         <!-- Cart -->
         <li class="nav-item ms-4">
           <div class="dropdown ">
-            <button class="position-relative p-0" style="border: none;background: none;" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="position-relative pt-1 btn-none count-cart" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
               <h4><i class="bi bi-cart"></i></h4>
-              <span class="position-absolute translate-middle badge rounded-pill bg-danger" style="font-size: 8px;top: 25%; left: 100%;">
-                99+
+              <!-- <div id="count-cart"> -->
+              <!-- Ajax -->
+              <!-- </div> -->
+              <span class="position-absolute translate-middle badge rounded-pill bg-danger" id="count-cart" style="font-size: 8px;top: 25%; left: 100%;">
+                <!-- Ajax -->
               </span>
             </button>
             <ul class="dropdown-menu dropdown-menu-end" style="width:  310px; overflow-x: hidden;">
@@ -54,9 +57,6 @@
           </div>
         </li>
       <?php endif ?>
-
-
-
     </ul>
   </div>
 </nav>

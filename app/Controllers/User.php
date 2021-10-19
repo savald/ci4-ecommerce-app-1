@@ -11,6 +11,7 @@ class User extends BaseController
   {
     $data = [
       'title' => 'Let\'s Shop',
+      'cartModel' => $this->cartModel,
       'products' => $this->productModel->getProducts()
     ];
     shuffle($data['products']);

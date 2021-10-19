@@ -12,6 +12,7 @@ class Favorites extends BaseController
         $user_id = session()->get('user_id');
         $data = [
             'title' => 'My Favorites',
+            'cartModel' => $this->cartModel,
             'favoritesProducts' => $this->favoritesModel->getFavoritesUser($user_id),
             'products' => $this->productModel->get()->getResultArray()
         ];
