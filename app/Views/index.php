@@ -2,55 +2,20 @@
 
 <?= $this->section('content') ?>
 
-<div class="container categories">
-  <div class="row">
-    <div class="col d-flex justify-content-evenly">
-      <a href="/category/electronics" class="text-decoration-none text-black">
+<div class="purple banner banner-height w-100 position-absolute"></div>
+
+<div class="container categories mt-4 mb-3">
+  <div class="d-flex justify-content-evenly">
+    <?php foreach ($categories as $category) : ?>
+      <a href="/category/<?= $category->slug; ?>" class="text-decoration-none">
         <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
+          <img src="assets/images/fashion.jpg" alt="...">
         </div>
-        <h6 class="text-center fs-small mt-1 ">Electronics</h6>
+        <h6 class="text-center fs-small mt-1"><?= $category->category_name; ?></h6>
       </a>
-      <a href="/category/handphones" class="text-decoration-none text-black">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1">Handphones</h6>
-      </a>
-      <a href="/category/computers" class="text-decoration-none text-black">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1">Computers</h6>
-      </a>
-      <a href="/category/men-fashion" class="text-decoration-none text-black">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1">Men Fashion</h6>
-      </a>
-      <a href="/category/women-fashion" class="text-decoration-none text-black">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1">Women Fashion</h6>
-      </a>
-      <a href="/category/shoes" class="text-decoration-none text-black">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1">Shoes</h6>
-      </a>
-      <a href="/category/furniture" class="text-decoration-none text-black">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" class="card-img-top" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1">Furniture</h6>
-      </a>
-    </div>
+    <?php endforeach ?>
   </div>
 </div>
-<div class="purple w-100 vh-100 position-absolute" style="z-index: -1;"></div>
 <div class="container ">
   <!-- Carousel -->
   <div class="row">
@@ -60,7 +25,7 @@
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
         </div>
-        <div class="carousel-inner">
+        <div class="carousel-inner rounded">
           <div class="carousel-item active">
             <img src="assets/images/3.jpg" class="d-block w-100" alt="...">
           </div>
@@ -89,15 +54,17 @@
           <div class="col-lg-4">
             <div class="card hover-product" style="width: 100%;">
               <img src="assets/images/2.jpg" class="card-img-top" alt="...">
+              <!-- icon-hover -->
               <div class="position-absolute icon-hover">
-
                 <form class="cartForm">
                   <?php csrf_field() ?>
-                  <button type="submit" class="btn btn-light me-1 favoriteBtn" data-userId="<?= $product['user_id']; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-heart"></i></button>
-                  <button type="submit" class="btn btn-light me-1 cartBtn" data-userId="<?= $product['user_id']; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-cart-plus"></i></button>
-                </form>
+                  <button type="submit" class="btn btn-light me-1 favoriteBtn <?= $cartModel->checkCart(session()->get('user_id'), $product['id']) ? 'active' : ''; ?>" data-userId="<?= session()->get('user_id') ?? 0; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-heart"></i></button>
 
+                  <button type="submit" class="btn btn-light me-1 cartBtn <?= $cartModel->checkCart(session()->get('user_id'), $product['id']) ? 'active' : ''; ?>" data-userId="<?= session()->get('user_id') ?? 0; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-cart-plus"></i></button>
+
+                </form>
               </div>
+
             </div>
             <a href="/product/detail/<?= $product['id']; ?>" class="text-decoration-none">
               <h5 class="card-subtitle my-2 text-muted"><?= $product['product_name']; ?></h5>

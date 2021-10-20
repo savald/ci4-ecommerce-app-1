@@ -27,6 +27,9 @@ $(document).ready(function () {
       url: 'product/add_product',
       dataType: "json",
       success: function (response) {
+        console.log(response);
+        console.log(response.status);
+        
         if (response.status) {
           $(".modal").modal("hide");
           location.reload()

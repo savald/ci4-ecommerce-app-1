@@ -10,7 +10,6 @@ class Product extends BaseController
 
   public function products()
   {
-
     // Searching feature
     $keyword = $this->request->getVar('keyword');
     if ($keyword) {
@@ -110,7 +109,6 @@ class Product extends BaseController
         'description' => $this->request->getVar('description'),
         'price' => $this->request->getVar('price'),
       ];
-      // dd($data['user_id']);
       $this->productModel->save($data);
       return json_encode(['status' => true]);
     } else {
@@ -243,8 +241,12 @@ class Product extends BaseController
 
   public function qty_product()
   {
-    $id = $this->request->getVar('id');
-    $data = $this->productModel->select('price')->getWhere(['id' => $id])->getResultArray();
-    return json_encode($data);
+    if ($this->request->isAJAX()) {
+      $id = $this->request->getVar('id');
+      $data = $this->productModel->select('price')->getWhere(['id' => $id])->getResultArray();
+      return json_encode($data);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
   }
 }

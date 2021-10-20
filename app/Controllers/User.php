@@ -9,11 +9,15 @@ class User extends BaseController
 
   public function index()
   {
+    
     $data = [
       'title' => 'Let\'s Shop',
+      'categories' => $this->categoriesModel->select('category_name, slug')->get()->getResult(),
+      'products' => $this->productModel->getProducts(),
       'cartModel' => $this->cartModel,
-      'products' => $this->productModel->getProducts()
+      // 'tabel' => $this->cartModel->where('user_id', 0)->findColumn('product_id') ?? []
     ];
+    // dd($data);
     shuffle($data['products']);
     return view('index', $data);
   }

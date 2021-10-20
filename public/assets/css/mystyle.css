@@ -2,6 +2,10 @@
   z-index: -1;
 }
 
+.banner-height {
+height: 800px;
+}
+
 .purple {
   background-color: #686dd3;
 }
@@ -32,16 +36,16 @@
 }
 
 .categories a h6 {
-  color: gray;
+  color: rgb(255, 255, 255);
   transition: 0.2s;
 }
 
 .categories a:hover .card {
   border-color: #686dd3;
-  transform: scale(1.04) translateY(-3px);
+  transform: scale(1.01) translateY(-3px);
 }
 .categories a:hover h6 {
-  color: #686dd3;
+  color: #d5d7fe;
 }
 
 .fs-small {
@@ -123,7 +127,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.3);
   transition: all 0.3s ease;
-  opacity: 0;
+  /* opacity: 0; */
 }
 
 .icon-hover button:hover {

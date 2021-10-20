@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
   <div class="container">
     <a class="navbar-brand" href="/">LETSHOP</a>
     <!-- Navbar Search-->
@@ -31,7 +31,7 @@
               <li>
                 <hr class="dropdown-divider">
               </li>
-              <li><a class="dropdown-item text-secondary" href="/logout"><i class="bi bi-box-arrow-left"></i> Logout</a></li>
+              <li><button type="button" class="dropdown-item text-secondary" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-left"></i> Logout</button></li>
             </ul>
           </div>
         </li>

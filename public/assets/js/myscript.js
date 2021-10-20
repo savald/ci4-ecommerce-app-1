@@ -10,7 +10,7 @@ const Toast = Swal.mixin({
 // Cart list
 function getMyCart() {
   $.ajax({
-    url: "/carts/my_carts",
+    url: "/carts/get_my_carts",
     dataType: "json",
     success: function (response) {
       // console.log(response);
@@ -18,20 +18,80 @@ function getMyCart() {
     },
   });
 }
-
+// Get count cart
 function getCountCart() {
   $.ajax({
     url: "/carts/get_count_cart",
     dataType: "json",
     success: function (response) {
-        $("#count-cart").text(response);
+      $("#count-cart").text(response);
     },
   });
 }
 
+function addDel(btn,addUrl, deleteUrl) {
+  if (!$( btn ).hasClass( "active" )) {
+      // Add
+      $.ajax({
+        type: "post",
+        url: addUrl,
+        dataType: "json",
+        data: {
+          user_id: $(btn).attr("data-userId"),
+          product_id: $(btn).attr("data-productId"),
+          category_id: $(btn).attr("data-categoryId"),
+        },
+        success: (response) => {
+          console.log(response.status);
+          console.log(response.table);
+          // if user has been logged in
+          if (response.status) {
+            $(btn).addClass("active");
+            if (response.table == 'carts') {
+              getCountCart();
+              getMyCart();
+                // this product has been added to cart
+            } else {
+              // this product has been added to favorites
+            }
+          }
+
+          // if user hasn't logged in
+          // please login first
+          
+        },
+      });
+    } else {
+      // Delete
+      $.ajax({
+        type: "post",
+        url: deleteUrl,
+        dataType: "json",
+        data: {
+          user_id: $(btn).attr("data-userId"),
+          product_id: $(btn).attr("data-productId"),
+          category_id: $(btn).attr("data-categoryId"),
+        },
+        success: (response) => {
+          if (response.status) {
+            $(btn).removeClass("active");
+            if (response.table == 'carts') {
+              getCountCart();
+              getMyCart();
+                // this product has been remove from cart
+            } else {
+              // this product has been added to favorites
+            }
+          } 
+        },
+      });
+    }
+}
+
 $(document).ready(function () {
-  getCountCart()
+  getCountCart();
   getMyCart();
+
   // Login & Register Btn
   $(".btn-log").click(function () {
     $.ajax({
@@ -133,43 +193,107 @@ $(document).ready(function () {
     });
   });
 
-  // Cart & Favorite 
+  // Cart & Favorite
   $(".cartForm").submit(function (e) {
     e.preventDefault();
   });
 
+  // Add & delete cart
   $(".cartBtn").click(function () {
-    $.ajax({
-      type: "post",
-      url: "/carts/add_cart",
-      data: {
-        user_id: $(this).attr("data-userId"),
-        product_id: $(this).attr("data-productId"),
-        category_id: $(this).attr("data-categoryId"),
-      },
-      success: function (response) {
-        getMyCart();
-        getCountCart()
-      },
-    });
+addDel(this,"/carts/add_cart", "/carts/delete_cart")
+    // if (!$( this ).hasClass( "active" )) {
+    //   // Add
+    //   $.ajax({
+    //     type: "post",
+    //     url: "/carts/add_cart",
+    //     dataType: "json",
+    //     data: {
+    //       user_id: $(this).attr("data-userId"),
+    //       product_id: $(this).attr("data-productId"),
+    //       category_id: $(this).attr("data-categoryId"),
+    //     },
+    //     success: (response) => {
+    //       // if user has been logged in
+    //       if (response.status) {
+    //           getCountCart();
+    //           getMyCart();
+    //             $(this).addClass("active");
+    //             // this product has been added to cart
+    //       }
 
-    $(this).toggleClass("active");
+    //       // if user hasn't logged in
+    //       // please login first
+          
+    //     },
+    //   });
+    // } else {
+    //   // Delete
+    //   $.ajax({
+    //     type: "post",
+    //     url: "/carts/delete_cart",
+    //     dataType: "json",
+    //     data: {
+    //       user_id: $(this).attr("data-userId"),
+    //       product_id: $(this).attr("data-productId"),
+    //       category_id: $(this).attr("data-categoryId"),
+    //     },
+    //     success: (response) => {
+    //       if (response.status) {
+    //         getCountCart();
+    //         getMyCart();
+    //           $(this).removeClass("active");
+    //           // this product has been remove from cart
+    //       } 
+    //     },
+    //   });
+    // }
+
   });
 
   $(".favoriteBtn").click(function () {
-    $.ajax({
-      type: "post",
-      url: "/favorites/add_favorite",
-      data: {
-        user_id: $(this).attr("data-userId"),
-        product_id: $(this).attr("data-productId"),
-        category_id: $(this).attr("data-categoryId"),
-      },
-      success: function (response) {
-      },
-    });
+    addDel(this,"/favorites/add_favorite","/favorites/delete_favorite")
+    // if (!$( this ).hasClass( "active" )) {
+    //   // Add
+    //   $.ajax({
+    //     type: "post",
+    //     url: "/favorites/add_favorite",
+    //     dataType: "json",
+    //     data: {
+    //       user_id: $(this).attr("data-userId"),
+    //       product_id: $(this).attr("data-productId"),
+    //       category_id: $(this).attr("data-categoryId"),
+    //     },
+    //     success: (response) => {
+    //       // if user has been logged in
+    //       if (response.status) {
+    //             $(this).addClass("active");
+    //             // this product has been added to favorite
+    //       }
 
-    $(this).toggleClass("active");
+    //       // if user hasn't logged in
+    //       // please login first
+          
+    //     },
+    //   });
+    // } else {
+    //   // Delete
+    //   $.ajax({
+    //     type: "post",
+    //     url: "/favorites/delete_favorite",
+    //     dataType: "json",
+    //     data: {
+    //       user_id: $(this).attr("data-userId"),
+    //       product_id: $(this).attr("data-productId"),
+    //       category_id: $(this).attr("data-categoryId"),
+    //     },
+    //     success: (response) => {
+    //       if (response.status) {
+    //           $(this).removeClass("active");
+    //           // this product has been remove from favorites
+    //       } 
+    //     },
+    //   });
+    // }
   });
 
   // click on qty up button

@@ -50,4 +50,15 @@ class FavoritesModel extends Model
             ->getWhere(['users.id' => $user_id])
             ->getResultArray();
     }
+
+    public function checkFavorite($userId, $produtId)
+    {
+        $favoriteTabel = $this->where('user_id', $userId)->findColumn('product_id') ?? [];
+
+        if (in_array($produtId, $favoriteTabel)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }

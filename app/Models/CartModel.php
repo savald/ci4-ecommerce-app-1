@@ -17,7 +17,7 @@ class CartModel extends Model
     protected $allowedFields        = ['user_id', 'product_id', 'category_id'];
 
     // Dates
-    protected $useTimestamps        = false;
+    protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
@@ -69,5 +69,16 @@ class CartModel extends Model
             ->where('users.id', $user_id)
             ->get()
             ->getResultArray());
+    }
+
+    public function checkCart($userId, $produtId)
+    {
+        $cartTabel = $this->where('user_id', $userId)->findColumn('product_id') ?? [];
+
+        if (in_array($produtId, $cartTabel)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
