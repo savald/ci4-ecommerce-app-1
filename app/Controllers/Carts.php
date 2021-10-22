@@ -114,4 +114,14 @@ class Carts extends BaseController
       throw PageNotFoundException::forPageNotFound();
     };
   }
+
+  public function checkOut()
+  {
+    $data = [
+      'title' => 'Checkout',
+      'user' => $this->userModel->select('id, name, phone_num, address')->find(session()->get('user_id'))
+    ];
+    // dd($data);
+    return view('product/checkout', $data);
+  }
 }

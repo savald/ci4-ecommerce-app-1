@@ -44,7 +44,7 @@
     <?= $this->renderSection('content') ?>
   </main>
 
-  <?= $this->include('partials/_footer') ?>
+  <!-- <?//= $this->include('partials/_footer') ?> -->
 
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

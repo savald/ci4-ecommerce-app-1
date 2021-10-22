@@ -5,7 +5,6 @@
         <?php $totalPrice = array_map(function ($product) { ?>
           <div class="row my-3">
             <div class="col-md-2">
-              <input type="checkbox" name="" id="">
               <img src="/assets/images/fashion.jpg" class="rounded border" alt="..." style="width: 100px;">
             </div>
             <div class="col-md-3 d-flex flex-column justify-content-between">
@@ -44,11 +43,12 @@
 
     <!-- Checkout -->
     <div class="col-md-3">
-      <div class="text-center shadow card p-3">
-        <h6 class="text-secondary mb-4">Total Price</h6>
+      <div class="text-center shadow bg-light rounded p-3">
+        <h5 class="text-secondary mb-4">Total Price</h5>
         <h2 class="text-dark" id="deal-price">Rp <span><?= $cartModel->getTotalPrice($totalPrice); ?></span></h2>
         <hr class="mb-4">
-        <a href="#" class="btn purple text-light w-100">Checkout</a>
+        <a href="#" class="btn purple text-light w-100"><i class="fas fa-lock"></i> Secure Checkout</a>
+        <span class="text-muted fs-small mt-3">100% money back guarantee</span>
       </div>
     </div>
 

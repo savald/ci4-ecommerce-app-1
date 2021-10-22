@@ -157,15 +157,6 @@ height: 800px;
   color: #dc3545;
 }
 
-/* checkbox */
-input[type=checkbox] {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
 .sales {
   color: rgb(92, 92, 92);
   height: 32px;
