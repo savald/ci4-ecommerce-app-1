@@ -27,16 +27,10 @@
 
 <body class="sb-nav-fixed">
 
-  <?= $this->include('dashboard/partials/header') ?>
+  <?= $this->include('dashboard/partials/_header') ?>
   
-  <?php if (session()->getFlashdata('success')) : ?>
-    <div class="alert alert-success alert-dismissible fade show position-fixed top-25 start-50 translate-middle-x" style="z-index: 20;" role="alert"><?= session()->getFlashdata('success'); ?>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-  <?php endif; ?>
-
   <div id="layoutSidenav">
-    <?= $this->include('dashboard/partials/sidebar') ?>
+    <?= $this->include('dashboard/partials/_sidebar') ?>
     <div id="layoutSidenav_content">
       <main>
         <div class="container-fluid px-4">
@@ -60,11 +54,6 @@
   <script src="assets/js/demo/chart-bar-demo.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
   <script src="assets/js/datatables-simple-demo.js"></script> -->
-  <script>
-    document.addEventListener('trix-file-accept', function(e) {
-      e.preventDefault()
-    })
-  </script>
 </body>
 
 </html>

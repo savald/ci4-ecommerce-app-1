@@ -3,16 +3,27 @@
 <?= $this->section('content') ?>
 
 <div class="purple banner" style="height: 200px;position: absolute;width: 100%;"></div>
-<div class="container d-flex flex-column justify-content-center">
-  <div class="card my-5 p-4 shadow" style="min-width: 100%; min-height: 500px;">
-    <div class="row">
-      <div class="col-md-5">
-        <img src="/assets/images/fashion.jpg" class="rounded-start mx-auto" alt="..." style="max-width: 400px;">
+<div class="container">
+  <h3 class="text-light my-5">Detail Product</h3>
+  <div class="row bg-body py-4 px-3 shadow rounded-3">
+    <div class="col-md-7">
+      <div class="row pe-4">
+        <div class="col-md-8">
+          <img src="/assets/images/fashion.jpg" class="rounded-2 w-100 border" alt="...">
+        </div>
+        <div class="col-md-4">
+          <div class="d-flex flex-column justify-content-between h-100">
+            <img src="/assets/images/fashion.jpg" class="rounded-2 my-auto d-block w-100 border" alt="...">
+            <img src="/assets/images/fashion.jpg" class="rounded-2 my-auto d-block w-100 border" alt="...">
+          </div>
+        </div>
       </div>
+    </div>
 
-      <div class="col-md-7">
-        <div class="card-body">
-          <h3 class="card-title"><?= $productDetail['product_name']; ?></h3>
+    <div class="col-md-5">
+      <div class="row">
+        <div class="col-md-8">
+          <h3 class="text-gray text-wrap"><?= $productDetail['product_name']; ?></h3>
           <div class="d-flex">
             <div class="text-warning ">
               <i class="bi bi-star-fill"></i>
@@ -21,74 +32,77 @@
               <i class="bi bi-star-fill"></i>
               <i class="bi bi-star-fill"></i>
             </div>
-            <p class="ms-2 sales">5/5</p>
-            <p class="ms-2 sales"><i class="bi bi-download"></i> 300 Sales</p>
-          </div>
-          <h3 class="card-text mt-3 text-danger fw-bold">$<?= number_format($productDetail['price'], 0, ',', '.'); ?></h3>
-          <hr>
-          <table class="text-secondary">
-            <tr>
-              <td>
-                <h6>Specification</h6>
-              </td>
-            </tr>
-            <tr>
-              <td>
-                Category
-              </td>
-              <td>:</td>
-              <td class="px-4"><?= $productDetail['category_name']; ?></td>
-            </tr>
-            <tr>
-              <td>
-                Weight
-              </td>
-              <td>:</td>
-              <td class="px-4">500gr</td>
-            </tr>
-            <tr>
-              <td>
-                From
-              </td>
-              <td>:</td>
-              <td class="px-4">Indonesia</td>
-            </tr>
-            <tr>
-              <td>
-                Merk
-              </td>
-              <td>:</td>
-              <td class="px-4">Zalora</td>
-            </tr>
-            <tr>
-              <td>
-                <h6>Quantity</h6>
-              </td>
-              <td>:</td>
-              <td>
-                <div class="mt-3 d-flex">
-                  <div class="px-4 d-flex">
-                    <button class="qty-up border bg-light" data-id="pro1">-</button>
-                    <input type="text" data-id="pro1" class="qty_input border px-2 w-25 bg-light" disabled value="1" placeholder="1">
-                    <button data-id="pro1" class="qty-down border bg-light">+</button>
-                  </div>
-                </div>
-
-              </td>
-            </tr>
-          </table>
-
-          <div class="button-submit mt-3">
-            <button type="button" class="btn btn-primary cartBtn" data-userId="<?= $productDetail['user_id']; ?>" data-productId="<?= $productDetail['id']; ?>" data-categoryId="<?= $productDetail['category_id']; ?>"><i class="bi bi-cart-plus-fill"></i> Add to Cart</button>
-            <button type="button" class="btn btn-primary">Buy Now</button>
+            <span class="ms-2 sales">5/5</span>
+            <span class="ms-2 sales"><i class="bi bi-download"></i> 300 Sales</span>
           </div>
         </div>
+        <div class="col-md-4">
+          <h4 class="text-end mt-3 text-danger fw-bold">$<?= number_format($productDetail['price'], 0, ',', '.'); ?></h4>
+        </div>
+      </div>
+      <hr>
+      <table class="text-secondary">
+        <tr>
+          <td>
+            <h6>Specification</h6>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            Category
+          </td>
+          <td>:</td>
+          <td class="px-4"><?= $productDetail['category_name']; ?></td>
+        </tr>
+        <tr>
+          <td>
+            Weight
+          </td>
+          <td>:</td>
+          <td class="px-4">500gr</td>
+        </tr>
+        <tr>
+          <td>
+            From
+          </td>
+          <td>:</td>
+          <td class="px-4">Indonesia</td>
+        </tr>
+        <tr>
+          <td>
+            Merk
+          </td>
+          <td>:</td>
+          <td class="px-4">Zalora</td>
+        </tr>
+        <tr>
+          <td>
+            <h6>Quantity</h6>
+          </td>
+          <td>:</td>
+          <td>
+            <div class="px-4 mt-3 d-flex">
+              <button type="button" class="qty-down border bg-light" data-productId="<?= $productDetail['id']; ?>">-</button>
+              <input type="text" data-productId="<?= $productDetail['id']; ?>" class="text-center border px-2 w-50 bg-light qty-input" disabled value="1" placeholder="1">
+              <button type="button" class="qty-up border bg-light" data-productId="<?= $productDetail['id']; ?>">+</button>
+            </div>
+
+          </td>
+        </tr>
+      </table>
+
+      <div class="button-submit mt-3">
+        <form class="cartForm">
+          <?php csrf_field() ?>
+          <button type="submit" class="my-cart-btn cartBtn" data-userId="<?= $productDetail['user_id']; ?>" data-productId="<?= $productDetail['id']; ?>" data-categoryId="<?= $productDetail['category_id']; ?>"><i class="bi bi-cart-plus-fill"></i> Add to Cart</button>
+          <button type="button" class="my-buy-btn checkout-btn">Buy Now</button>
+        </form>
       </div>
     </div>
   </div>
 
   <!-- Description -->
-  <div class="row ">
+  <div class="row my-5">
     <nav>
       <div class="nav nav-tabs mb-4" id="nav-tab" role="tablist">
         <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab" data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home" aria-selected="true">Product details</button>
@@ -233,8 +247,9 @@
     </div>
 
   </div>
+
+  <?= $this->include('partials/_related-product') ?>
 </div>
 
-<?= $this->include('partials/related_product') ?>
 
 <?= $this->endSection() ?>

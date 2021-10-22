@@ -10,16 +10,27 @@ class Favorites extends BaseController
 
     public function index()
     {
-        $user_id = session()->get('user_id');
         $data = [
             'title' => 'My Favorites',
-            'favoritesProducts' => $this->favoritesModel->getFavoritesUser($user_id),
+            'cartModel' => $this->cartModel,
             'products' => $this->productModel->get()->getResultArray()
         ];
-
-        // dd($data);
-
         return view('product/favorites', $data);
+    }
+
+    public function get_my_favorites()
+    {
+        if ($this->request->isAJAX()) {
+            $user_id = session()->get('user_id');
+            $data = [
+                'favoritesProducts' => $this->favoritesModel->getFavoritesUser($user_id),
+            ];
+
+            $output = view('partials/_my-favorites', $data);
+            return json_encode($output);
+        } else {
+            throw PageNotFoundException::forPageNotFound();
+        }
     }
 
     public function add_favorite()

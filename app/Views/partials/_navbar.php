@@ -50,7 +50,7 @@
             </button>
             <ul class="dropdown-menu dropdown-menu-end" style="width:  310px; overflow-x: hidden;">
               <h6 class="text-secondary text-center">My Carts</h6>
-              <div id="my-carts">
+              <div id="my-navbar-cart">
                 <!-- Ajax -->
               </div>
             </ul>

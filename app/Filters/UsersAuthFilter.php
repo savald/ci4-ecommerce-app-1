@@ -27,7 +27,8 @@ class UsersAuthFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (is_null(session()->get('logged_in'))) {
-            throw PageNotFoundException::forPageNotFound('Sorry! You have to login to access this page!');
+            return redirect()->to('/');
+            // throw PageNotFoundException::forPageNotFound('Sorry! You have to login to access this page!');
         }
     }
 
