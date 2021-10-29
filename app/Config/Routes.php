@@ -45,9 +45,11 @@ $routes->get('/profile', 'User::profile');
 
 // Carts & Favorite
 $routes->get('/carts', 'Carts::index');
-$routes->get('/checkout', 'Carts::checkout');
 $routes->get('/favorites', 'Favorites::index');
 
+// Checkout
+$routes->get('/checkout', 'Checkout::index');
+$routes->post('/checkout', 'Checkout::checkout');
 
 // Product
 $routes->get('/products', 'Product::products');

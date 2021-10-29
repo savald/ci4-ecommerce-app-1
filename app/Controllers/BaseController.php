@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\CartModel;
 use App\Models\CategoriesModel;
+use App\Models\CheckoutDetailModel;
+use App\Models\CheckoutModel;
 use App\Models\FavoritesModel;
 use App\Models\ProductModel;
 use App\Models\UsersModel;
@@ -62,5 +64,7 @@ class BaseController extends Controller
         $this->cartModel = new CartModel();
         $this->favoritesModel = new FavoritesModel();
         $this->categoriesModel = new CategoriesModel();
+        $this->checkoutModel = new CheckoutModel();
+        $this->checkoutDetailModel = new CheckoutDetailModel();
     }
 }

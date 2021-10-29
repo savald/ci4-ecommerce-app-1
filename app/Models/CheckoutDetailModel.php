@@ -4,20 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UsersModel extends Model
+class CheckoutDetailModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'users';
+    protected $table                = 'checkoutdetails';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['name', 'email', 'password', 'phone_num', 'address', 'user_image'];
+    protected $allowedFields        = ['checkout_id', 'product_id', 'quantity'];
 
     // Dates
-    protected $useTimestamps        = true;
+    protected $useTimestamps        = false;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
@@ -40,8 +40,11 @@ class UsersModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    public function getUser($user_id)
-    {
-        # code...
-    }
+    // public function insertCheckout($checkoutDetails)
+    // {
+    //     return $this->db->table('checkoutdetails')
+    //         ->join('checkouts', 'checkouts.id=checkoutdetails.checkout_id')
+    //         ->insert($checkoutDetails)
+    //         ;
+    // }
 }

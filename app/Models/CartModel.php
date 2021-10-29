@@ -58,7 +58,7 @@ class CartModel extends Model
         foreach ($totalPrice as $price) {
             $total += floatval($price);
         }
-        return number_format($total, 0, ',', '.');
+        return $total;
     }
 
     public function getCountCarts($user_id)

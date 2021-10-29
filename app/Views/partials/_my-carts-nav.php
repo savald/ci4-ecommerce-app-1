@@ -7,7 +7,7 @@
           <div class="col-md-3">
             <img class="img-thumbnail" src="<?= base_url('assets/images/fashion.jpg'); ?>" alt="" style="max-width: 50px;">
           </div>
-          <div class="col-md-6 text-wrap fs-medium">
+          <div class="col-md-6 text-break fs-medium">
             <?= strlen($product['product_name']) > 18  ? substr($product['product_name'], 0, 18) . '...' : $product['product_name']; ?>
           </div>
           <div class="col-md-3 text-dark fw-5 text-end fs-medium">

@@ -18,6 +18,10 @@ height: 800px;
   color: #373F50;
 }
 
+.fw-2 {
+  font-weight: 500;
+}
+
 .btn-none {
   padding: 0;
   border: none;
@@ -94,6 +98,29 @@ height: 800px;
 
 .btn-res {
   border-left: 1px solid gray;
+}
+
+.payment-btn{
+  border: 1px solid rgb(193, 193, 193);
+  border-radius: 4px;
+  transition: .2s ;
+}
+
+.payment-btn:hover{
+  border-color: #686dd3;
+  cursor: pointer;
+}
+
+.checkout-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #FE5859;
+  transition: .2s;
+}
+
+.checkout-btn:hover {
+  background-color: #ff3f3f;
 }
 
 .categories a .card {
