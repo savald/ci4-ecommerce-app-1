@@ -14,10 +14,79 @@ height: 800px;
   color: #686dd3;
 }
 
+.text-gray {
+  color: #373F50;
+}
+
+.fw-2 {
+  font-weight: 500;
+}
+
 .btn-none {
   padding: 0;
   border: none;
   background: none;
+}
+
+.favoriteBtn{
+  border: none;
+  border-radius: 4px;
+  padding: 7px 11px;
+  color: #3a3a3a;
+  background-color: #fff;
+  transition: .2s ease;
+}
+
+.cartBtn{
+  border: none;
+  border-radius: 4px;
+  padding: 7px 11px;
+  color: #3a3a3a;
+  background-color: #fff;
+  transition: .2s ease;
+}
+
+.cartBtn:hover,
+.favoriteBtn:hover {
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.cartForm button.active {
+  color: white;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.my-cart-btn {
+  border: solid 1px #e45664;
+  border-radius: 4px;
+  padding: 7px 11px;
+  color: #e45664;
+  background-color: #fff;
+  transition: .2s ease;
+}
+
+.my-cart-btn:hover {
+  color: #fff;
+  background-color: #dc3545;
+  border: solid 1px #dc3545;
+}
+
+.my-buy-btn {
+  border: solid 1px #686dd3;
+  border-radius: 4px;
+  padding: 7px 11px;
+  color: #fff;
+  background-color: #686dd3;
+  transition: .2s ease;
+}
+
+.my-buy-btn:hover {
+  color: #fff;
+  background-color: #5257b4;
+  border: solid 1px #5257b4;
 }
 
 .btn-log,
@@ -29,6 +98,29 @@ height: 800px;
 
 .btn-res {
   border-left: 1px solid gray;
+}
+
+.payment-btn{
+  border: 1px solid rgb(193, 193, 193);
+  border-radius: 4px;
+  transition: .2s ;
+}
+
+.payment-btn:hover{
+  border-color: #686dd3;
+  cursor: pointer;
+}
+
+.checkout-btn {
+  padding: 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #FE5859;
+  transition: .2s;
+}
+
+.checkout-btn:hover {
+  background-color: #ff3f3f;
 }
 
 .categories a .card {
@@ -44,6 +136,7 @@ height: 800px;
   border-color: #686dd3;
   transform: scale(1.01) translateY(-3px);
 }
+
 .categories a:hover h6 {
   color: #d5d7fe;
 }
@@ -60,10 +153,6 @@ height: 800px;
   text-decoration: none;
 }
 
-.product-cart:hover .product-title {
-  text-decoration: underline;
-}
-
 .btn-price {
   background-color: #eff0fa;
   font-size: 15px;
@@ -77,14 +166,22 @@ height: 800px;
 }
 
 .heart-btn {
-  color: #dc3545;
-  top: 3%;
-  right: 4%;
-  transition: .2s;
+  width: 25px;
+  height: 25px;
+  background-color: #dc3545;
+  color: white;
+  line-height: 25px;
+  font-size: 12px;
+  border: none;
+  border-radius: 50%;
+  /* top: 3%;
+  right: 4%; */
+  transition: .2s ease;
 }
 
 .heart-btn:hover {
-  color: white;
+  background-color: #fff;
+  color: #dc3545;
 }
 
 .sales {
@@ -115,11 +212,7 @@ height: 800px;
   background-color: #686dd3;
 }
 
-.card:hover .icon-hover {
-  opacity: 1;
-}
-
-.icon-hover {
+.product-card .icon-hover {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -130,16 +223,16 @@ height: 800px;
   /* opacity: 0; */
 }
 
-.icon-hover button:hover {
-  color: white;
-  background-color: #dc3545;
-  border-color: #dc3545;
+.product-card:hover .icon-hover {
+  opacity: 1;
 }
 
-.icon-hover button.active {
-  color: white;
-  background-color: #dc3545;
-  border-color: #dc3545;
+.product-title a{
+  transition: .2s ease;
+}
+
+.product-title a:hover {
+  color: #FE696A;
 }
 
 .checkout {

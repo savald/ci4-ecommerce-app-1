@@ -47,6 +47,9 @@ $routes->get('/profile', 'User::profile');
 $routes->get('/carts', 'Carts::index');
 $routes->get('/favorites', 'Favorites::index');
 
+// Checkout
+$routes->get('/checkout', 'Checkout::index');
+$routes->post('/checkout', 'Checkout::checkout');
 
 // Product
 $routes->get('/products', 'Product::products');

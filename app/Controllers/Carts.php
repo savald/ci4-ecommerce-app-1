@@ -10,15 +10,28 @@ class Carts extends BaseController
 
   public function index()
   {
-    $user_id = session()->get('user_id');
     $data = [
       'title' => 'My Cart',
       'cartModel' => $this->cartModel,
-      'productCarts' => $this->cartModel->getCartsUser($user_id),
       'products' => $this->productModel->get()->getResultArray()
     ];
-    // dd($data);
     return view('product/carts', $data);
+  }
+
+  public function get_my_cart()
+  {
+    if ($this->request->isAJAX()) {
+      $user_id = session()->get('user_id');
+      $data = [
+        'cartModel' => $this->cartModel,
+        'productCarts' => $this->cartModel->getCartsUser($user_id),
+      ];
+
+      $output = view('partials/_my-cart', $data);
+      return json_encode($output);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
   }
 
   public function add_cart()
@@ -60,12 +73,10 @@ class Carts extends BaseController
 
       $userId = $this->request->getVar('user_id');
       $productId = $this->request->getVar('product_id');
-      $categorytId = $this->request->getVar('category_id');
 
       $this->cartModel
         ->where('user_id', $userId)
         ->where('product_id', $productId)
-        ->where('category_id', $categorytId)
         ->delete();
 
       $output = [
@@ -79,14 +90,14 @@ class Carts extends BaseController
     }
   }
 
-  public function get_my_carts()
+  public function get_navbar_cart()
   {
     if ($this->request->isAJAX()) {
       $user_id = session()->get('user_id');
 
       $data['productCarts'] = $this->cartModel->getCartsUser($user_id);
 
-      $output = view('partials/my-carts', $data);
+      $output = view('partials/_my-carts-nav', $data);
       return json_encode($output);
     } else {
       throw PageNotFoundException::forPageNotFound();
@@ -103,4 +114,5 @@ class Carts extends BaseController
       throw PageNotFoundException::forPageNotFound();
     };
   }
+
 }

@@ -53,7 +53,7 @@ class Product extends BaseController
 
       $data['categories'] = $this->categoriesModel->get()->getResultArray();
 
-      $output = view('dashboard/partials/add-modal', $data);
+      $output = view('dashboard/partials/_add-modal', $data);
 
       return json_encode($output);
     } else {
@@ -121,7 +121,7 @@ class Product extends BaseController
     if ($this->request->isAJAX()) {
       $id = $this->request->getVar('id');
       $data['product'] = ['id' => $id];
-      $output = view('dashboard/partials/delete-modal', $data);
+      $output = view('dashboard/partials/_delete-modal', $data);
 
       return json_encode($output);
     } else {
@@ -153,7 +153,7 @@ class Product extends BaseController
         'categories' =>  $this->categoriesModel->get()->getResultArray()
       ];
       // dd($data['categories']);
-      $output = view('dashboard/partials/edit-modal', $data);
+      $output = view('dashboard/partials/_edit-modal', $data);
 
       return json_encode($output);
     } else {

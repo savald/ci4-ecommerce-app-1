@@ -18,7 +18,7 @@ class Auth extends BaseController
   {
     if ($this->request->isAJAX()) {
 
-      $output = view('auth/login_modal');
+      $output = view('auth/_login-modal');
       return json_encode($output);
     } else {
       throw PageNotFoundException::forPageNotFound();
@@ -29,7 +29,7 @@ class Auth extends BaseController
   {
     if ($this->request->isAJAX()) {
 
-      $output = view('auth/register_modal');
+      $output = view('auth/_register-modal');
       return json_encode($output);
     } else {
       throw PageNotFoundException::forPageNotFound();

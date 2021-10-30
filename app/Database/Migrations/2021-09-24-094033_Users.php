@@ -29,6 +29,11 @@ class Users extends Migration
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
             ],
+            'phone_num'       => [
+                'type'       => 'INT',
+                'constraint' => '50',
+                'null'           => true,
+            ],
             'address'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
@@ -37,6 +42,7 @@ class Users extends Migration
             'user_image'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
+                'null'           => true,
                 'default' => 'default.jpg'
             ],
             'created_at' => [

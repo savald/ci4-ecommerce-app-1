@@ -18,38 +18,24 @@
 </head>
 
 <body>
-  <?= $this->include('partials/navbar') ?>
+  <?= $this->include('partials/_navbar') ?>
 
-  <main class="pt-5">
-    <!-- Logout modal -->
-    <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-sm">
-        <div class="modal-content">
-          <div class="modal-body">
-            Are you sure?
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-            <a href="/logout" class="btn btn-primary">Yes</a>
-          </div>
+  <!-- Logout modal -->
+  <div class="modal .logout-modal fade" id="logoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-body">
+          Are you sure?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <a href="/logout" class="btn btn-primary">Yes</a>
         </div>
       </div>
     </div>
-    <!-- <div class="toast align-items-center text-white bg-primary border-0 position-fixed top-25 start-50 translate-middle-x" style="z-index: 11;" role="alert" aria-live="assertive" aria-atomic="true">
-    <div class="d-flex">
-      <div class="toast-body">
-        Hello, world! This is a toast message.
-      </div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-    </div>
-  </div> -->
+  </div>
 
-    <?php if (session()->getFlashdata('success')) : ?>
-      <div class="alert alert-success alert-dismissible fade show position-fixed top-25 start-50 translate-middle-x" style="z-index: 20;" role="alert"><?= session()->getFlashdata('success'); ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
-    <?php endif; ?>
-
+  <main class="pt-5">
     <!-- Modal -->
     <div class="view-modal">
       <!-- get by ajax -->
@@ -58,7 +44,7 @@
     <?= $this->renderSection('content') ?>
   </main>
 
-  <?= $this->include('partials/footer') ?>
+  <!-- <?//= $this->include('partials/_footer') ?> -->
 
 
   <!-- Option 1: Bootstrap Bundle with Popper -->
