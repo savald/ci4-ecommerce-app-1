@@ -43,7 +43,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['my_helper'];
 
     /**
      * Constructor.
@@ -56,6 +56,7 @@ class BaseController extends Controller
         // Preload any models, libraries, etc, here.
 
         // E.g.: $this->session = \Config\Services::session();
+        date_default_timezone_set("Asia/Jakarta");
         session();
         $this->validation = Services::validation();
         $this->pagination = Services::pager();
@@ -66,5 +67,10 @@ class BaseController extends Controller
         $this->categoriesModel = new CategoriesModel();
         $this->checkoutModel = new CheckoutModel();
         $this->checkoutDetailModel = new CheckoutDetailModel();
+
+        // Auto delete checkout pending
+        $this->checkoutModel->deletePendingProduct();
+
+        // removeSessionCheckoutId();
     }
 }

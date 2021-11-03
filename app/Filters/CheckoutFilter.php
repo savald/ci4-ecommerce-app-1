@@ -6,7 +6,7 @@ use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 
-class UsersAuthFilter implements FilterInterface
+class CheckoutFilter implements FilterInterface
 {
     /**
      * Do whatever processing this filter needs to do.
@@ -25,7 +25,7 @@ class UsersAuthFilter implements FilterInterface
      */
     public function before(RequestInterface $request, $arguments = null)
     {
-        if (is_null(session()->get('logged_in'))) {
+        if (is_null(session()->get('checkout_id'))) {
             return redirect()->to('/');
         }
     }

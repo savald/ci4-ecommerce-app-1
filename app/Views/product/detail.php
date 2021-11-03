@@ -95,7 +95,7 @@
         <form class="cartForm">
           <?php csrf_field() ?>
           <button type="submit" class="my-cart-btn cartBtn" data-userId="<?= $productDetail['user_id']; ?>" data-productId="<?= $productDetail['id']; ?>" data-categoryId="<?= $productDetail['category_id']; ?>"><i class="bi bi-cart-plus-fill"></i> Add to Cart</button>
-          <button type="button" class="my-buy-btn checkout-btn">Buy Now</button>
+          <button type="button" class="checkout-btn">Buy Now</button>
         </form>
       </div>
     </div>

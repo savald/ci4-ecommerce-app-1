@@ -34,8 +34,6 @@ $routes->setAutoRoute(true);
 // $routes->get('/', 'Home::index');
 
 // Auth
-// $routes->match(['get', 'post'], '/login', 'Auth::login');
-// $routes->match(['get', 'post'], '/register', 'Auth::register');
 $routes->get('/logout', 'Auth::logout');
 
 // User
@@ -48,12 +46,14 @@ $routes->get('/carts', 'Carts::index');
 $routes->get('/favorites', 'Favorites::index');
 
 // Checkout
-$routes->get('/checkout', 'Checkout::index');
 $routes->post('/checkout', 'Checkout::checkout');
+$routes->get('/invoice', 'Checkout::invoice');
 
 // Product
 $routes->get('/products', 'Product::products');
 $routes->get('/product/detail/(:num)', 'Product::detail/$1');
+$routes->get('/orders', 'Checkout::getMyOrder');
+$routes->get('/invoice/(:num)', 'Checkout::invoice/$1');
 
 // Category
 $routes->get('/category/(:any)', 'Product::category/$1');

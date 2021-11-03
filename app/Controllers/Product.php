@@ -204,7 +204,6 @@ class Product extends BaseController
 
       $data = [
         'id' => $this->request->getVar('id'),
-        // 'user_id' => session()->get('user_id'),
         'product_name' => $this->request->getVar('product_name'),
         'category_id' => $this->request->getVar('category'),
         'description' => $this->request->getVar('description'),

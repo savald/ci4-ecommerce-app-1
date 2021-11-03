@@ -30,14 +30,23 @@ class Checkout extends Migration
                 'constraint' => 11,
                 'unsigned'       => true,
             ],
+            'order_date'       => [
+                'type'       => 'datetime',
+                'null'           => true,
+            ],
+            'deadline_payment'       => [
+                'type'       => 'datetime',
+                'null'           => true,
+            ],
             'status'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '50',
                 'null'           => true,
                 'default' => 'pending'
             ],
-            'order_date'       => [
-                'type'       => 'datetime',
+            'invoice'       => [
+                'type'       => 'VARCHAR',
+                'constraint' => '50',
                 'null'           => true,
             ],
         ]);

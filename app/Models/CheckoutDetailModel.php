@@ -40,11 +40,14 @@ class CheckoutDetailModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    // public function insertCheckout($checkoutDetails)
-    // {
-    //     return $this->db->table('checkoutdetails')
-    //         ->join('checkouts', 'checkouts.id=checkoutdetails.checkout_id')
-    //         ->insert($checkoutDetails)
-    //         ;
-    // }
+
+    public function getItems($checkoutId)
+    {
+        return $this->join('products', 'products.id=checkoutdetails.product_id')
+            ->join('checkouts', 'checkouts.id=checkoutdetails.checkout_id')
+            ->select('product_name, quantity, price')
+            ->where('checkout_id', $checkoutId)
+            ->get()
+            ->getResultArray();
+    }
 }

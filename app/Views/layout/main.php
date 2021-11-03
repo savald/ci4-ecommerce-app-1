@@ -20,8 +20,9 @@
 <body>
   <?= $this->include('partials/_navbar') ?>
 
+
   <!-- Logout modal -->
-  <div class="modal .logout-modal fade" id="logoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+  <div class="modal logout-modal fade" id="logoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-sm">
       <div class="modal-content">
         <div class="modal-body">
@@ -30,6 +31,26 @@
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
           <a href="/logout" class="btn btn-primary">Yes</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Confirmation modal -->
+  <div class="modal order-confirmation fade" id="orderConfirmation" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Confirm your order</h5>
+        </div>
+        <div class="modal-body">
+          Order accepted?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+          <form action="/checkout/confirm" method="post">
+            <button type="submit" class="btn btn-primary">Yes</button>
+          </form>
         </div>
       </div>
     </div>
@@ -44,7 +65,8 @@
     <?= $this->renderSection('content') ?>
   </main>
 
-  <!-- <?//= $this->include('partials/_footer') ?> -->
+  <!-- <? //= $this->include('partials/_footer') 
+        ?> -->
 
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

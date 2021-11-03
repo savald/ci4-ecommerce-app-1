@@ -23,7 +23,7 @@
   </li>
   <li>
     <a href="/carts" class="dropdown-item text-center">
-      <h6><i class="bi bi-bag-fill"></i> View All</h6>
+      <i class="bi bi-bag-check"></i> <span class="fs-medium">View All</span>
     </a>
   </li>
 <?php else : ?>

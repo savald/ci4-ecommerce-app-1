@@ -14,7 +14,7 @@ class CheckoutModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['user_id', 'total_order', 'total_price', 'order_date'];
+    protected $allowedFields        = ['user_id', 'total_order', 'total_price', 'order_date', 'deadline_payment', 'status', 'invoice'];
 
     // Dates
     protected $useTimestamps        = false;
@@ -40,10 +40,23 @@ class CheckoutModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    // public function insertCheckout($checkouts)
-    // {
-    //     return $this->db->table('checkouts')
-    //     ->join('checkoutdetails', 'checkoutdetails.checkout_id=checkouts.id')
-    //     ->insert($checkouts);
-    // }
+    public function deletePendingProduct()
+    {
+        $sql = "DELETE FROM checkouts WHERE status='pending' AND deadline_payment < NOW()";
+        return $this->db->query($sql);
+    }
+
+    public function getInvoice($year, $month, $date, $userId, $checkoutId)
+    {
+        return 'INV/' . $year . $month . $date . $userId . '/' . $checkoutId;
+    }
+
+    public function getMyOrders()
+    {
+        return $this->where('user_id', session()->get('user_id'))
+            ->where('status', 'In progress')
+            ->select('id, invoice, order_date, total_order, total_price')
+            ->get()
+            ->getResultArray();
+    }
 }

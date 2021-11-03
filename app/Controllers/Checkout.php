@@ -9,7 +9,6 @@ class Checkout extends BaseController
 
   public function index()
   {
-
     $totalPrice = $this->checkoutModel->select('total_price')->find(session()->get('checkout_id'));
 
     $data = [
@@ -18,9 +17,7 @@ class Checkout extends BaseController
       'total_price' => $totalPrice['total_price'],
       'products_cart' => $this->cartModel->getCartsUser(session()->get('user_id')),
     ];
-    // dd($data); 
 
-    session()->remove('checkout_id');
     return view('product/checkout', $data);
   }
 
@@ -29,17 +26,15 @@ class Checkout extends BaseController
     $productId = $this->request->getVar('product_id');
     $quantity = $this->request->getVar('quantity');
     $totalPrice = $this->request->getVar('total_price');
-    $countCart = $this->cartModel->getCountCarts(session()->get('user_id'));
 
     $checkouts = [
       'user_id' => session()->get('user_id'),
       'total_order' => array_sum($quantity),
       'total_price' => $totalPrice,
-      // 'order_date' => ''
+      'order_date' => date('Y-m-d H:i:s'),
+      'deadline_payment' => date('Y-m-d H:i:s', strtotime('+1 day', strtotime(date('Y-m-d H:i:s')))),
     ];
-    // dd($checkouts);
-
-    $this->checkoutModel->insert($checkouts);
+    $this->checkoutModel->save($checkouts);
     session()->set(['checkout_id' => $this->checkoutModel->insertID()]);
 
     $checkoutDetails = [];
@@ -51,26 +46,73 @@ class Checkout extends BaseController
       ];
       $checkoutDetails[] = $details;
     }
-
     $this->checkoutDetailModel->insertBatch($checkoutDetails);
-
-    return redirect()->to('checkout');
+    return redirect()->to('/checkout');
   }
 
-  public function order()
+
+  public function place_order()
   {
+    $userId = sprintf("%02d", substr(session()->get('user_id'), -2));
+    $checkoutId = sprintf("%02d", substr(session()->get('checkout_id'), -2));
+    $year = date('y');
+    $month = date('m');
+    $date = date('d');
 
-    $checkoutId = $this->checkoutModel->insertID();
-    dd($checkoutId);
+    $data = [
+      'id' => session()->get('checkout_id'),
+      'status' => 'In progress',
+      'invoice' =>  $this->checkoutModel->getInvoice($year, $month, $date, $userId, $checkoutId)
+    ];
 
-    // $checkoutDetails = [
-    //   'checkout_id' => $this->checkoutModel->insertID(),
-    //   // 'product_id' =>
-    // ];
+    $this->checkoutModel->save($data);
 
-    // $this->checkoutDetailModel->insert($checkoutDetails);
+    // $this->cartModel
+    //   ->where('user_id', session()->get('user_id'))
+    //   ->delete();
 
-    // dd($checkouts);
+    return redirect()->to('/invoice');
+  }
 
+  public function invoice($transactionId = null)
+  {
+    $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find($transactionId);
+
+    if ($transactionId == null) {
+      $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find(session()->get('checkout_id'));
+      $transactionId = session()->get('checkout_id');
+    }
+
+    $checkoutId = session()->get('checkout_id');
+    $data = [
+      'title' => 'Invoice',
+      'transaction_id' => $transactionId,
+      'order_details' => $orderDetail,
+      'items' => $this->checkoutDetailModel->getItems($checkoutId),
+      // 'payment_method' => '',
+      'user' => $this->userModel->select('name, phone_num, address')->find(session()->get('user_id')),
+    ];
+    return view('product/invoice', $data);
+  }
+
+  public function confirm()
+  {
+    $data = [
+      'id' => session()->get('user_id'),
+      'status' => 'Completed',
+    ];
+
+    $this->checkoutModel->save($data);
+  }
+
+  public function getMyOrder()
+  {
+    $data = [
+      'title' => 'My Order',
+      'my_orders' => $this->checkoutModel->getMyOrders(),
+
+    ];
+    // dd($data);
+    return view('product/my-orders', $data);
   }
 }

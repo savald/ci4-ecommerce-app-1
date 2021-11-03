@@ -40,14 +40,14 @@ class CartModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-    public function getCartsUser($user_id)
+    public function getCartsUser($userId)
     {
         return $this->db->table('carts')
             ->join('users', 'users.id=carts.user_id')
             ->join('products', 'products.id=carts.product_id')
             ->join('categories', 'categories.id=carts.category_id')
             ->select('products.id, product_name, product_image, price')
-            ->where('users.id', $user_id)
+            ->where('users.id', $userId)
             ->get()
             ->getResultArray();
     }
@@ -63,12 +63,11 @@ class CartModel extends Model
 
     public function getCountCarts($user_id)
     {
-        return count($this->select('products.id')
+        return $this->select('products.id')
             ->join('users', 'users.id=carts.user_id')
             ->join('products', 'products.id=carts.product_id')
             ->where('users.id', $user_id)
-            ->get()
-            ->getResultArray());
+            ->countAllResults();
     }
 
     public function checkCart($userId, $produtId)
