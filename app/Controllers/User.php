@@ -15,7 +15,6 @@ class User extends BaseController
       'categories' => $this->categoriesModel->select('category_name, slug')->get()->getResult(),
       'products' => $this->productModel->getProducts(),
       'cartModel' => $this->cartModel,
-      // 'tabel' => $this->cartModel->where('user_id', 0)->findColumn('product_id') ?? []
     ];
     // dd($data);
     shuffle($data['products']);

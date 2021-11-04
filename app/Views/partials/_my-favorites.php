@@ -19,6 +19,7 @@
   </div>
 <?php else : ?>
   <div class="bg-body mb-5 p-3 shadow rounded-3">
-    <h4 class="text-dark my-4">No products...</h4>
+    <h2 class="text-dark mt-4 text-center">No product...</h2>
+    <a href="/" class="text-decoration-none text-center mx-auto d-block">&laquo; Back Shop</a>
   </div>
 <?php endif ?>

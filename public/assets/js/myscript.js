@@ -317,29 +317,23 @@ $(document).ready(function () {
   $(document).on("click", "#checkout-link", function (e) {
       $('#checkout-btn').trigger('click')
     });
-//   $(document).on("click", "#checkout-btn", function (e) {
-//     let total_price = $('input[name="total_price"]').val()
-//     let inputProductId = $('input[name="product_id"]')
-//     let inputQuantity = $('input[name="quantity"]')
-//     let productId = []
-//     let quantity = []
-//     for (let i = 0; i < inputProductId.length; i++) {
-//        productId.push(inputProductId[i].value);
-//        quantity.push(inputQuantity[i].value)
-//       }
-// $.ajax({
-//   type: "post",
-//   url: "/checkout/index",
-//   data: {
-//     product_id: productId,
-//     quantity: quantity,
-//     total_price: total_price
-//   },
-//   dataType: "json",
-//   success: function (response) {
-//     console.log(response);
-//     window.location='/checkout'
-//   }
-// });
-//     });
+
+    // Confirm Order Complete
+    $('.confirm-btn').click(function(){
+      let checkoutId = $(this).data('checkoutid');
+      $('#confirm-btn').click(function(){
+      $.ajax({
+        type: "post",
+        url: "/checkout/order_complete",
+        data: {
+          checkoutId
+        },
+        dataType: "json",
+        success: function (response) {
+          
+        }
+      });
+      })
+    })
+
 });

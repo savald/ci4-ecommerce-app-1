@@ -44,6 +44,10 @@ class Checkout extends Migration
                 'null'           => true,
                 'default' => 'pending'
             ],
+            'order_completed'       => [
+                'type'       => 'datetime',
+                'null'           => true,
+            ],
             'invoice'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '50',

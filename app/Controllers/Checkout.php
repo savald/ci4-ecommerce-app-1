@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Checkout extends BaseController
 {
@@ -95,24 +96,30 @@ class Checkout extends BaseController
     return view('product/invoice', $data);
   }
 
-  public function confirm()
-  {
-    $data = [
-      'id' => session()->get('user_id'),
-      'status' => 'Completed',
-    ];
-
-    $this->checkoutModel->save($data);
-  }
-
-  public function getMyOrder()
+  public function myOrderList()
   {
     $data = [
       'title' => 'My Order',
       'my_orders' => $this->checkoutModel->getMyOrders(),
-
+      'products_review' => $this->checkoutDetailModel->getItems(session()->get('checkout_id')),
     ];
     // dd($data);
     return view('product/my-orders', $data);
+  }
+
+  public function order_complete()
+  {
+    if ($this->request->isAJAX()) {
+
+      $data = [
+        'id' => $this->request->getVar('checkoutId'),
+        'status' => 'Completed',
+        'order_completed' => date('Y-m-d H:i:s'),
+      ];
+
+      $this->checkoutModel->save($data);
+    } else {
+      throw PageNotFoundException::forPageNotFound();
+    }
   }
 }

@@ -1,14 +1,3 @@
-<?= $this->extend('layout/main') ?>
-
-<?= $this->section('content') ?>
-
-<!-- Confirm modal -->
-<?= $this->include('partials/_confirm-modal') ?>
-
-<div class="purple banner" style="height: 200px;position: absolute;width: 100%;"></div>
-<div class="container">
-  <h3 class="text-light my-5">My Orders</h3>
-
   <?php if ($my_orders) : ?>
     <div class="bg-body pb-4 pt-2 px-3 shadow rounded-3">
       <?php foreach ($my_orders as $order) : ?>
@@ -34,21 +23,17 @@
                 <a href="/invoice/<?= sprintf("%07d", $order['id']); ?>" class="text-decoration-none">Detail &raquo;</a>
               </div>
               <div class="col-md-3 my-2 text-end">
-                <button type="button" class="btn-none confirm-btn w-auto" data-bs-toggle="modal" data-bs-target="#modalOrderConfirmation" data-checkoutId="<?= $order['id']; ?>">Confirm your order</button>
+                <button type="button" class="btn-none confirm-btn w-auto" data-bs-toggle="modal" data-bs-target="#orderConfirmation">Confirm your order</button>
               </div>
             </div>
           </div>
         </div>
       <?php endforeach ?>
     </div>
-</div>
+    </div>
 
-<?php else : ?>
-  <div class="bg-body mb-5 p-3 shadow rounded-3">
-    <h2 class="text-dark mt-4 text-center">No order...</h2>
-    <a href="/" class="text-decoration-none text-center mx-auto d-block">&laquo; Back Shop</a>
-  </div>
-<?php endif ?>
-
-
-<?= $this->endSection() ?>
+  <?php else : ?>
+    <div class="bg-body mb-5 p-3 shadow rounded-3">
+      <h4 class="text-dark my-4">No products...</h4>
+    </div>
+  <?php endif ?>

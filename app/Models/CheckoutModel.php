@@ -14,7 +14,7 @@ class CheckoutModel extends Model
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['user_id', 'total_order', 'total_price', 'order_date', 'deadline_payment', 'status', 'invoice'];
+    protected $allowedFields        = ['user_id', 'total_order', 'total_price', 'order_date', 'deadline_payment', 'status', 'order_completed', 'invoice'];
 
     // Dates
     protected $useTimestamps        = false;

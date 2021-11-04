@@ -52,7 +52,7 @@ $routes->get('/invoice', 'Checkout::invoice');
 // Product
 $routes->get('/products', 'Product::products');
 $routes->get('/product/detail/(:num)', 'Product::detail/$1');
-$routes->get('/orders', 'Checkout::getMyOrder');
+$routes->get('/orders', 'Checkout::myOrderList');
 $routes->get('/invoice/(:num)', 'Checkout::invoice/$1');
 
 // Category

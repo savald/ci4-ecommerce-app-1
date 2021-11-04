@@ -31,6 +31,7 @@ class Product extends Migration
             ],
             'description' => [
                 'type' => 'TEXT',
+                'null'           => true,
             ],
             'price' => [
                 'type' => 'INT',

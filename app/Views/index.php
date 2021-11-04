@@ -4,22 +4,14 @@
 
 <div class="purple banner banner-height w-100 position-absolute"></div>
 
-<div class="container categories mt-4 mb-3">
-  <div class="d-flex justify-content-evenly">
-    <?php foreach ($categories as $category) : ?>
-      <a href="/category/<?= $category->slug; ?>" class="text-decoration-none">
-        <div class="card p-1" style="width: 6rem;">
-          <img src="assets/images/fashion.jpg" alt="...">
-        </div>
-        <h6 class="text-center fs-small mt-1"><?= $category->category_name; ?></h6>
-      </a>
-    <?php endforeach ?>
-  </div>
-</div>
-<div class="container ">
-  <!-- Carousel -->
+<div class="container mt-5">
   <div class="row">
-    <div class="col">
+    <div class="col-md-5">
+      <p class="fs-2 text-light">Over <span class="fw-2">1,500</span> curated Design resources, Images, Graphic & Website templates</p>
+      <p class="text-light">High quality items created by our global community</p>
+    </div>
+    <div class="col-md-7">
+      <!-- Carousel -->
       <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
         <div class="carousel-indicators">
           <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -92,15 +84,13 @@
       <hr class="my-4">
 
       <?php foreach (array_slice($products, 0, 4) as $product) : ?>
-        <div class="col-lg-3">
+        <div class="col-md-3 col-xs-6">
           <div class="product-card position-relative mb-3">
             <img src="<?= base_url('assets/images/2.jpg'); ?>" class="w-100 rounded-3" alt="...">
-
             <div class="position-absolute top-0 start-0 rounded-3 icon-hover">
               <form class="cartForm">
                 <?php csrf_field() ?>
                 <button type="submit" class="btn btn-light me-1 favoriteBtn <?= $cartModel->checkCart(session()->get('user_id'), $product['id']) ? 'active' : ''; ?>" data-userId="<?= session()->get('user_id') ?? 0; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-heart"></i></button>
-
                 <button type="submit" class="btn btn-light me-1 cartBtn <?= $cartModel->checkCart(session()->get('user_id'), $product['id']) ? 'active' : ''; ?>" data-userId="<?= session()->get('user_id') ?? 0; ?>" data-productId="<?= $product['id']; ?>" data-categoryId="<?= $product['category_id']; ?>"><i class="bi bi-cart-plus"></i></button>
               </form>
             </div>

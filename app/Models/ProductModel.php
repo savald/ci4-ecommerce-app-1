@@ -56,15 +56,13 @@ class ProductModel extends Model
             ->join('categories', 'categories.id=products.category_id')
             ->where('users.id', session()->get('user_id'))
             ->select('products.id, product_image, product_name, description, price, category_name, products.created_at, products.updated_at');
-        // ->get()->getResultArray();
     }
 
     public function getProductById($id)
     {
         return $this->join('categories', 'categories.id=products.category_id')
-            ->select('products.id, price, product_name, product_image, category_name, user_id, category_id')
-            ->getWhere(['products.id' => $id])
-            ->getRowArray();
+            ->select('products.id, price, product_name, product_image, description, category_name, user_id, category_id')
+            ->find($id);
     }
 
     public function getProductByCategory($category)

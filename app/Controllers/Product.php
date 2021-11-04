@@ -30,15 +30,15 @@ class Product extends BaseController
     return view('dashboard/product/products', $data);
   }
 
-  public function detail($id)
+  public function detail($productId)
   {
     $data = [
       'title' => 'Detail Product',
-      'cartModel' => $this->cartModel,
-      'productDetail' => $this->productModel->getProductById($id),
-      'products' => $this->productModel->get()->getResultArray()
+      'productDetail' => $this->productModel->getProductById($productId),
+      'products' => $this->productModel->get()->getResultArray(),
+      'reviews' => $this->reviewModel->getUserReview($productId)
     ];
-
+    // dd($data);
     if (empty($data['productDetail'])) {
       throw PageNotFoundException::forPageNotFound();
     }

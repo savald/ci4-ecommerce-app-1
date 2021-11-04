@@ -5,10 +5,9 @@
 <div class="container">
   <div class="row bg-body my-5 py-4 px-3 shadow rounded-3">
     <h3 class="text-dark text-center mt-3">Successfully Order</h3>
-    <!-- <p class="text-secondary text-center">Thank you for doing business with us</p> -->
     <p class="text-secondary text-center">Your product on process...</p>
-    <!-- <button type="button" class="mx-auto d-block btn-none confirm-btn w-auto" data-bs-toggle="modal" data-bs-target="#orderConfirmation">Order Confirmation</button> -->
     <a href="/" class="mx-auto d-block btn-none confirm-btn w-auto text-decoration-none back-shop">Back to Shop</a>
+    <a href="/orders" class="mx-auto d-block btn-none confirm-btn w-auto text-decoration-none back-shop">See My Orders</a>
     <hr class="my-3">
 
     <div class="col-md-6">

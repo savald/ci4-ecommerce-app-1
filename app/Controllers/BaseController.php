@@ -8,6 +8,7 @@ use App\Models\CheckoutDetailModel;
 use App\Models\CheckoutModel;
 use App\Models\FavoritesModel;
 use App\Models\ProductModel;
+use App\Models\ReviewModel;
 use App\Models\UsersModel;
 use CodeIgniter\Controller;
 use CodeIgniter\HTTP\CLIRequest;
@@ -67,6 +68,7 @@ class BaseController extends Controller
         $this->categoriesModel = new CategoriesModel();
         $this->checkoutModel = new CheckoutModel();
         $this->checkoutDetailModel = new CheckoutDetailModel();
+        $this->reviewModel = new ReviewModel();
 
         // Auto delete checkout pending
         $this->checkoutModel->deletePendingProduct();

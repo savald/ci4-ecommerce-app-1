@@ -36,32 +36,12 @@
     </div>
   </div>
 
-  <!-- Order Confirmation modal -->
-  <div class="modal order-confirmation fade" id="orderConfirmation" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Confirm your order</h5>
-        </div>
-        <div class="modal-body">
-          Order accepted?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <form action="/checkout/confirm" method="post">
-            <button type="submit" class="btn btn-primary">Yes</button>
-          </form>
-        </div>
-      </div>
-    </div>
+  <!-- Modal -->
+  <div class="view-modal">
+    <!-- get by ajax -->
   </div>
 
   <main class="pt-5">
-    <!-- Modal -->
-    <div class="view-modal">
-      <!-- get by ajax -->
-    </div>
-
     <?= $this->renderSection('content') ?>
   </main>
 

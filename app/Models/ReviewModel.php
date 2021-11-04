@@ -4,20 +4,20 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class CheckoutDetailModel extends Model
+class ReviewModel extends Model
 {
     protected $DBGroup              = 'default';
-    protected $table                = 'checkoutdetails';
+    protected $table                = 'reviews';
     protected $primaryKey           = 'id';
     protected $useAutoIncrement     = true;
     protected $insertID             = 0;
     protected $returnType           = 'array';
     protected $useSoftDeletes       = false;
     protected $protectFields        = true;
-    protected $allowedFields        = ['checkout_id', 'product_id', 'quantity'];
+    protected $allowedFields        = ['user_id', 'product_id', 'review'];
 
     // Dates
-    protected $useTimestamps        = false;
+    protected $useTimestamps        = true;
     protected $dateFormat           = 'datetime';
     protected $createdField         = 'created_at';
     protected $updatedField         = 'updated_at';
@@ -40,13 +40,11 @@ class CheckoutDetailModel extends Model
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
 
-
-    public function getItems($checkoutId)
+    public function getUserReview($productId)
     {
-        return $this->join('products', 'products.id=checkoutdetails.product_id')
-            ->join('checkouts', 'checkouts.id=checkoutdetails.checkout_id')
-            ->select('product_id, product_name, quantity, price')
-            ->where('checkout_id', $checkoutId)
+        return $this->join('users', 'users.id=reviews.user_id')
+            ->where('product_id', $productId)
+            ->select('review, reviews.created_at, name')
             ->get()
             ->getResultArray();
     }

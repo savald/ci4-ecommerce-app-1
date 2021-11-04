@@ -47,7 +47,15 @@
       </div>
 
       <div class="col-md-3">
-        <h5 class="text-gray mb-4">Order Summary</h5>
+        <h5 class="text-gray mb-4">Subtotal</h5>
+        <h3 class="text-dark text-center">Rp <?= number_format($total_price, 0, ',', '.') ?></h3>
+        <form action="/checkout/place_order" method="post">
+          <?= csrf_field(); ?>
+          <input type="hidden" name="_method" value="PUT" />
+          <button type="submit" class="checkout-btn text-light w-100 mt-3"><i class="fas fa-shopping-bag"></i> Place Order</button>
+        </form>
+
+        <h5 class="text-gray mb-4 mt-5">Order Summary</h5>
         <?php foreach ($products_cart as $product) : ?>
           <div class="row mb-2">
             <div class="col-md-3">
@@ -61,14 +69,6 @@
           </div>
           <hr class="my-2">
         <?php endforeach ?>
-        <h5 class="text-gray my-4">Subtotal:</h5>
-        <h3 class="text-dark text-center">Rp <?= number_format($total_price, 0, ',', '.') ?></h3>
-        <form action="/checkout/place_order" method="post">
-          <?= csrf_field(); ?>
-          <input type="hidden" name="_method" value="PUT" />
-          <button type="submit" class="checkout-btn text-light w-100 mt-3"><i class="fas fa-shopping-bag"></i> Place Order</button>
-        </form>
-
       </div>
 
     </div>
