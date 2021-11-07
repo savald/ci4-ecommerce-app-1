@@ -7,20 +7,6 @@ use App\Controllers\BaseController;
 class User extends BaseController
 {
 
-  public function index()
-  {
-    
-    $data = [
-      'title' => 'Let\'s Shop',
-      'categories' => $this->categoriesModel->select('category_name, slug')->get()->getResult(),
-      'products' => $this->productModel->getProducts(),
-      'cartModel' => $this->cartModel,
-    ];
-    // dd($data);
-    shuffle($data['products']);
-    return view('index', $data);
-  }
-
   public function profile()
   {
     $user_id = session()->get('user_id');

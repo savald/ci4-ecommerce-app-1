@@ -1,13 +1,16 @@
 <?php
 
-function removeSessionCheckoutId()
+use App\Libraries\SearchProduct;
+use App\Models\CategoriesModel;
+
+function categories()
 {
-  // if (uri_string() == 'checkout' || uri_string() == 'checkout/invoice') {
-  //   // session()->remove('checkout_id');
-  //   session()->set(['test' => 'berhasil']);
-  // }
-  // if (uri_string() != 'checkout') {
-  //   // session()->remove('checkout_id');
-  //   // session()->remove('test');
-  // }
+  $categories = new CategoriesModel();
+  return $categories->select('category_name, slug')->get()->getResult();
+}
+
+function searchProduct()
+{
+  $searchProduct = new SearchProduct();
+  return $searchProduct->searchProduct();
 }

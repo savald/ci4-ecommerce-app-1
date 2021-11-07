@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php')) {
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('User');
+$routes->setDefaultController('Product');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
@@ -37,7 +37,6 @@ $routes->setAutoRoute(true);
 $routes->get('/logout', 'Auth::logout');
 
 // User
-$routes->get('/', 'User::index');
 $routes->get('/dashboard', 'User::profile');
 $routes->get('/profile', 'User::profile');
 
@@ -45,18 +44,17 @@ $routes->get('/profile', 'User::profile');
 $routes->get('/carts', 'Carts::index');
 $routes->get('/favorites', 'Favorites::index');
 
+// Product
+$routes->get('/', 'Product::index');
+$routes->get('/products', 'Product::products');
+$routes->get('/product/detail/(:num)', 'Product::detail/$1');
+$routes->get('/category/(:any)', 'Product::category/$1');
+
 // Checkout
 $routes->post('/checkout', 'Checkout::checkout');
 $routes->get('/invoice', 'Checkout::invoice');
-
-// Product
-$routes->get('/products', 'Product::products');
-$routes->get('/product/detail/(:num)', 'Product::detail/$1');
 $routes->get('/orders', 'Checkout::myOrderList');
 $routes->get('/invoice/(:num)', 'Checkout::invoice/$1');
-
-// Category
-$routes->get('/category/(:any)', 'Product::category/$1');
 
 /*
  * --------------------------------------------------------------------

@@ -19,12 +19,12 @@
       </div>
       <div class="mb-3">
         <div class="row">
-          <div class="col">
+          <div class="col-md-6">
             <label for="password" class="form-label">New Password</label>
             <input type="password" name="password" class="form-control form-control-sm <?= $validation->hasError('password') ? 'is-invalid' : ''; ?>" id="password">
             <div class="invalid-feedback"><?= $validation->getError('password'); ?></div>
           </div>
-          <div class="col">
+          <div class="col-md-6">
             <label for="pass_confirm" class="form-label">New Password Confirmation</label>
             <input type="password" name="pass_confirm" class="form-control form-control-sm <?= $validation->hasError('pass_confirm') ? 'is-invalid' : ''; ?>" id="pass_confirm">
             <div class="invalid-feedback"><?= $validation->getError('pass_confirm'); ?></div>
@@ -39,17 +39,23 @@
         <label for="address" class="form-label">Address</label>
         <textarea class="form-control form-control-sm" name="address" id="address" rows="3"><?= old('address') ? old('address') : $user['address'] ?? 'Your address...' ?></textarea>
       </div>
+
     </div>
-    <div class="col-md-3 d-flex align-items-center">
+    <div class="col-md-2">
       <div class="mb-3 ">
-        <img src="assets/images/fashion.jpg" class="card-img-top w-75 h-75 border mx-auto d-block" alt="...">
+        <label class="form-label">Profile Image</label>
+        <img src="assets/images/fashion.jpg" class="card-img-top border mx-auto d-block" alt="...">
         <div class="mt-3">
-          <input class="form-control form-control-sm  w-75 h-75 mx-auto" type="file" id="formFile">
+          <input class="form-control form-control-sm  mx-auto" type="file" id="formFile">
         </div>
       </div>
     </div>
+    <div class="row">
+      <div class="col">
+        <button type="submit" class="btn btn-primary btn-sm shadow w-auto">Save Changes</button>
+      </div>
+    </div>
   </div>
-  <button type="submit" class="btn btn-primary  btn-sm shadow">Save Changes</button>
 </form>
 
 <?= $this->endSection() ?>

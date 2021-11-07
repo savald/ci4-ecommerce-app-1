@@ -1,12 +1,3 @@
-// Toast notification
-const Toast = Swal.mixin({
-  toast: true,
-  position: "top-end",
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-});
-
 // Cart list
 function getNavbarCart() {
   $.ajax({
@@ -71,8 +62,12 @@ function addDel(btn, addUrl, deleteUrl) {
             getNavbarCart();
             getMyCart();
             // this product has been added to cart
+            $(".toast-body").text("Add to cart!");
+            $("#myToast").toast("show");
           } else {
             // this product has been added to favorites
+            $(".toast-body").text("Add to favorites!");
+            $("#myToast").toast("show");
           }
         }
 
@@ -98,8 +93,12 @@ function addDel(btn, addUrl, deleteUrl) {
             getNavbarCart();
             getMyCart();
             // this product has been remove from cart
+            $(".toast-body").text("Remove from cart!");
+            $("#myToast").toast("show");
           } else {
             // this product has been added to favorites
+            $(".toast-body").text("Remove from cart!");
+            $("#myToast").toast("show");
           }
         }
       },
@@ -149,10 +148,8 @@ $(document).ready(function () {
         if (response.status) {
           $(".modal").modal("hide");
           setInterval("location.reload()", 2000);
-          Toast.fire({
-            icon: "success",
-            title: "Login success!",
-          });
+          $(".toast-body").text("Login Successfully!");
+            $("#myToast").toast("show");
         } else {
           $.each(response.errors, function (key, value) {
             if (response.errors.email == "") {
@@ -192,10 +189,8 @@ $(document).ready(function () {
         if (response.status) {
           $(".modal").modal("hide");
           setInterval("location.reload()", 2000);
-          Toast.fire({
-            icon: "success",
-            title: "New User Added Successfully!",
-          });
+          $(".toast-body").text("Register Successfully!");
+            $("#myToast").toast("show");
         } else {
           $.each(response.errors, function (key, value) {
             $(`[name = ${key}]`).addClass("is-invalid");
@@ -240,6 +235,8 @@ $(document).ready(function () {
           getCountCart();
           getMyCart();
           // this product has been remove from cart
+          $(".toast-body").text("Remove from cart!");
+            $("#myToast").toast("show");
         }
       },
     });

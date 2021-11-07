@@ -12,14 +12,10 @@
           <div class="sb-nav-link-icon"><i class="fas fa-box-open"></i></div>
           Products
         </a>
-        <a class="nav-link" href="tables.html">
-          <div class="sb-nav-link-icon"><i class="fas fa-coins"></i></div>
-          Sold
-        </a>
       </div>
     </div>
     <div class="sb-sidenav-footer">
-      Start Bootstrap
+      <?= session()->get('name'); ?>
     </div>
   </nav>
 </div>

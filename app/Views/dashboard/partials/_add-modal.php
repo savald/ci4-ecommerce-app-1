@@ -1,7 +1,7 @@
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <form class="d-inline ms-2 form_add">
-    <div class="modal-dialog modal-xl">
+<div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <form class="d-inline ms-2 form_add" enctype="multipart/form-data">
+    <div class="modal-dialog modal-lg">
       <?= csrf_field(); ?>
       <div class="modal-content">
         <div class="modal-header">
@@ -9,14 +9,13 @@
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
               <div class="mb-3 row">
                 <label for="product_name" class="col-sm-3 form-label">Product Name</label>
                 <div class="col-sm-9">
                   <input type="text" name="product_name" class="form-control form-control-sm" id="product_name" placeholder="Product Name">
                   <div id="validationServer03Feedback" class="invalid-feedback"></div>
                 </div>
-
               </div>
               <div class="mb-3 row">
                 <label for="category_id" class="col-sm-3 form-label">Category</label>
@@ -47,11 +46,12 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="mb-3">
-                <img src="assets/images/fashion.jpg" class="card-img-top w-75 h-75 border mx-auto d-block" alt="...">
+                <img src="assets/images/product_img/default.png" id="img-preview" class="w-100 img-thumbnail border mx-auto d-block">
                 <div class="mt-3">
-                  <input class="form-control form-control-sm " type="file" id="formFile">
+                  <input class="form-control form-control-sm file-input" name="product_image" type="file" id="formFile" onchange="previewImg()">
+                  <div id="validationServer03Feedback" class="invalid-feedback"></div>
                 </div>
               </div>
             </div>

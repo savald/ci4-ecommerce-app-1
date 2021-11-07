@@ -39,9 +39,4 @@ class UsersModel extends Model
     protected $afterFind            = [];
     protected $beforeDelete         = [];
     protected $afterDelete          = [];
-
-    public function getUser($user_id)
-    {
-        # code...
-    }
 }

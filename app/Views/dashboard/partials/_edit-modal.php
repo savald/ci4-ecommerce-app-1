@@ -1,7 +1,7 @@
 <!-- Delete Modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="editProductModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <form class="d-inline ms-2 form_edit">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-lg">
       <?= csrf_field(); ?>
       <div class="modal-content">
         <div class="modal-header">
@@ -10,7 +10,7 @@
         <div class="modal-body">
           <input type="hidden" name="id" id="item_id" value="<?= $product['id']; ?>">
           <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
 
               <div class="mb-3 row">
                 <label for="product_name" class="col-sm-3 form-label">Product Name</label>
@@ -55,9 +55,9 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
               <div class="mb-3">
-                <img src="assets/images/fashion.jpg" class="card-img-top w-75 h-75 border mx-auto d-block" alt="...">
+                <img src="assets/images/fashion.jpg" class="card-img-top border mx-auto d-block" alt="...">
                 <div class="mt-3">
                   <input class="form-control form-control-sm " type="file" id="formFile">
                 </div>

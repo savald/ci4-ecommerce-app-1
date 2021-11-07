@@ -18,34 +18,21 @@
 </head>
 
 <body>
-  <?= $this->include('partials/_navbar') ?>
 
+  <!-- <?= $this->include('partials/_navbar') ?> -->
 
-  <!-- Logout modal -->
-  <div class="modal logout-modal fade" id="logoutModal" tabindex="-1" aria-labelledby="LogoutModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm">
-      <div class="modal-content">
-        <div class="modal-body">
-          Are you sure?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-          <a href="/logout" class="btn btn-primary">Yes</a>
-        </div>
+  <!-- <h1>Test toast</h1> -->
+  <!-- <button class="btn btn-success" id="myBtn">My Btn</button> -->
+
+  <div class="toast-container position-fixed p-3 start-50 translate-middle" id="toastPlacement" style="top: 15%; z-index: 1080;">
+    <div class="toast align-items-center" id="myToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" style="width: 200px;">
+      <div class="toast-body text-center">
+        <!-- message -->
       </div>
     </div>
   </div>
-
-  <!-- Modal -->
-  <div class="view-modal">
-    <!-- get by ajax -->
-  </div>
-
-  <main class="pt-5">
-    <?= $this->renderSection('content') ?>
-  </main>
-
-  <!-- <? //= $this->include('partials/_footer') 
+  <?= $this->renderSection('content') ?>
+  <!-- <? // $this->include('partials/_footer') 
         ?> -->
 
 
@@ -55,6 +42,14 @@
 
   <!-- jquery -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+  <script>
+    $(document).ready(function() {
+      $("#myBtn").click(function() {
+        $("#myToast").toast("show");
+      });
+    });
+  </script>
 
   <script src="<?= base_url('assets/js/myscript.js'); ?>"></script>
 

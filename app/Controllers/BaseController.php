@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\SearchProduct;
 use App\Models\CartModel;
 use App\Models\CategoriesModel;
 use App\Models\CheckoutDetailModel;
@@ -70,9 +71,8 @@ class BaseController extends Controller
         $this->checkoutDetailModel = new CheckoutDetailModel();
         $this->reviewModel = new ReviewModel();
 
+        // $this->searchProduct = new SearchProduct();
         // Auto delete checkout pending
         $this->checkoutModel->deletePendingProduct();
-
-        // removeSessionCheckoutId();
     }
 }

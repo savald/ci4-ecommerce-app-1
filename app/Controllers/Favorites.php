@@ -10,6 +10,19 @@ class Favorites extends BaseController
 
     public function index()
     {
+        // FInd product
+        $searchProduct = $this->request->getVar('searchProduct');
+        if ($searchProduct) {
+            $data = [
+                'title' => 'Find Products',
+                'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+                'cartModel' => $this->cartModel,
+                'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+                'pager' => $this->productModel->pager,
+            ];
+            return view('product/product-search', $data);
+        }
+
         $data = [
             'title' => 'My Favorites',
             'cartModel' => $this->cartModel,

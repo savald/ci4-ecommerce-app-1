@@ -10,6 +10,19 @@ class Checkout extends BaseController
 
   public function index()
   {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
     $totalPrice = $this->checkoutModel->select('total_price')->find(session()->get('checkout_id'));
 
     $data = [
@@ -24,6 +37,19 @@ class Checkout extends BaseController
 
   public function checkout()
   {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
     $productId = $this->request->getVar('product_id');
     $quantity = $this->request->getVar('quantity');
     $totalPrice = $this->request->getVar('total_price');
@@ -51,9 +77,21 @@ class Checkout extends BaseController
     return redirect()->to('/checkout');
   }
 
-
   public function place_order()
   {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
     $userId = sprintf("%02d", substr(session()->get('user_id'), -2));
     $checkoutId = sprintf("%02d", substr(session()->get('checkout_id'), -2));
     $year = date('y');
@@ -77,6 +115,19 @@ class Checkout extends BaseController
 
   public function invoice($transactionId = null)
   {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
     $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find($transactionId);
 
     if ($transactionId == null) {
@@ -98,6 +149,19 @@ class Checkout extends BaseController
 
   public function myOrderList()
   {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
     $data = [
       'title' => 'My Order',
       'my_orders' => $this->checkoutModel->getMyOrders(),

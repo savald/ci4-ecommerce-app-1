@@ -7,7 +7,7 @@
   <!-- Navbar-->
   <ul class="navbar-nav ms-auto me-2">
     <li class="nav-item">
-      <a class="nav-link" href="/logout"><i class="bi bi-box-arrow-left"></i> Logout</a>
+      <button class="nav-link btn-none" type="button" data-bs-toggle="modal" data-bs-target="#logoutModal"><i class="bi bi-box-arrow-left"></i> Logout</button>
     </li>
   </ul>
 </nav>

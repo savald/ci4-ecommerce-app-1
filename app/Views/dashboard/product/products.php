@@ -10,11 +10,11 @@
   <div class="col">
     <?php if ($products_user) : ?>
       <nav class="navbar">
-        <button type="button" class="btn btn-primary add-btn">Add Product</button>
+        <button type="button" class="btn btn-primary btn-sm add-btn">Add Product</button>
         <ul class="navbar-nav ms-auto me-2">
           <li class="nav-item">
             <form class="d-none d-md-inline-block form-inline w-100">
-              <div class="input-group">
+              <div class="input-group input-group-sm">
                 <input class="form-control" name="keyword" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
                 <button class="btn btn-secondary" id="btnNavbarSearch" type="submit"><i class="fas fa-search"></i></button>
               </div>
@@ -35,7 +35,7 @@
             <th scope="col">Image</th>
             <th scope="col">Name</th>
             <th scope="col">Description</th>
-            <th scope="col">Price($)</th>
+            <th scope="col">Price(Rp)</th>
             <th scope="col">Category</th>
             <th scope="col">Added</th>
             <th scope="col">Updated</th>

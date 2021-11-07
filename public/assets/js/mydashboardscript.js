@@ -3,6 +3,18 @@ tooltips.forEach((e) => {
   new bootstrap.Tooltip(e);
 });
 
+// Preview image
+function previewImg() {
+
+            const inputImg = document.querySelector('.file-input'),
+                imgPreview = document.querySelector('#img-preview');
+
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(inputImg.files[0]);
+
+            fileReader.onload = (e) => imgPreview.src = e.target.result;
+        }
+
 $(document).ready(function () {
 
 // Show add modal
@@ -13,11 +25,12 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         $(".view-modal").html(response);
-        $(".modal").modal("show");
+        $("#addProductModal").modal("show");
       },
     });
   });
 
+  // Process adding
   $(document).on("submit", ".form_add", function (e) {
     e.preventDefault();
 
@@ -31,7 +44,7 @@ $(document).ready(function () {
         console.log(response.status);
         
         if (response.status) {
-          $(".modal").modal("hide");
+          $("#addProductModal").modal("hide");
           location.reload()
           // Toast.fire({
           //   icon: "success",
@@ -71,7 +84,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         $(".view-modal").html(response);
-        $(".modal").modal("show");
+        $("#deleteProductModal").modal("show");
       },
     });
   });
@@ -87,7 +100,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.status) {
-          $(".modal").modal("hide");
+          $("#deleteProductModal").modal("hide");
           location.reload()
           // Toast.fire({
           //   icon: "success",
@@ -110,11 +123,12 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         $(".view-modal").html(response);
-        $(".modal").modal("show");
+        $("#editProductModal").modal("show");
       },
     });
   });
 
+  // Process edit
   $(document).on("submit", ".form_edit", function (e) {
     e.preventDefault();
 
@@ -125,7 +139,7 @@ $(document).ready(function () {
       dataType: "json",
       success: function (response) {
         if (response.status) {
-          $(".modal").modal("hide");
+          $("#editProductModal").modal("hide");
           location.reload()
           // Toast.fire({
           //   icon: "success",
@@ -151,4 +165,5 @@ $(document).ready(function () {
       $(this).removeClass("is-invalid");
     });
   });
+
 });

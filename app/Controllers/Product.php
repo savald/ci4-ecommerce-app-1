@@ -7,6 +7,92 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Product extends BaseController
 {
+  public function index()
+  {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
+    $data = [
+      'title' => 'Let\'s Shop',
+      'products' => $this->productModel->getProducts(),
+      'cartModel' => $this->cartModel,
+    ];
+    shuffle($data['products']);
+    return view('index', $data);
+  }
+
+  public function detail($productId)
+  {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
+    $data = [
+      'title' => 'Detail Product',
+      'productDetail' => $this->productModel->getProductById($productId),
+      'products' => $this->productModel->get()->getResultArray(),
+      'reviews' => $this->reviewModel->getUserReview($productId)
+    ];
+    // dd($data);
+    if (empty($data['productDetail'])) {
+      throw PageNotFoundException::forPageNotFound();
+    }
+
+    shuffle($data['products']);
+    return view('product/detail', $data);
+  }
+
+  public function category($category)
+  {
+    // FInd product
+    $searchProduct = $this->request->getVar('searchProduct');
+    if ($searchProduct) {
+      $data = [
+        'title' => 'Find Products',
+        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+        'cartModel' => $this->cartModel,
+        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+        'pager' => $this->productModel->pager,
+      ];
+      return view('product/product-search', $data);
+    }
+
+    $categorySlug =  $this->categoriesModel->findColumn('slug');
+
+    if (!in_array($category, $categorySlug)) {
+      throw PageNotFoundException::forPageNotFound("Oops, Category: $category Is Not Found!");
+    }
+
+    $categoryName =  $this->categoriesModel->where('slug', $category)->findColumn('category_name')[0];
+
+    $data = [
+      'title' => 'Category: ' . $categoryName,
+      'categoryName' => $categoryName,
+      'cartModel' => $this->cartModel,
+      'productsCategory' => $this->productModel->getProductByCategory($category)
+    ];
+
+    return view('/product/category', $data);
+  }
 
   public function products()
   {
@@ -28,23 +114,6 @@ class Product extends BaseController
 
     ];
     return view('dashboard/product/products', $data);
-  }
-
-  public function detail($productId)
-  {
-    $data = [
-      'title' => 'Detail Product',
-      'productDetail' => $this->productModel->getProductById($productId),
-      'products' => $this->productModel->get()->getResultArray(),
-      'reviews' => $this->reviewModel->getUserReview($productId)
-    ];
-    // dd($data);
-    if (empty($data['productDetail'])) {
-      throw PageNotFoundException::forPageNotFound();
-    }
-
-    shuffle($data['products']);
-    return view('product/detail', $data);
   }
 
   public function add_modal()
@@ -85,6 +154,14 @@ class Product extends BaseController
             'numeric' => 'Please enter the valid value',
           ]
         ],
+        'product_image' => [
+          'rules' => 'max_size[product_image,2048]|mime_in[product_image,image/jpg,image/jpeg,image/png]|is_image[product_image]',
+          'errors' => [
+            'max_size' => 'Your image size too big',
+            'is_image' => 'Please upload image format',
+            'mime_in' => 'Please upload image format'
+          ]
+        ]
       ];
 
       if (!$this->validate($validate)) {
@@ -92,6 +169,7 @@ class Product extends BaseController
           'product_name' => $this->validation->getError('product_name'),
           'category' => $this->validation->getError('category'),
           'price' => $this->validation->getError('price'),
+          'product_image' => $this->validation->getError('product_image'),
         ];
 
         $output = [
@@ -99,7 +177,18 @@ class Product extends BaseController
           'errors' => $errors
         ];
 
+
         return json_encode($output);
+      }
+
+      $imgFile = $this->request->getfile('product_image');
+      if ($imgFile->getError() == 4) {
+        $imgName = 'default.jpg';
+      } else {
+        // generate nama gambar random
+        $imgName = $imgFile->getRandomName();
+        // pindahkan ke folder images
+        $imgFile->move('asset/images/product_img', $imgName);
       }
 
       $data = [
@@ -108,6 +197,7 @@ class Product extends BaseController
         'category_id' => $this->request->getVar('category'),
         'description' => $this->request->getVar('description'),
         'price' => $this->request->getVar('price'),
+        'product_image' =>  $imgName
       ];
       $this->productModel->save($data);
       return json_encode(['status' => true]);
@@ -215,27 +305,6 @@ class Product extends BaseController
     } else {
       throw PageNotFoundException::forPageNotFound();
     }
-  }
-
-  public function category($category)
-  {
-
-    $categorySlug =  $this->categoriesModel->findColumn('slug');
-
-    if (!in_array($category, $categorySlug)) {
-      throw PageNotFoundException::forPageNotFound("Oops, Category: $category Is Not Found!");
-    }
-
-    $categoryName =  $this->categoriesModel->where('slug', $category)->findColumn('category_name')[0];
-
-    $data = [
-      'title' => 'Category: ' . $categoryName,
-      'categoryName' => $categoryName,
-      'cartModel' => $this->cartModel,
-      'productsCategory' => $this->productModel->getProductByCategory($category)
-    ];
-
-    return view('/product/category', $data);
   }
 
   public function qty_product()
