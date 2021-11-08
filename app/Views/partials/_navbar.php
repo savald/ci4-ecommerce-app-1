@@ -69,7 +69,7 @@
           <li class="nav-item">
             <div class="btn-group">
               <button type="button" class="btn-none" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="<?= base_url('assets/images/fashion.jpg'); ?>" alt="" style="width: 40px;height: 40px;" class="mx-auto d-block rounded-circle img-thumbnail">
+                <img src="<?= base_url('assets/images/user_images') . '/' . session()->get('user_image') ?? 'default_user.png'; ?>" alt="" style="width: 40px;height: 40px;" class="mx-auto d-block rounded-circle img-thumbnail">
               </button>
               <ul class="dropdown-menu dropdown-menu-end">
                 <h6 class="text-gray text-center">My Account</h6>

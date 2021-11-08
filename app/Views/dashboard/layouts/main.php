@@ -12,13 +12,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="<?= base_url('assets/css/mystyle.css'); ?>">
-  <link rel="stylesheet" type="text/css" href="<?= base_url('assets/css/trix.css'); ?>">
-  <script type="text/javascript" src="<?= base_url('assets/js/trix.js'); ?>"></script>
-  <style>
-    trix-toolbar [data-trix-button-group="file-tools"],
-    trix-toolbar [data-trix-button-group="history-tools"] {
-      display: none;
-    }
   </style>
 
   <title>My Dashboard</title>

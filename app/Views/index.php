@@ -6,7 +6,6 @@
   <div class="container mt-2">
     <div class="row align-items-center">
       <div class="col-md-5">
-        <button class="btn btn-success" id="myBtn">My Btn</button>
         <p class="fs-2 text-light">Over <span class="fw-2">1,500</span> curated Design resources, Images, Graphic & Website templates</p>
         <p class="text-light">High quality items created by our global community</p>
       </div>
@@ -46,7 +45,7 @@
             <?php foreach (array_slice($products, 0, 3) as $product) : ?>
               <div class="col-lg-4">
                 <div class="product-card position-relative mb-3">
-                  <img src="<?= base_url('assets/images/2.jpg'); ?>" class="w-100 rounded-3" alt="...">
+                  <img src="/assets/images/product_images/<?= $product['product_image'] ?? 'default_user.png'; ?>" class="w-100 rounded-3" alt="...">
 
                   <!-- icon-hover -->
                   <div class="position-absolute top-0 start-0 rounded-3 icon-hover">
@@ -86,7 +85,7 @@
         <?php foreach (array_slice($products, 0, 4) as $product) : ?>
           <div class="col-md-3">
             <div class="product-card position-relative mb-3">
-              <img src="<?= base_url('assets/images/2.jpg'); ?>" class="w-100 rounded-3" alt="...">
+              <img src="/assets/images/product_images/<?= $product['product_image'] ?? 'default_user.png'; ?>" class="w-100 rounded-3" alt="...">
               <div class="position-absolute top-0 start-0 rounded-3 icon-hover">
                 <form class="cartForm">
                   <?php csrf_field() ?>
@@ -120,7 +119,7 @@
         <?php foreach (array_slice($products, 0, 4) as $product) : ?>
           <div class="col-lg-3">
             <div class="product-card position-relative mb-3">
-              <img src="<?= base_url('assets/images/2.jpg'); ?>" class="w-100 rounded-3" alt="...">
+              <img src="/assets/images/product_images/<?= $product['product_image'] ?? 'default_user.png'; ?>" class="w-100 rounded-3" alt="...">
 
               <div class="position-absolute top-0 start-0 rounded-3 icon-hover">
                 <form class="cartForm">

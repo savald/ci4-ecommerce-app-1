@@ -1,12 +1,12 @@
 <!-- Delete Modal -->
 <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-  <form class="d-inline ms-2 form_add" enctype="multipart/form-data">
-    <div class="modal-dialog modal-lg">
-      <?= csrf_field(); ?>
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Add Product</h5>
-        </div>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add Product</h5>
+      </div>
+      <form class="d-inline ms-2 form_add" enctype="multipart/form-data">
+        <?= csrf_field(); ?>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-8">
@@ -46,22 +46,24 @@
                 </div>
               </div>
             </div>
+
             <div class="col-md-4">
               <div class="mb-3">
-                <img src="assets/images/product_img/default.png" id="img-preview" class="w-100 img-thumbnail border mx-auto d-block">
+                <img src="assets/images/product_images/default_product.png" id="img-preview" class="w-100 img-thumbnail border mx-auto d-block">
                 <div class="mt-3">
                   <input class="form-control form-control-sm file-input" name="product_image" type="file" id="formFile" onchange="previewImg()">
                   <div id="validationServer03Feedback" class="invalid-feedback"></div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
           <button type="submit" class="btn btn-primary">Save</button>
         </div>
-      </div>
     </div>
+  </div>
   </form>
 </div>

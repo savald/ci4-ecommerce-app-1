@@ -49,7 +49,6 @@ class Product extends BaseController
     $data = [
       'title' => 'Detail Product',
       'productDetail' => $this->productModel->getProductById($productId),
-      'products' => $this->productModel->get()->getResultArray(),
       'reviews' => $this->reviewModel->getUserReview($productId)
     ];
     // dd($data);
@@ -57,7 +56,6 @@ class Product extends BaseController
       throw PageNotFoundException::forPageNotFound();
     }
 
-    shuffle($data['products']);
     return view('product/detail', $data);
   }
 
@@ -144,7 +142,7 @@ class Product extends BaseController
         'category' => [
           'rules' => 'required',
           'errors' => [
-            'required' => 'Please choose the product category',
+            'required' => 'Please select the category',
           ]
         ],
         'price' => [
@@ -155,9 +153,14 @@ class Product extends BaseController
           ]
         ],
         'product_image' => [
-          'rules' => 'max_size[product_image,2048]|mime_in[product_image,image/jpg,image/jpeg,image/png]|is_image[product_image]',
+          'rules' => [
+            'uploaded[product_image]',
+            'mime_in[product_image,image/jpg,image/jpeg,image/png]',
+            'max_size[product_image,1024]',
+            'is_image[product_image]'
+          ],
           'errors' => [
-            'max_size' => 'Your image size too big',
+            'max_size' => 'The image size is too large',
             'is_image' => 'Please upload image format',
             'mime_in' => 'Please upload image format'
           ]
@@ -181,14 +184,13 @@ class Product extends BaseController
         return json_encode($output);
       }
 
-      $imgFile = $this->request->getfile('product_image');
+      $imgFile = $this->request->getFile('product_image');
+
       if ($imgFile->getError() == 4) {
-        $imgName = 'default.jpg';
+        $imgName = 'default_product.png';
       } else {
-        // generate nama gambar random
         $imgName = $imgFile->getRandomName();
-        // pindahkan ke folder images
-        $imgFile->move('asset/images/product_img', $imgName);
+        $imgFile->move('assets/images/product_images', $imgName);
       }
 
       $data = [
@@ -209,8 +211,10 @@ class Product extends BaseController
   public function delete_modal()
   {
     if ($this->request->isAJAX()) {
-      $id = $this->request->getVar('id');
-      $data['product'] = ['id' => $id];
+      $data['product'] = [
+        'id' => $this->request->getVar('id'),
+        'productImg' => $this->request->getVar('productImg')
+      ];
       $output = view('dashboard/partials/_delete-modal', $data);
 
       return json_encode($output);
@@ -223,8 +227,10 @@ class Product extends BaseController
   {
     if ($this->request->isAJAX()) {
 
+      $productImg = $this->request->getVar('productImg');
       $id = $this->request->getVar('id');
       $this->productModel->where('id', $id)->delete();
+      unlink('assets/images/product_images/' . $productImg);
 
       return json_encode(['status' => true]);
     } else {

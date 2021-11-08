@@ -8,7 +8,8 @@
           <h5 class="modal-title">Delete Product</h5>
         </div>
         <div class="modal-body">
-          <input type="hidden" name="id" id="item_id" value="<?= $product['id']; ?>">
+          <input type="text" name="id" value="<?= $product['id']; ?>">
+          <input type="text" name="productImg" value="<?= $product['productImg']; ?>">
           Are you sure ?
         </div>
         <div class="modal-footer">

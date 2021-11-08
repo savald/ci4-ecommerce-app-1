@@ -48,7 +48,9 @@
           foreach ($products_user as $product) : ?>
             <tr>
               <th scope="row"><?= $i++ ?></th>
-              <td><img src="assets/images/fashion.jpg" class="img-thumbnail" style="min-width:85px; min-height: 85px;max-width: 85px;max-height: 85px;"></td>
+              <td>
+                <img src="assets/images/product_images/<?= $product['product_image']; ?>" class="rounded" style="min-width:85px; min-height: 85px;max-width: 85px;max-height: 85px;">
+              </td>
               <td class="text-secondary fw-bold "><?= $product['product_name']; ?></td>
               <td class="text-secondary fs-medium"><?= substr($product['description'], 0, 70); ?> ...</td>
               <td class="text-secondary fs-medium"><?= number_format($product['price'], 0, ',', '.') ?></td>
@@ -59,7 +61,7 @@
 
                 <button class="text-success edit-btn btn-none" data-productId="<?= $product['id']; ?>" data-bs-placement="top" title="Edit"><i class="fas fa-edit"></i></i></button>
 
-                <button class="text-danger ms-2 delete-btn btn-none" data-productId="<?= $product['id']; ?>" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></i></button>
+                <button class="text-danger ms-2 delete-btn btn-none" data-productId="<?= $product['id']; ?>" data-productImg="<?= $product['product_image']; ?>" data-bs-placement="top" title="Delete"><i class="fas fa-trash"></i></i></button>
 
               </td>
             </tr>
@@ -76,7 +78,7 @@
 
     <?php else : ?>
       <h4 class="mt-4 mb-3 text-secondary text-center">You have no any products</h4>
-      <button type="button" class="mx-auto d-block btn btn-primary add-btn">Add Product</button>
+      <button type="button" class="mx-auto d-block btn btn-primary add-btn btn-sm">Add Product</button>
     <?php endif ?>
   </div>
 </div>

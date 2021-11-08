@@ -9,14 +9,15 @@
       <div class="col-md-7">
         <div class="row pe-4">
           <div class="col-md-8">
-            <img src="/assets/images/fashion.jpg" class="rounded-2 w-100 border" alt="...">
+            <img src="/assets/images/product_images/<?= $productDetail['product_image'] ?? 'default_user.png'; ?>" class="rounded-2 w-100 border" alt="...">
+            <!-- <img src="<?= base_url('assets/images/product_images') . '/' . $productDetail['product_image'] ?? 'default_user.png'; ?>; ?>" class="rounded-2 w-100 border" alt="..."> -->
           </div>
-          <div class="col-md-4">
+          <!-- <div class="col-md-4">
             <div class="d-flex flex-column justify-content-between h-100">
               <img src="/assets/images/fashion.jpg" class="rounded-2 my-auto d-block w-100 border" alt="...">
               <img src="/assets/images/fashion.jpg" class="rounded-2 my-auto d-block w-100 border" alt="...">
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
 

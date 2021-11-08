@@ -49,6 +49,7 @@ $routes->get('/', 'Product::index');
 $routes->get('/products', 'Product::products');
 $routes->get('/product/detail/(:num)', 'Product::detail/$1');
 $routes->get('/category/(:any)', 'Product::category/$1');
+// $routes->get('/product/find/(:any)', 'Product::findProduct/$1');
 
 // Checkout
 $routes->post('/checkout', 'Checkout::checkout');

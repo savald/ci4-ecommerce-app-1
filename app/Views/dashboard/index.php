@@ -1,7 +1,7 @@
 <?= $this->extend('dashboard/layouts/main') ?>
 <?= $this->section('content') ?>
 
-<form action="/user/update_user" method="post">
+<form action="/user/update_user" method="post" enctype="multipart/form-data">
   <?php $validation = \Config\Services::validation() ?>
   <?= csrf_field(); ?>
   <input type="hidden" name="id" id="id" value="<?= $user['id']; ?>">
@@ -44,9 +44,11 @@
     <div class="col-md-2">
       <div class="mb-3 ">
         <label class="form-label">Profile Image</label>
-        <img src="assets/images/fashion.jpg" class="card-img-top border mx-auto d-block" alt="...">
+        <img src="assets/images/user_images/<?= $user['user_image'] ?? 'default_user.png'; ?>" class="card-img-top border mx-auto d-block" id="img-preview">
         <div class="mt-3">
-          <input class="form-control form-control-sm  mx-auto" type="file" id="formFile">
+          <input type="hidden" name="oldUserImg" value="<?= $user['user_image'] ?? 'default_user.png'; ?>">
+          <input class="form-control form-control-sm mx-auto file-input <?= $validation->hasError('user_image') ? 'is-invalid' : ''; ?>" name="user_image" type="file" id="formFile" onchange="previewImg()">
+          <div class="invalid-feedback"><?= $validation->getError('user_image'); ?></div>
         </div>
       </div>
     </div>

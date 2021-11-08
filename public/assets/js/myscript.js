@@ -4,7 +4,6 @@ function getNavbarCart() {
     url: "/carts/get_navbar_cart",
     dataType: "json",
     success: function (response) {
-      // console.log(response);
       $("#my-navbar-cart").html(response);
     },
   });

@@ -33,16 +33,14 @@ $(document).ready(function () {
   // Process adding
   $(document).on("submit", ".form_add", function (e) {
     e.preventDefault();
+    let formAdd = new FormData(this);
 
     $.ajax({
       type: "post",
-      data: $(this).serialize(),
+      data: formAdd,
       url: 'product/add_product',
       dataType: "json",
       success: function (response) {
-        console.log(response);
-        console.log(response.status);
-        
         if (response.status) {
           $("#addProductModal").modal("hide");
           location.reload()
@@ -61,6 +59,9 @@ $(document).ready(function () {
           });
         }
       },
+      cache: false,
+      contentType: false,
+      processData: false
     });
 
     $(".form_add input").on("click", function () {
@@ -73,13 +74,12 @@ $(document).ready(function () {
 
 // Show delete modal
   $(document).on("click", ".delete-btn", function () {
-    let product_id = $(this).attr("data-productId");
-
     $.ajax({
       type: "post",
       url: "/product/delete_modal",
       data: {
-        id: product_id,
+        id: $(this).attr("data-productId"),
+        productImg: $(this).attr("data-productImg"),
       },
       dataType: "json",
       success: function (response) {

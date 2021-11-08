@@ -11,7 +11,7 @@
         <?php foreach ($products as $product) : ?>
           <div class="col-lg-3 my-3">
             <div class="product-card position-relative mb-3">
-              <img src="<?= base_url('assets/images/2.jpg'); ?>" class="w-100 rounded-3" alt="...">
+              <img src="/assets/images/product_images/<?= $product['product_image'] ?? 'default_user.png'; ?>" class="w-100 rounded-3" alt="...">
               <div class="position-absolute top-0 start-0 rounded-3 icon-hover">
                 <form class="cartForm">
                   <?php csrf_field() ?>

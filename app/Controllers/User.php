@@ -37,6 +37,18 @@ class User extends BaseController
           'valid_email' => 'Please use a valid email!'
         ],
       ],
+      'user_image' => [
+        'rules' => [
+          'mime_in[user_image,image/jpg,image/jpeg,image/png]',
+          'max_size[user_image,1024]',
+          'is_image[user_image]'
+        ],
+        'errors' => [
+          'max_size' => 'The image size is too large',
+          'is_image' => 'Please upload an image',
+          'mime_in' => 'Please upload an image'
+        ]
+      ]
     ];
 
     if ($this->request->getVar('password') != '') {
@@ -69,12 +81,35 @@ class User extends BaseController
       $password = password_hash($this->request->getVar('password'), PASSWORD_DEFAULT);
     }
 
+    $imgFile = $this->request->getFile('user_image');
+
+    if ($imgFile->getError() == 4) {
+      $imgName = $this->request->getVar('oldUserImg');
+    } else {
+      $oldUserImg = $this->request->getVar('oldUserImg');
+      // get random name
+      $imgName = $imgFile->getRandomName();
+      // move to folder image
+      $imgFile->move('assets/images/user_images', $imgName);
+      // delete old image
+      if ($oldUserImg != 'default_user.png') {
+        unlink('assets/images/user_images/' . $oldUserImg);
+      }
+    }
+
+    session()->set([
+      'user_image' => $imgName
+    ]);
+
     $data = [
       'id' => $id,
       'name' => $this->request->getVar('name'),
       'email' => $this->request->getVar('email'),
       'password' => $password,
+      'user_image' => $imgName,
     ];
+
+    // dd($data);
 
     $this->userModel->save($data);
     return redirect()->back()->withInput();
