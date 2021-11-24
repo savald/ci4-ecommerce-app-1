@@ -1,5 +1,5 @@
 <?php if ($productCarts) : ?>
-  <form action="/checkout" method="post">
+  <form action="/checkout/order" method="post">
     <?= csrf_field(); ?>
     <div class="row">
       <div class="col-md-9">
@@ -7,7 +7,7 @@
           <?php $totalPrice = array_map(function ($product) { ?>
             <div class="row my-3">
               <div class="col-md-2">
-                <img src="/assets/images/fashion.jpg" class="rounded border w-100" alt="...">
+                <img src="<?= base_url('assets/images/product_images') . '/' . $product['product_image']; ?>" class="rounded border w-100" alt="...">
               </div>
               <div class="col-md-3 d-flex flex-column justify-content-between">
                 <p class="text-secondary mb-3" style="font-size: 14px;">sta store</p>

@@ -2,13 +2,15 @@
 
 <?= $this->section('content') ?>
 <div class="purple banner" style="height: 300px;position: absolute;width: 100%;"></div>
-<main class="pt-4">
+<main class="pt-5">
   <div class="container">
     <div class="row bg-body my-5 py-4 px-3 shadow rounded-3">
       <h3 class="text-dark text-center mt-3">Successfully Order</h3>
       <p class="text-secondary text-center">Your product on process...</p>
-      <a href="/" class="mx-auto d-block btn-none confirm-btn w-auto text-decoration-none back-shop">Back to Shop</a>
-      <a href="/orders" class="mx-auto d-block btn-none confirm-btn w-auto text-decoration-none back-shop">See My Orders</a>
+      <div class="mx-auto w-auto d-inline text-center">
+        <a href="/" class="btn-none confirm-btn w-auto text-decoration-none back-shop">Back to Shop</a>
+        <a href="/orders" class="btn-none confirm-btn w-auto text-decoration-none back-shop">My Orders</a>
+      </div>
       <hr class="my-3">
 
       <div class="col-md-6">
@@ -71,19 +73,24 @@
             <col span="1">
           </colgroup>
           <tr>
+            <td class="fw-2 text-secondary">Name</td>
+            <td>:</td>
+            <td><?= $user['name']; ?></td>
+          </tr>
+          <tr>
             <td class="fw-2 text-secondary">Email</td>
             <td>:</td>
-            <td>rivaldysalman@gmail.com</td>
+            <td><?= $user['email']; ?></td>
           </tr>
           <tr>
             <td class="fw-2 text-secondary">Phone</td>
             <td>:</td>
-            <td>+6285275031388</td>
+            <td><?= $user['phone_num'] ?? 'Not set'; ?></td>
           </tr>
         </table>
 
         <h5 class="text-dark mt-4">Shipping Address</h5>
-        <p>Lam ateuk jalan blang bintang lama, kecamatan kuta baro aceh besar provinsi aceh</p>
+        <p><?= $user['address'] ?? 'Not set'; ?></p>
       </div>
 
     </div>

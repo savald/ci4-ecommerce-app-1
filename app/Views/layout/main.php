@@ -18,22 +18,11 @@
 </head>
 
 <body>
-
-  <!-- <?= $this->include('partials/_navbar') ?> -->
-
-  <!-- <h1>Test toast</h1> -->
-  <!-- <button class="btn btn-success" id="myBtn">My Btn</button> -->
-
-  <div class="toast-container position-fixed p-3 start-50 translate-middle" id="toastPlacement" style="top: 15%; z-index: 1080;">
-    <div class="toast align-items-center" id="myToast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="2000" style="width: 200px;">
-      <div class="toast-body text-center">
-        <!-- message -->
-      </div>
-    </div>
-  </div>
+  <?= $this->include('partials/_log-reg-modal') ?>
+  <?= $this->include('partials/_navbar') ?>
+  <?= $this->include('partials/_toast-notif') ?>
   <?= $this->renderSection('content') ?>
-  <!-- <? // $this->include('partials/_footer') 
-        ?> -->
+  <?= $this->include('partials/_footer') ?>
 
 
   <!-- Option 1: Bootstrap Bundle with Popper -->

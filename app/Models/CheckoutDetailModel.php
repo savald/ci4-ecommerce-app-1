@@ -45,7 +45,7 @@ class CheckoutDetailModel extends Model
     {
         return $this->join('products', 'products.id=checkoutdetails.product_id')
             ->join('checkouts', 'checkouts.id=checkoutdetails.checkout_id')
-            ->select('product_id, product_name, quantity, price')
+            ->select('product_id, product_name, quantity, product_image, price')
             ->where('checkout_id', $checkoutId)
             ->get()
             ->getResultArray();

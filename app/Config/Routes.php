@@ -52,8 +52,8 @@ $routes->get('/category/(:any)', 'Product::category/$1');
 // $routes->get('/product/find/(:any)', 'Product::findProduct/$1');
 
 // Checkout
-$routes->post('/checkout', 'Checkout::checkout');
-$routes->get('/invoice', 'Checkout::invoice');
+$routes->post('/checkout', 'Checkout::index');
+// $routes->get('/invoice', 'Checkout::invoice');
 $routes->get('/orders', 'Checkout::myOrderList');
 $routes->get('/invoice/(:num)', 'Checkout::invoice/$1');
 

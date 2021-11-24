@@ -10,20 +10,8 @@ class Checkout extends BaseController
 
   public function index()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
-
-    $totalPrice = $this->checkoutModel->select('total_price')->find(session()->get('checkout_id'));
+    $checkoutId = $this->checkoutModel->get()->getLastRow('array')['id'];
+    $totalPrice = $this->checkoutModel->select('total_price')->find($checkoutId);
 
     $data = [
       'title' => 'Checkout',
@@ -35,21 +23,8 @@ class Checkout extends BaseController
     return view('product/checkout', $data);
   }
 
-  public function checkout()
+  public function order()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
-
     $productId = $this->request->getVar('product_id');
     $quantity = $this->request->getVar('quantity');
     $totalPrice = $this->request->getVar('total_price');
@@ -62,6 +37,7 @@ class Checkout extends BaseController
       'deadline_payment' => date('Y-m-d H:i:s', strtotime('+1 day', strtotime(date('Y-m-d H:i:s')))),
     ];
     $this->checkoutModel->save($checkouts);
+
     session()->set(['checkout_id' => $this->checkoutModel->insertID()]);
 
     $checkoutDetails = [];
@@ -74,107 +50,82 @@ class Checkout extends BaseController
       $checkoutDetails[] = $details;
     }
     $this->checkoutDetailModel->insertBatch($checkoutDetails);
+
+    $totalPrice = $this->checkoutModel->select('total_price')->find(session()->get('checkout_id'));
+
     return redirect()->to('/checkout');
   }
 
   public function place_order()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
+    session()->remove('checkout_id');
+
+    $lastCheckout = $this->checkoutModel->get()->getLastRow('array')['id'];
 
     $userId = sprintf("%02d", substr(session()->get('user_id'), -2));
-    $checkoutId = sprintf("%02d", substr(session()->get('checkout_id'), -2));
+    $checkoutId = sprintf("%02d", substr($lastCheckout, -2));
     $year = date('y');
     $month = date('m');
     $date = date('d');
+    $invoiceId = sprintf("%07d", $lastCheckout);
 
     $data = [
-      'id' => session()->get('checkout_id'),
+      'id' => $lastCheckout,
       'status' => 'In progress',
-      'invoice' =>  $this->checkoutModel->getInvoice($year, $month, $date, $userId, $checkoutId)
+      'invoice' => $this->checkoutModel->getInvoice($year, $month, $date, $userId, $checkoutId)
     ];
 
     $this->checkoutModel->save($data);
 
-    // $this->cartModel
-    //   ->where('user_id', session()->get('user_id'))
-    //   ->delete();
+    $this->cartModel
+      ->where('user_id', session()->get('user_id'))
+      ->delete();
 
-    return redirect()->to('/invoice');
+    return redirect()->to("/invoice/$invoiceId");
   }
 
-  public function invoice($transactionId = null)
+  public function invoice()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
+    session()->remove('checkout_id');
+    // $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find($transactionId);
 
-    $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find($transactionId);
+    $checkoutId = $this->checkoutModel->get()->getLastRow('array')['id'];
+    // if ($transactionId == null) {
+    $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find($checkoutId);
+    // $transactionId = session()->get('checkout_id');
+    // }
 
-    if ($transactionId == null) {
-      $orderDetail = $this->checkoutModel->select('invoice, order_date, total_price')->find(session()->get('checkout_id'));
-      $transactionId = session()->get('checkout_id');
-    }
-
-    $checkoutId = session()->get('checkout_id');
     $data = [
       'title' => 'Invoice',
-      'transaction_id' => $transactionId,
+      'transaction_id' =>  $checkoutId,
       'order_details' => $orderDetail,
       'items' => $this->checkoutDetailModel->getItems($checkoutId),
       // 'payment_method' => '',
-      'user' => $this->userModel->select('name, phone_num, address')->find(session()->get('user_id')),
+      'user' => $this->userModel->select('name,email, phone_num, address')->find(session()->get('user_id')),
     ];
+    // dd($data);
     return view('product/invoice', $data);
   }
 
   public function myOrderList()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
+    session()->remove('checkout_id');
+
+    $checkoutId = $this->checkoutModel->get()->getLastRow('array')['id'];
 
     $data = [
       'title' => 'My Order',
       'my_orders' => $this->checkoutModel->getMyOrders(),
-      'products_review' => $this->checkoutDetailModel->getItems(session()->get('checkout_id')),
+      'products_review' => $this->checkoutDetailModel->getItems($checkoutId),
     ];
-    // dd($data);
     return view('product/my-orders', $data);
   }
 
   public function order_complete()
   {
-    if ($this->request->isAJAX()) {
+    session()->remove('checkout_id');
 
+    if ($this->request->isAJAX()) {
       $data = [
         'id' => $this->request->getVar('checkoutId'),
         'status' => 'Completed',

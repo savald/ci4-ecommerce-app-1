@@ -2,22 +2,15 @@
 
 <?= $this->section('content') ?>
 <div class="purple banner" style="height: 300px;position: absolute;width: 100%;"></div>
-<main class="pt-4">
+<main class="pt-5">
   <div class="container">
     <h3 class="text-light my-5">Detail Product</h3>
     <div class="row bg-body py-4 px-3 shadow rounded-3">
       <div class="col-md-7">
         <div class="row pe-4">
           <div class="col-md-8">
-            <img src="/assets/images/product_images/<?= $productDetail['product_image'] ?? 'default_user.png'; ?>" class="rounded-2 w-100 border" alt="...">
-            <!-- <img src="<?= base_url('assets/images/product_images') . '/' . $productDetail['product_image'] ?? 'default_user.png'; ?>; ?>" class="rounded-2 w-100 border" alt="..."> -->
+            <img src="<?= base_url('assets/images/product_images') . '/' . $productDetail['product_image']; ?>" class="rounded-2 w-100 border" alt="...">
           </div>
-          <!-- <div class="col-md-4">
-            <div class="d-flex flex-column justify-content-between h-100">
-              <img src="/assets/images/fashion.jpg" class="rounded-2 my-auto d-block w-100 border" alt="...">
-              <img src="/assets/images/fashion.jpg" class="rounded-2 my-auto d-block w-100 border" alt="...">
-            </div>
-          </div> -->
         </div>
       </div>
 
@@ -95,7 +88,9 @@
         <div class="button-submit mt-3">
           <form class="cartForm">
             <?php csrf_field() ?>
-            <button type="submit" class="my-cart-btn cartBtn" data-userId="<?= $productDetail['user_id']; ?>" data-productId="<?= $productDetail['id']; ?>" data-categoryId="<?= $productDetail['category_id']; ?>"><i class="bi bi-cart-plus-fill"></i> Add to Cart</button>
+            <button type="button" class="my-cart-btn <?= $cartModel->checkCart(session()->get('user_id'), $productDetail['id']) ? 'incart' : ''; ?>" data-userId="<?= session()->get('user_id') ?? 0; ?>" data-productId="<?= $productDetail['id']; ?>" data-categoryId="<?= $productDetail['category_id']; ?>">
+              <i class="bi bi-cart-plus-fill"></i> <?= $cartModel->checkCart(session()->get('user_id'), $productDetail['id']) ? 'Remove from Cart' : 'Add to Cart'; ?>
+            </button>
             <button type="button" class="checkout-btn">Buy Now</button>
           </form>
         </div>
@@ -116,7 +111,7 @@
         <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
           <div class="row ">
             <div class="col-md-8  ">
-              <p><?= $productDetail['description']; ?></p>
+              <p><?= $productDetail['description'] ?? 'No Review'; ?></p>
             </div>
           </div>
         </div>
@@ -170,28 +165,32 @@
 
           <div class="row">
             <div class="col-md-7">
-
-              <?php foreach ($reviews as $review) : ?>
-                <div class="row mb-3">
-                  <div class="d-flex">
-                    <img src="/assets/images/fashion.jpg" alt="" class="rounded-circle img-thumbnail" style="width: 55px;height: 55px;">
-                    <div class="ms-2 ">
-                      <p class="mb-0" style="color: rgb(92, 92, 92);font-size: 14px;font-weight: 600;"><?= $review['name']; ?></p>
-                      <p class="text-2 mb-0 "><?= date('D, d M Y', strtotime($review['created_at'])); ?></p>
-                      <div class="text-purple mb-0 " style="color: rgb(255, 190, 70);font-size: 13px;">
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
-                        <i class="bi bi-star-fill"></i>
+              <?php if ($reviews) : ?>
+                <?php foreach ($reviews as $review) : ?>
+                  <div class="row mb-3">
+                    <div class="d-flex">
+                      <img src="/assets/images/fashion.jpg" alt="" class="rounded-circle img-thumbnail" style="width: 55px;height: 55px;">
+                      <div class="ms-2 ">
+                        <p class="mb-0" style="color: rgb(92, 92, 92);font-size: 14px;font-weight: 600;"><?= $review['name']; ?></p>
+                        <p class="text-2 mb-0 "><?= date('D, d M Y', strtotime($review['created_at'])); ?></p>
+                        <div class="text-purple mb-0 " style="color: rgb(255, 190, 70);font-size: 13px;">
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                          <i class="bi bi-star-fill"></i>
+                        </div>
                       </div>
                     </div>
+                    <p class="text-secondary fs-6 mt-3"><?= $review['review']; ?></p>
+                    <hr>
                   </div>
-                  <p class="text-secondary fs-6 mt-3"><?= $review['review']; ?></p>
-                  <hr>
+                <?php endforeach ?>
+              <?php else : ?>
+                <div class="row mb-3">
+                  <p class="text-secondary fs-6 mt-3">No review for this product</p>
                 </div>
-              <?php endforeach ?>
-
+              <?php endif ?>
             </div>
           </div>
         </div>

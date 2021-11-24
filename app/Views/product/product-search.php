@@ -2,9 +2,9 @@
 
 <?= $this->section('content') ?>
 <div class="purple banner" style="height: 300px;position: absolute;width: 100%;"></div>
-<main class="pt-4">
+<main class="pt-5">
   <div class="container">
-    <h3 class="text-light my-5">Products you search</h3>
+    <h3 class="text-light my-5">Find product</h3>
 
     <div class="bg-body mb-3 px-3 shadow rounded-3">
       <div class="row">
@@ -31,10 +31,10 @@
         <?php endforeach ?>
       </div>
     </div>
-  </div>
 
-  <div id="pagination">
-    <?= $pager->links('products', 'bootstrap_pagination') ?>
+    <div id="pagination">
+      <?= $pager->links('products', 'bootstrap_pagination') ?>
+    </div>
   </div>
 </main>
 

@@ -20,6 +20,7 @@ class Filters extends BaseConfig
         'toolbar'  => DebugToolbar::class,
         'honeypot' => Honeypot::class,
         'login' => \App\Filters\UsersAuthFilter::class,
+        'checkout' => \App\Filters\CheckoutFilter::class,
     ];
 
     /**
@@ -60,6 +61,7 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        'login' => ['before' => ['dashboard', 'add-product', 'products', 'profile', 'sold', 'carts', 'favorites', 'checkout']]
+        'login' => ['before' => ['dashboard', 'add-product', 'products', 'profile', 'sold', 'carts', 'favorites', 'checkout']],
+        'checkout' => ['before' => ['checkout']]
     ];
 }

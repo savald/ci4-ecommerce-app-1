@@ -9,6 +9,8 @@ class User extends BaseController
 
   public function profile()
   {
+    session()->remove('checkout_id');
+
     $user_id = session()->get('user_id');
     $data = [
       'title' => session()->get('name'),
@@ -20,6 +22,8 @@ class User extends BaseController
 
   public function update_user()
   {
+    session()->remove('checkout_id');
+
     $validate = [
       'name' => [
         'rules' => 'required|min_length[3]|max_length[100]',

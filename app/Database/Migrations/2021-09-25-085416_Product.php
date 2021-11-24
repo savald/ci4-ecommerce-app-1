@@ -40,7 +40,7 @@ class Product extends Migration
             'product_image'       => [
                 'type'       => 'VARCHAR',
                 'constraint' => '255',
-                'default' => 'default.jpg'
+                'default' => 'default_product.png'
             ],
             'created_at' => [
                 'type'       => 'datetime',

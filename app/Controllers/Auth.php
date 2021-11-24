@@ -8,11 +8,6 @@ use CodeIgniter\Exceptions\PageNotFoundException;
 
 class Auth extends BaseController
 {
-  public $userModel;
-  public function __construct()
-  {
-    $this->userModel = new UsersModel();
-  }
 
   public function login_modal()
   {
@@ -104,7 +99,6 @@ class Auth extends BaseController
             'password' => 'Email & Password is not match!'
           ]
         ];
-
         return json_encode($output);
       }
     }
@@ -169,13 +163,18 @@ class Auth extends BaseController
       ];
 
       $this->userModel->save($data);
+
+      session()->set([
+        'user_id' => $this->userModel->insertID(),
+        'name' => $this->request->getVar('name'),
+        'logged_in' => TRUE
+      ]);
       return json_encode(['status' => true]);
     }
   }
 
   public function logout()
   {
-    session()->setFlashdata('success', 'You have been logout!');
     session()->destroy();
     return redirect()->to('/');
   }

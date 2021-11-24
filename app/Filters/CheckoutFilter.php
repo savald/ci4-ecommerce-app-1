@@ -26,7 +26,7 @@ class CheckoutFilter implements FilterInterface
     public function before(RequestInterface $request, $arguments = null)
     {
         if (is_null(session()->get('checkout_id'))) {
-            return redirect()->to('/');
+            return redirect()->to('/carts');
         }
     }
 

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,300;1,400&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,400;0,500;0,700;1,300;1,400&display=swap");
 
 * {
-  font-family: 'Rubik',sans-serif;
+  font-family: "Rubik", sans-serif;
 }
 
 .banner {
@@ -9,7 +9,7 @@
 }
 
 .banner-height {
-height: 800px;
+  height: 800px;
 }
 
 .purple {
@@ -21,7 +21,7 @@ height: 800px;
 }
 
 .text-gray {
-  color: #373F50;
+  color: #373f50;
 }
 
 .fw-2 {
@@ -41,7 +41,7 @@ height: 800px;
   padding: 7px 11px;
   color: #3a3a3a;
   background-color: #fff;
-  transition: .2s ease;
+  transition: 0.2s ease;
 }
 
 .cartBtn:hover,
@@ -66,7 +66,15 @@ height: 800px;
   padding: 6px 10px;
   color: #e45664;
   background-color: #fff;
-  transition: .2s ease;
+  transition: 0.2s ease;
+}
+.my-cart-btn.incart {
+  border: solid 1px #fff;
+  border-radius: 4px;
+  padding: 6px 10px;
+  color: #fff;
+  background-color: #dc3545;
+  transition: 0.2s ease;
 }
 
 .my-cart-btn:hover {
@@ -75,26 +83,32 @@ height: 800px;
   background-color: #dc3545;
 }
 
+.my-cart-btn.incart:hover {
+  color: #dc3545;
+  border: solid 1px #dc3545;
+  background-color: #fff;
+}
+
 .checkout-btn {
   color: #fff;
   padding: 7px 11px;
   border: none;
   border-radius: 4px;
-  background-color: #FE5859;
-  transition: .2s;
+  background-color: #fe5859;
+  transition: 0.2s;
 }
 
 .checkout-btn:hover {
   background-color: #ff3f3f;
 }
 
-.payment-btn{
+.payment-btn {
   border: 1px solid rgb(193, 193, 193);
   border-radius: 4px;
-  transition: .2s ;
+  transition: 0.2s;
 }
 
-.payment-btn:hover{
+.payment-btn:hover {
   border-color: #686dd3;
   cursor: pointer;
 }
@@ -102,9 +116,9 @@ height: 800px;
 .confirm-btn {
   border-radius: 4px;
   padding: 7px 11px;
-  background-color: #FE5859;
+  background-color: #fe5859;
   color: #fff;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 .confirm-btn:hover {
@@ -116,8 +130,8 @@ height: 800px;
 }
 
 .back-shop:hover {
-    color: #fff !important;
-    text-decoration: none;
+  color: #fff !important;
+  text-decoration: none;
 }
 
 .fs-small {
@@ -153,7 +167,7 @@ height: 800px;
   font-size: 12px;
   border: none;
   border-radius: 50%;
-  transition: .2s ease;
+  transition: 0.2s ease;
 }
 
 .heart-btn:hover {
@@ -204,12 +218,12 @@ height: 800px;
   opacity: 1;
 }
 
-.product-title a{
-  transition: .2s ease;
+.product-title a {
+  transition: 0.2s ease;
 }
 
 .product-title a:hover {
-  color: #FE696A;
+  color: #fe696a;
 }
 
 .checkout {

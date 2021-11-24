@@ -4,7 +4,7 @@
       <?php foreach ($favoritesProducts as $product) : ?>
         <div class="col-lg-3 my-3">
           <div class="product-card position-relative mb-2">
-            <img src="../assets/images/2.jpg" class="w-100 rounded-1" alt="...">
+            <img src="<?= base_url('assets/images/product_images') . '/' . $product['product_image']; ?>" class="w-100 rounded-1" alt="...">
             <button type="button" class="position-absolute top-0 end-0 heart-btn"><i class="bi bi-heart"></i></button>
           </div>
           <div class="d-flex justify-content-between align-items-center">

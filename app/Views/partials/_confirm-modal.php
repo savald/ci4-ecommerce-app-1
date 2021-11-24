@@ -28,9 +28,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
-
         <button type="button" class="btn btn-primary" data-bs-target="#modalReview" data-bs-toggle="modal">Yes</button>
-
       </div>
     </div>
   </div>
@@ -50,7 +48,7 @@
             <div class="card mb-3">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <img src="/assets/images/fashion.jpg" class="img-fluid rounded-start" alt="...">
+                  <img src="<?= base_url("/assets/images/product_images") . '/' . $product['product_image']; ?>" class="img-fluid rounded-start" alt="...">
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">

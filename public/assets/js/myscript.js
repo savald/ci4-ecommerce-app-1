@@ -59,7 +59,7 @@ function addDel(btn, addUrl, deleteUrl) {
           if (response.table == "carts") {
             getCountCart();
             getNavbarCart();
-            getMyCart();
+            // getMyCart();
             // this product has been added to cart
             $(".toast-body").text("Add to cart!");
             $("#myToast").toast("show");
@@ -68,10 +68,10 @@ function addDel(btn, addUrl, deleteUrl) {
             $(".toast-body").text("Add to favorites!");
             $("#myToast").toast("show");
           }
+        } else {
+          $(".toast-body").text("Please login first");
+          $("#myToast").toast("show");
         }
-
-        // if user hasn't logged in
-        // please login first
       },
     });
   } else {
@@ -148,7 +148,7 @@ $(document).ready(function () {
           $(".modal").modal("hide");
           setInterval("location.reload()", 2000);
           $(".toast-body").text("Login Successfully!");
-            $("#myToast").toast("show");
+          $("#myToast").toast("show");
         } else {
           $.each(response.errors, function (key, value) {
             if (response.errors.email == "") {
@@ -189,7 +189,7 @@ $(document).ready(function () {
           $(".modal").modal("hide");
           setInterval("location.reload()", 2000);
           $(".toast-body").text("Register Successfully!");
-            $("#myToast").toast("show");
+          $("#myToast").toast("show");
         } else {
           $.each(response.errors, function (key, value) {
             $(`[name = ${key}]`).addClass("is-invalid");
@@ -218,6 +218,64 @@ $(document).ready(function () {
     addDel(this, "/carts/add_cart", "/carts/delete_cart");
   });
 
+  // Add to cart from detail page
+  $(".my-cart-btn").click(function () {
+    if (!$(".my-cart-btn").hasClass("incart")) {
+      // Add
+      $.ajax({
+        type: "post",
+        url: "/carts/add_cart",
+        dataType: "json",
+        data: {
+          user_id: $(".my-cart-btn").attr("data-userId"),
+          product_id: $(".my-cart-btn").attr("data-productId"),
+          category_id: $(".my-cart-btn").attr("data-categoryId"),
+        },
+        success: (response) => {
+          console.log(response);
+          // if user has been logged in
+          if (response.status) {
+            $(".my-cart-btn").addClass("incart");
+            getCountCart();
+            getNavbarCart();
+            // getMyCart();
+            // this product has been added to cart
+            $(".toast-body").text("Add to cart!");
+            $(".my-cart-btn").text("Remove from Cart");
+            $("#myToast").toast("show");
+          } else {
+            // if user hasn't logged in
+            $(".toast-body").text("Please login first");
+            $("#myToast").toast("show");
+          }
+        },
+      });
+    } else {
+      // Delete
+      $.ajax({
+        type: "post",
+        url: "/carts/delete_cart",
+        dataType: "json",
+        data: {
+          user_id: $(".my-cart-btn").attr("data-userId"),
+          product_id: $(".my-cart-btn").attr("data-productId"),
+        },
+        success: (response) => {
+          if (response.status) {
+            $(".my-cart-btn").removeClass("incart");
+            getCountCart();
+            getNavbarCart();
+            getMyCart();
+            // this product has been remove from cart
+            $(".toast-body").text("Remove from cart!");
+            $(".my-cart-btn").text("Add to Cart");
+            $("#myToast").toast("show");
+          }
+        },
+      });
+    }
+  });
+
   // Delete from list cart page
   $(document).on("click", ".cartDelBtn", function () {
     $.ajax({
@@ -235,7 +293,7 @@ $(document).ready(function () {
           getMyCart();
           // this product has been remove from cart
           $(".toast-body").text("Remove from cart!");
-            $("#myToast").toast("show");
+          $("#myToast").toast("show");
         }
       },
     });
@@ -311,25 +369,22 @@ $(document).ready(function () {
   });
 
   $(document).on("click", "#checkout-link", function (e) {
-      $('#checkout-btn').trigger('click')
-    });
+    $("#checkout-btn").trigger("click");
+  });
 
-    // Confirm Order Complete
-    $('.confirm-btn').click(function(){
-      let checkoutId = $(this).data('checkoutid');
-      $('#confirm-btn').click(function(){
+  // Confirm Order Complete
+  $(".confirm-btn").click(function () {
+    let checkoutId = $(this).data("checkoutid");
+    $("#confirm-btn").click(function () {
       $.ajax({
         type: "post",
         url: "/checkout/order_complete",
         data: {
-          checkoutId
+          checkoutId,
         },
         dataType: "json",
-        success: function (response) {
-          
-        }
+        success: function (response) {},
       });
-      })
-    })
-
+    });
+  });
 });

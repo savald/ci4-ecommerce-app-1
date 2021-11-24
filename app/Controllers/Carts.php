@@ -10,19 +10,8 @@ class Carts extends BaseController
 
   public function index()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
-    
+    session()->remove('checkout_id');
+
     $data = [
       'title' => 'My Cart',
       'cartModel' => $this->cartModel,
@@ -127,5 +116,4 @@ class Carts extends BaseController
       throw PageNotFoundException::forPageNotFound();
     };
   }
-
 }

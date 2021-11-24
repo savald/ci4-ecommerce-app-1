@@ -1,6 +1,5 @@
 <?php
 
-use App\Libraries\SearchProduct;
 use App\Models\CategoriesModel;
 use App\Models\UsersModel;
 
@@ -14,12 +13,6 @@ function userImg()
 {
   $id = session()->get('user_id');
   $img = new UsersModel();
-  // dd( $img->select('user_image')->find($id));
-  return $img->select('user_image')->find($id);
+  return $img->select('user_image')->find($id)['user_image'];
 }
 
-function searchProduct()
-{
-  $searchProduct = new SearchProduct();
-  return $searchProduct->searchProduct();
-}

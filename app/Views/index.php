@@ -2,7 +2,7 @@
 
 <?= $this->section('content') ?>
 <div class="purple banner banner-height w-100 position-absolute"></div>
-<main class="pt-5">
+<main class="pt-5 mt-5">
   <div class="container mt-2">
     <div class="row align-items-center">
       <div class="col-md-5">

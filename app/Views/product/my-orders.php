@@ -5,7 +5,7 @@
 <?= $this->include('partials/_confirm-modal') ?>
 
 <div class="purple banner" style="height: 300px;position: absolute;width: 100%;"></div>
-<main class="pt-4">
+<main class="pt-5">
   <div class="container">
     <h3 class="text-light my-5">My Orders</h3>
 

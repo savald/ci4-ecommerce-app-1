@@ -9,18 +9,7 @@ class Product extends BaseController
 {
   public function index()
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
+    session()->remove('checkout_id');
 
     $data = [
       'title' => 'Let\'s Shop',
@@ -31,27 +20,31 @@ class Product extends BaseController
     return view('index', $data);
   }
 
+  public function find()
+  {
+    session()->remove('checkout_id');
+
+    $searchProduct = $this->request->getVar('searchProduct');
+    $data = [
+      'title' => 'Find Products',
+      'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
+      'cartModel' => $this->cartModel,
+      'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
+      'pager' => $this->productModel->pager,
+    ];
+    return view('product/product-search', $data);
+  }
+
   public function detail($productId)
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
+    session()->remove('checkout_id');
 
     $data = [
       'title' => 'Detail Product',
       'productDetail' => $this->productModel->getProductById($productId),
+      'cartModel' => $this->cartModel,
       'reviews' => $this->reviewModel->getUserReview($productId)
     ];
-    // dd($data);
     if (empty($data['productDetail'])) {
       throw PageNotFoundException::forPageNotFound();
     }
@@ -61,18 +54,7 @@ class Product extends BaseController
 
   public function category($category)
   {
-    // FInd product
-    $searchProduct = $this->request->getVar('searchProduct');
-    if ($searchProduct) {
-      $data = [
-        'title' => 'Find Products',
-        'products' => $this->productModel->findMyProduct($searchProduct)->paginate(10, 'products'),
-        'cartModel' => $this->cartModel,
-        'currentPage' => $this->request->getVar('page_products') ? $this->request->getVar('page_products') : 1,
-        'pager' => $this->productModel->pager,
-      ];
-      return view('product/product-search', $data);
-    }
+    session()->remove('checkout_id');
 
     $categorySlug =  $this->categoriesModel->findColumn('slug');
 
@@ -94,6 +76,8 @@ class Product extends BaseController
 
   public function products()
   {
+    session()->remove('checkout_id');
+
     // Searching feature
     $keyword = $this->request->getVar('keyword');
     if ($keyword) {
@@ -260,7 +244,6 @@ class Product extends BaseController
   public function edit_product()
   {
     if ($this->request->isAJAX()) {
-
       $validate = [
         'product_name' => [
           'rules' => 'required',

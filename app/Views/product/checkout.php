@@ -60,7 +60,7 @@
           <?php foreach ($products_cart as $product) : ?>
             <div class="row mb-2">
               <div class="col-md-3">
-                <img src="/assets/images/fashion.jpg" class="rounded border w-100" alt="...">
+                <img src="<?= base_url('assets/images/product_images') . '/' . $product['product_image']; ?>" class="rounded border w-100" alt="...">
               </div>
 
               <div class="col-md-9 p-0">
